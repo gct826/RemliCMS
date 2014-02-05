@@ -30,6 +30,5 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.Razor
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.WebPages.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.WebPages.Deployment.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.WebPages.Razor.xml
-C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.csprojResolveAssemblyReference.cache
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.pdb
