@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Ninject;
+using RemliCMS.Routes;
 
 namespace RemliCMS
 {
@@ -14,9 +16,22 @@ namespace RemliCMS
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static IKernel _kernel;
+
+        public IKernel Kernel
+        {
+            get { return _kernel; }
+        }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
+            _kernel = new StandardKernel(new BaseModule());
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(_kernel));
+
+            // use model binding when your action method needs to receive these values as a parameter
+            ModelBinders.Binders.Add(typeof(RouteValues), new RouteBinder());
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

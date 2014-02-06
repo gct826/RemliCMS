@@ -32,3 +32,9 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.WebPa
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.WebPages.Razor.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.pdb
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.csprojResolveAssemblyReference.cache
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\RemliCMS.WebData.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\RemliCMS.WebData.pdb
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\Ninject.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\Ninject.pdb
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\Ninject.xml

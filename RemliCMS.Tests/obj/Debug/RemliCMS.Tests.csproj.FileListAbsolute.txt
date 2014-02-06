@@ -29,3 +29,6 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Syst
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\obj\Debug\RemliCMS.Tests.csprojResolveAssemblyReference.cache
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\obj\Debug\RemliCMS.Tests.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\obj\Debug\RemliCMS.Tests.pdb
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Ninject.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Ninject.pdb
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Ninject.xml
