@@ -56,7 +56,21 @@ namespace RemliCMS
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            
+
+            routes.MapRoute(
+                name: "Ping",
+                url: "ping",
+                defaults: new { controller = "Shared", action = "Pong" }
+            );
+
+
+            routes.MapRoute(
+                name: "Error",
+                url: "Error/{errorCode}",
+                defaults: new { controller = "Shared", action = "Error", errorCode = UrlParameter.Optional }
+            );
+
+
             routes.MapRoute(
                 name: "CMCSRoute",
                 url: "{translation}/{controller}/{permalink}",
