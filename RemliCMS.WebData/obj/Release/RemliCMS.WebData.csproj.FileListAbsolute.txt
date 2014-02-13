@@ -1,0 +1,12 @@
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Release\RemliCMS.WebData.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Release\RemliCMS.WebData.pdb
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Release\MongoDB.Bson.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Release\MongoDB.Driver.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Release\MongoDB.Bson.xml
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Release\MongoDB.Driver.xml
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\obj\Release\RemliCMS.WebData.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\obj\Release\RemliCMS.WebData.pdb
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Release\System.Web.Http.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Release\System.Net.Http.Formatting.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Release\System.Web.Http.xml
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Release\System.Net.Http.Formatting.xml

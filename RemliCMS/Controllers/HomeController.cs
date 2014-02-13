@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RemliCMS.Routes;
+using RemliCMS.WebData.Entities;
 
 namespace RemliCMS.Controllers
 {
@@ -20,11 +21,23 @@ namespace RemliCMS.Controllers
         {
             RouteValues routeValues = RouteValue;
 
+            var mongoConfig = new MongoDbConfig
+            {
+                DbLocation = System.Configuration.ConfigurationManager.AppSettings["MongoDbLocation"],
+                DbName = System.Configuration.ConfigurationManager.AppSettings["MongoDbName"]
+            };
+
             ViewBag.Debug = true;
             ViewBag.Translation = routeValues.Translation;
             ViewBag.Controller = routeValues.Controller;
             ViewBag.Action = routeValues.Action;
             ViewBag.Permalink = routeValues.Permalink;
+            ViewBag.DbLocation = mongoConfig.DbLocation;
+            ViewBag.DbName = mongoConfig.DbName;
+
+
+            ViewBag.LangDir = "ltr";
+            ViewBag.LangCode = "en";
 
             return View();
         }

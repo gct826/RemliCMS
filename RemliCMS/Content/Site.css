@@ -35,6 +35,15 @@ textarea {
     margin: 0.5em 0 0 0;
 }
 
+/* Styles for font color*/
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/

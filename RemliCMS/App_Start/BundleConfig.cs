@@ -30,6 +30,14 @@ namespace RemliCMS
                         "~/Content/site.css",
                         "~/Content/foundation/foundation.css",
                         "~/Content/foundation/foundation.mvc.css",
+                        "~/Content/foundation/foundation-icons.css",
+                        "~/Content/foundation/normalize.css"));
+            
+            bundles.Add(new StyleBundle("~/Content/css_rtl").Include(
+                        "~/Content/site.css",
+                        "~/Content/foundation/foundation_rtl.css",
+                        "~/Content/foundation/foundation.mvc.css",
+                        "~/Content/foundation/foundation-icons.css",
                         "~/Content/foundation/normalize.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(

@@ -1,0 +1,89 @@
+﻿@model RemliCMS.WebData.Entities.Translation
+
+<div class="row">
+    <div class="large-12 columns">    
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        @if (ViewBag.Message != null)
+        {
+            <div class="error">@ViewBag.Message</div>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>Translation Create</legend>
+
+                <div class ="row">
+                    <div class="small-9 large-4 columns">
+                        <label>@Html.LabelFor(model => model.Name)</label>   
+                        @Html.EditorFor(model => model.Name)
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+        
+                <div class ="row">
+                    <div class="small-9 large-4 columns">
+                        <label>@Html.LabelFor(model => model.Url)</label>   
+                        @Html.EditorFor(model => model.Url)
+                        @Html.ValidationMessageFor(model => model.Url)
+                    </div>
+                </div>
+
+                <div class ="row">
+                    <div class="small-9 large-4 columns">
+                        <label>@Html.LabelFor(model => model.Code)</label>   
+                        @Html.EditorFor(model => model.Code)
+                        @Html.ValidationMessageFor(model => model.Code)
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-9 large-4 columns">
+                        <label>@Html.LabelFor(model => model.IsActive)</label>
+                        @Html.EditorFor(model =>model.IsActive)
+                        @Html.ValidationMessageFor(model => model.IsActive)
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-9 large-4 columns">
+                        <label>@Html.LabelFor(model => model.IsRtl)</label>
+                        @Html.EditorFor(model =>model.IsRtl)
+                        @Html.ValidationMessageFor(model => model.IsRtl)
+                    </div>
+                </div>
+
+                <p>
+                    <input type="submit" value="Create" />
+                </p>
+            </fieldset>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+        <br/>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('form').submit(function() {
+        $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+        });
+    </script>
+}

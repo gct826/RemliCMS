@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using RemliCMS.WebData.Services;
 
 namespace RemliCMS
 {
@@ -38,17 +39,11 @@ namespace RemliCMS
             public bool Match(HttpContextBase httpContext, Route route, string parameterName,
                               RouteValueDictionary values, RouteDirection routeDirection)
             {
-                //var translationService = new TranslationService();
-                //var code = values[parameterName].ToString().ToLower();
-                //var foundTranslation = translationService.IsExistCode(code);
+                var translationService = new TranslationService();
+                var url = values[parameterName].ToString().ToLower();
+                var foundTranslation = translationService.IsExistUrl(url);
 
-                //if (code == "admin")
-                //{
-                //    foundTranslation = true;
-                //}
-
-
-                return true;
+                return foundTranslation;
             }
         }
 
@@ -72,7 +67,7 @@ namespace RemliCMS
 
 
             routes.MapRoute(
-                name: "CMCSRoute",
+                name: "CMSRoute",
                 url: "{translation}/{controller}/{permalink}",
                 defaults: new { translation = "en", controller = "Home", action = "Index", id = UrlParameter.Optional },
                 constraints: new { translation = new TranslationConstraint(), permalink = new CmsUrlConstraint() }
@@ -80,8 +75,8 @@ namespace RemliCMS
             
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{translation}/{controller}/{action}/{id}",
+                defaults: new { translation = "en", controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
 

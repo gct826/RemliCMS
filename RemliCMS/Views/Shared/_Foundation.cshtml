@@ -1,15 +1,23 @@
 ﻿<!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js" lang=@ViewBag.LangCode dir=@ViewBag.LangDir>
     <head>
         <meta charset="utf-8" />
+        @ViewBag.Test
 
         @*Set the viewport width to device width for mobile *@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <title>@ViewBag.Title - Welcome to Foundation</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
-        @Styles.Render("~/Content/css")
+        
+        @if (ViewBag.LangDir == "rtl")
+        {
+            @Styles.Render("~/Content/css_rtl")            
+        }
+        else
+        {
+            @Styles.Render("~/Content/css")
+        }
 
         @RenderSection("head", required: false)
         @Scripts.Render("~/bundles/modernizr")
@@ -18,7 +26,6 @@
     <body>
         
         @RenderSection("routedebug", required:false)
-
 
         @RenderBody()
 
