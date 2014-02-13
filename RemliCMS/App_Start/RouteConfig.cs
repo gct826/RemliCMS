@@ -41,7 +41,7 @@ namespace RemliCMS
             {
                 var translationService = new TranslationService();
                 var url = values[parameterName].ToString().ToLower();
-                var foundTranslation = translationService.IsExistUrl(url);
+                var foundTranslation = translationService.IsActiveUrl(url);
 
                 return foundTranslation;
             }
@@ -69,8 +69,8 @@ namespace RemliCMS
             routes.MapRoute(
                 name: "CMSRoute",
                 url: "{translation}/{controller}/{permalink}",
-                defaults: new { translation = "en", controller = "Home", action = "Index", id = UrlParameter.Optional },
-                constraints: new { translation = new TranslationConstraint(), permalink = new CmsUrlConstraint() }
+                defaults: new { translation = "en", controller = "Home", action = "Index", id = UrlParameter.Optional }
+                //constraints: new { translation = new TranslationConstraint(), permalink = new CmsUrlConstraint() }
             );
             
             routes.MapRoute(

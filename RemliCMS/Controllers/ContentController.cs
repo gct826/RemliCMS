@@ -9,14 +9,14 @@ using RemliCMS.WebData.Services;
 
 namespace RemliCMS.Controllers
 {
-    public class HomeController : BaseController
+    public class ContentController : BaseController
     {
-        public HomeController(IRouteService routeService) : base(routeService)
+        public ContentController(IRouteService routeService) : base(routeService)
         {
         }
 
         //
-        // GET: /Home/Permalink
+        // GET: /Content/Permalink
 
         public ActionResult Index(string permalink)
         {
@@ -36,29 +36,16 @@ namespace RemliCMS.Controllers
             ViewBag.DbLocation = mongoConfig.DbLocation;
             ViewBag.DbName = mongoConfig.DbName;
 
-            var translationService = new TranslationService();
-            var translation = translationService.Details(routeValues.Translation);
-            
-            if (translation == null || translation.IsActive == false)
-            {
-                return RedirectToAction("Error", "Shared", new {errorCode = 404});
-            }
 
-            if (translation.IsRtl)
-            {
-                ViewBag.LangDir = "rtl";
-            }
-            else
-            {
-                ViewBag.LangDir = "ltr";
-            }
-            ViewBag.LangCode = translation.Code;
+
+            ViewBag.LangDir = "ltr";
+            ViewBag.LangCode = "en";
 
             return View();
         }
 
         //
-        // GET: /Home/RouteDebug
+        // GET: /Content/RouteDebug
         [ChildActionOnly]
         public ActionResult RouteDebug()
         {
