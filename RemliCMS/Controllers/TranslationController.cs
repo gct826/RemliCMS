@@ -47,7 +47,7 @@ namespace RemliCMS.Controllers
         // POST: /Admin/Translation/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Translation translation)
+        public ActionResult Create(Translation submitTranslation)
         {
             ViewBag.Title = "Translation Create New";
             try
@@ -56,30 +56,31 @@ namespace RemliCMS.Controllers
                 {
                     var translationService = new TranslationService();
 
-                    if (translationService.IsExistUrl(translation.Url))
+                    if (translationService.IsExistUrl(submitTranslation.Url))
                     {
-                        ViewBag.Message = "Translation code already exist.";
-                        return View(translation);
+                        ViewBag.Message = "Translation URL already exist.";
+                        return View(submitTranslation);
                     }
 
                     if (translationService.GetDefaultUrl() == "")
                     {
-                        translation.IsDefault = true;
-                        translation.IsActive = true;
+                        submitTranslation.IsDefault = true;
+                        submitTranslation.IsActive = true;
                     }
 
-                    translation.Code = translation.Code.ToLower();
+                    submitTranslation.Url = submitTranslation.Url.ToLower();
+                    submitTranslation.Code = submitTranslation.Code.ToLower();
 
-                    translationService.Create(translation);
+                    translationService.Create(submitTranslation);
 
                     return RedirectToAction("Index");
                 }
             }
             catch
             {
-                return View(translation); 
+                return View(submitTranslation); 
             }
-            return View(translation); 
+            return View(submitTranslation); 
         }
 
         //
