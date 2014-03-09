@@ -1,10 +1,6 @@
-﻿@model IEnumerable<RemliCMS.WebData.Entities.Translation>
+﻿@*admin/Translation/Index*@
 
-<div class="row">
-    <div class="large-12 columns">    
-        <h2>@ViewBag.Title</h2>
-    </div>
-</div>
+@model IEnumerable<RemliCMS.WebData.Entities.Translation>
 
 <div class="row">
     <div class="large-12 columns">
@@ -32,6 +28,8 @@
                     @Html.DisplayNameFor(model => model.IsRtl)
                 </th>
                 <th></th>
+                <th></th>
+
             </tr>
 
             @foreach (var item in Model) {
@@ -39,7 +37,7 @@
                     <td>
                         @if (item.IsDefault)
                         {
-                            <i class="fi-check green"></i>
+                            <i class="fi-home green"></i>
                         }
                     </td>
                     <td>
@@ -76,9 +74,19 @@
                     <td>
                         <a href="@Url.Action("Edit", "Translation", new { url = item.Url })"><i class="fi-pencil"></i></a>
                     </td>
+                    <td>
+                        <a href="@Url.Action("Delete", "Translation", new { url = item.Url })"><i class="fi-trash red"></i></a>
+                    </td>
+
                 </tr>
             }
 
         </table>
     </div>
 </div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "translation"});}
+}
+

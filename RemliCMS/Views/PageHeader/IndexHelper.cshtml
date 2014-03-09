@@ -1,0 +1,109 @@
+﻿@*admin/PageHeader/IndexHelper*@
+
+@model IEnumerable<RemliCMS.WebData.Entities.PageHeader>
+
+<tbody>
+    
+    @if (ViewBag.hasChildren)
+    {
+    
+        foreach (var item in Model)
+        {
+
+            if (item.Permalink != ViewBag.UseCase)
+            {
+                <tr>
+                    <td>@*Default Flag*@
+                        @if (item.IsDefault)
+                        {
+                            <i class="fi-check green"></i>
+                        }
+                    </td>
+
+                    <td>@*Page Permalink*@
+                        @ViewBag.levelPrefix
+
+                        @Html.ActionLink(item.Permalink, "Index", "PageContent", new {pagePermalink = item.Permalink}, "") 
+
+                    </td>
+
+                    <td>@*Page Name*@
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                
+                    @if (ViewBag.UseCase == "!Index")
+                    {
+                        <td>@*Page Edit*@
+                            <a href="@Url.Action("Edit", "PageHeader", new {pagePermalink = item.Permalink})"><i class="fi-pencil"></i></a>
+                        </td>
+
+                        <td>@*Page Move*@
+                            @if (item.IsDefault == false)
+                            {
+                                <a href="@Url.Action("SetParent", "PageHeader", new {pagePermalink = item.Permalink})"><i class="fi-page-export"></i></a>
+                            }
+                        </td>
+
+                        <td>@*Page Reorder*@
+                            @if (item.IsDefault == false)
+                            {
+                                <a href="@Url.Action("SetOrder", "PageHeader", new {parentId = item.ParentId})"><i class="fi-loop"></i></a>
+                            }
+                        </td>
+                        
+                        <td>@*Page Create*@
+                            <a href="@Url.Action("Create", "PageHeader", new {parentPermlink = item.Permalink})"><i class="fi-page-add"></i></a>
+                        </td>
+
+                        {
+                            Html.RenderAction("Index", "PageTitle", new {pageHeaderId = item.Id});
+                        }
+                    }
+                
+                    
+                    @if (ViewBag.UseCase == "!SetOrder")
+                    {
+                        <td>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.HiddenFor(model => item.Id)
+                                <input type="hidden" name="dir" value="up"/>
+                                <input class="tiny margin" type="submit" value ="↑" />
+                            }
+                        </td>
+                        <td>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.HiddenFor(model => item.Id)
+                                <input type="hidden" name="dir" value="down"/>
+                                <input class="tiny margin" type="submit" value ="↓" />
+                            }
+                        </td>
+                        
+                        
+                    }
+                    
+
+                    @if (ViewBag.SetParent)
+                    {
+                        <td>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.HiddenFor(model => item.Id)
+                                <input class="tiny margin" type="submit" value="Set as Parent" />
+                            }
+                        </td>
+                    }
+                </tr>
+
+
+                if (ViewBag.UseCase != "!SetOrder")
+                {
+                    Html.RenderAction("IndexHelper", "PageHeader", new { useCase = ViewBag.UseCase, nodeLevel = ViewBag.nodeLevel, parentId = item.Id });                    
+                }
+
+            }
+            
+        }
+    }
+</tbody>

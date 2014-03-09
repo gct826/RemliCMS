@@ -35,5 +35,8 @@ namespace RemliCMS.WebData.Entities
         [BsonElement("isActive")]
         [DisplayName("Active")]
         public bool IsActive { get; set; }
+
+        [BsonElement("isDeleted")]
+        public bool IsDeleted { get; set; }
     }
 }

@@ -19,15 +19,38 @@
             @Styles.Render("~/Content/css")
         }
 
-        @RenderSection("head", required: false)
+
         @Scripts.Render("~/bundles/modernizr")
     </head>
 
     <body>
+        @RenderSection("head", required: false)
         
-        @RenderSection("routedebug", required:false)
+        <div class="padding"></div>        
+            
+        @*Page Title*@        
+        <div class="row">
+            <div class="large-12 columns">    
+                <h2>@ViewBag.Title</h2>
+            </div>
+        </div>
+        
+        @*Error Message*@
+        <div class="row">
+            <div class="large-12 columns">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="error">@ViewBag.Message</div>
+                }
+            </div>
+        </div>
+
 
         @RenderBody()
+
+
+        @RenderSection("routedebug", required:false)
+            
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/foundation")

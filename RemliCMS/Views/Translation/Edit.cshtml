@@ -1,19 +1,6 @@
-﻿@model RemliCMS.WebData.Entities.Translation
+﻿@*admin/Translation/Edit*@
 
-<div class="row">
-    <div class="large-12 columns">    
-        <h2>@ViewBag.Title</h2>
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
-        @if (ViewBag.Message != null)
-        {
-            <div class="error">@ViewBag.Message</div>
-        }
-    </div>
-</div>
+@model RemliCMS.WebData.Entities.Translation
 
 <div class="row">
     <div class="large-12 columns">    
@@ -24,24 +11,24 @@
 
             <fieldset>
                 <legend>Translation</legend>
-                <!--input data-val="true" data-val-required="The Id field is required." id="refId" name="refId" type="hidden" value="@ViewBag.ObjectId" /-->
         
                 @Html.HiddenFor(model => model.Id)
+
                 <div class ="row">
-                    <div class="large-2 columns">
+                    <div class="lsmall-4 large-2 columns">
                         <label>@Html.LabelFor(model => model.Url)</label>
                         @Html.ValueFor(model => model.Url)
                         @Html.HiddenFor(model => model.Url)
                     </div>
-                    <div class="large-10 columns">
-                        @Html.HiddenFor(model => model.IsDefault)
-                        @if (Model.IsDefault == false)
+                    <div class="small-6 large-4 columns">
+                        @if (Model.IsDefault)
                         {
-                            <input type="submit" value="Set as Default" name="translation update"/>
-                        }
-                        else
-                        {
+                            @Html.HiddenFor(model => model.IsDefault)
                             <p><kbd class="green">Default Translation</kbd></p>   
+                        }                     
+                        else   
+                        {
+                            <p>@Html.EditorFor(model => model.IsDefault) Set as Default</p>
                         }
                     </div>
                 </div>
@@ -86,7 +73,7 @@
 
                 
                 <p>
-                    <input type="submit" value="Save" name="translation update" />
+                    <input type="submit" value="Save"/>
                 </p>
             </fieldset>
         }
@@ -99,12 +86,17 @@
     </div>
 </div>
 
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "translation"});}
+}
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
         $('form').submit(function () {
-            $(this).find('input[type="submit" value="Save"]').attr('disabled', 'disabled');
+            $(this).find('input[type="submit"]').attr('disabled', 'disabled');
         });
     </script>
 }

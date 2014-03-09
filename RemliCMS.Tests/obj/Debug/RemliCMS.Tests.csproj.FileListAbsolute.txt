@@ -14,7 +14,11 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Syst
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\System.Web.WebPages.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Ninject.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\System.Web.Optimization.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\RemliCMS.WebData.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\MongoDB.Bson.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\MongoDB.Driver.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\RemliCMS.pdb
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Newtonsoft.Json.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\System.Net.Http.Formatting.xml
@@ -26,9 +30,11 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Syst
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\System.Web.WebPages.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Ninject.pdb
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Ninject.xml
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\RemliCMS.WebData.pdb
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\MongoDB.Bson.xml
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\MongoDB.Driver.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\obj\Debug\RemliCMS.Tests.csprojResolveAssemblyReference.cache
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\obj\Debug\RemliCMS.Tests.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\obj\Debug\RemliCMS.Tests.pdb
-C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Ninject.dll
-C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Ninject.pdb
-C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.Tests\bin\Debug\Ninject.xml

@@ -2,7 +2,11 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\Re
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\RemliCMS.WebData.pdb
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\MongoDB.Bson.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\MongoDB.Driver.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\System.Web.Http.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\System.Net.Http.Formatting.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\MongoDB.Bson.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\MongoDB.Driver.xml
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\System.Web.Http.xml
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\System.Net.Http.Formatting.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\obj\Debug\RemliCMS.WebData.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\obj\Debug\RemliCMS.WebData.pdb

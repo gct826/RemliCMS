@@ -136,15 +136,19 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\ContentController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MultiButtonAttribute.cs" />
+    <Compile Include="Controllers\PageContentController.cs" />
+    <Compile Include="Controllers\PageHeaderController.cs" />
+    <Compile Include="Controllers\PageTitleController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\TranslationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DbLocation.cs" />
+    <Compile Include="Models\TitleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routes\BaseModule.cs" />
     <Compile Include="Routes\IRouteService.cs" />
@@ -274,10 +278,25 @@
     <Content Include="Views\Translation\Create.cshtml" />
     <Content Include="Views\Translation\Edit.cshtml" />
     <Content Include="Views\Translation\Index.cshtml" />
+    <Content Include="Views\PageHeader\Create.cshtml" />
+    <Content Include="Views\PageHeader\Edit.cshtml" />
+    <Content Include="Views\PageHeader\Index.cshtml" />
+    <Content Include="Views\PageHeader\IndexHelper.cshtml" />
+    <Content Include="Views\PageTitle\Create.cshtml" />
+    <Content Include="Views\PageTitle\Index.cshtml" />
+    <Content Include="Views\PageContent\Create.cshtml" />
+    <Content Include="Views\PageContent\Index.cshtml" />
+    <Content Include="Views\PageContent\SetWidth.cshtml" />
+    <Content Include="Views\Home\PageContent.cshtml" />
+    <Content Include="Views\Shared\AdminHeader.cshtml" />
+    <Content Include="Views\Shared\RouteDebug.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Translation\Delete.cshtml" />
+    <Content Include="Views\PageHeader\SetParent.cshtml" />
+    <Content Include="Views\PageHeader\SetOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

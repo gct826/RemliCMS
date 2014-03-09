@@ -1,0 +1,54 @@
+﻿@*/admin/PageHeader/SetParent*@
+
+@model IEnumerable<RemliCMS.WebData.Entities.PageHeader>
+
+    <div class="row">
+        <table>
+            <thead>
+                <tr>
+                    <th>@*Default Flag*@
+                        Default
+                    </th>
+                    <th>@*Page Permalink*@
+                        @Html.DisplayNameFor(model => model.Permalink)
+                    </th>
+                    <th>@*Page Name*@
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th width="200"></th>
+                </tr>
+            </thead>
+            
+            <tr>
+                <td></td>
+                <td>/</td>
+                <td>Root</td>
+                <td>
+                    @using (Html.BeginForm())
+                    {
+                        <input type="hidden" id="item.Id" value="000000000000000000000000" />
+                        <input class="tiny margin" type="submit" value="Set as Parent" />                    
+                    }
+                </td>
+            </tr>
+
+            @{
+                Html.RenderAction("IndexHelper", "PageHeader", new {useCase = ViewBag.CurrentPermalink, nodeLevel = 0 });
+            }
+    
+
+        </table>
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>    
+
+
+    </div>
+
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "pageheader"});}
+}
+

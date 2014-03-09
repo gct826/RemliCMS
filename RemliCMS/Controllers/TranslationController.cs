@@ -14,14 +14,8 @@ namespace RemliCMS.Controllers
         //
         // GET: /Admin/Translation/
         public ActionResult Index()
-        {
-            RouteValues routeValues = RouteValue;
-            if (routeValues.Translation != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            
-            ViewBag.Title = "Admin - Translations";
+        {            
+            ViewBag.Title = "Manage Translations";
 
             var translationService = new TranslationService();
             var translations = translationService.ListAll();
@@ -33,12 +27,6 @@ namespace RemliCMS.Controllers
         // GET: /Admin/Translation/Create
         public ActionResult Create()
         {
-            RouteValues routeValues = RouteValue;
-            if (routeValues.Translation != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             ViewBag.Title = "Create New Translation";
             return View();
         }
@@ -49,7 +37,7 @@ namespace RemliCMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Translation submitTranslation)
         {
-            ViewBag.Title = "Translation Create New";
+            ViewBag.Title = "Create New Translation";
             try
             {
                 if (ModelState.IsValid)
@@ -87,19 +75,14 @@ namespace RemliCMS.Controllers
         // GET: /Admin/Translation/Edit?url
         public ActionResult Edit(string url)
         {
-            RouteValues routeValues = RouteValue;
-            if (routeValues.Translation != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            ViewBag.Title = "Translation Edit Existing";
+            ViewBag.Title = "Edit Translation - " + url;
 
             var translationService = new TranslationService();
             var isExist = translationService.IsExistUrl(url);
 
             if (isExist == false)
             {
+                System.Diagnostics.Debug.WriteLine("Edit Translation not found");
                 return RedirectToAction("Index", "Translation");
             }
 
@@ -114,7 +97,6 @@ namespace RemliCMS.Controllers
         // POST: /Admin/Translation/Edit?url
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [MultiButton(MatchFormKey = "translation update", MatchFormValue1 = "Save", MatchFormValue2 = "Save As")]
         public ActionResult Edit(string url, Translation submitTranslation)
         {
             var translationService = new TranslationService();
@@ -122,11 +104,22 @@ namespace RemliCMS.Controllers
 
             submitTranslation.Id = foundTranslation.Id;
 
-            if (foundTranslation.IsDefault && submitTranslation.IsActive == false)
+            if (submitTranslation.IsDefault && submitTranslation.IsActive == false)
             {
-                ViewBag.Message = "Can not turn off Active flag for Default Translation.";
+                ViewBag.Message = "Can Active flag must be set for Default Translation.";
                 ViewBag.ObjectId = foundTranslation.Id;
                 return View(foundTranslation);
+            }
+
+            if (foundTranslation.IsDefault != submitTranslation.IsDefault)
+            {
+                var defaultTranslation = translationService.Details(translationService.GetDefaultUrl());
+                
+                if (defaultTranslation != null)
+                {
+                    defaultTranslation.IsDefault = false;
+                    translationService.Update(defaultTranslation);
+                }
             }
 
             translationService.Update(submitTranslation);
@@ -138,7 +131,6 @@ namespace RemliCMS.Controllers
         // POST: /Admin/Translation/SetDefault?url
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [MultiButton(MatchFormKey = "translation update", MatchFormValue1 = "Set as Default", MatchFormValue2 = "SetDefault")]
         public ActionResult SetDefault(string url, Translation submitTranslation)
         {
             var translationService = new TranslationService();
@@ -156,6 +148,73 @@ namespace RemliCMS.Controllers
 
             return RedirectToAction("Edit", "Translation", new { url = submitTranslation.Url });
         }
+
+        //
+        // GET: /Admin/Translation/Delete?url
+        public ActionResult Delete(string url)
+        {
+            ViewBag.Title = "Delete Translation - " + url;
+
+            var translationService = new TranslationService();
+            var isExist = translationService.IsExistUrl(url);
+
+            if (isExist == false)
+            {
+                System.Diagnostics.Debug.WriteLine("Delete Translation not found");
+                return RedirectToAction("Index", "Translation");
+            }
+
+            var foundTranslation = translationService.Details(url);
+
+            ViewBag.allowDelete = true;
+
+            if (foundTranslation.IsDefault || foundTranslation.IsActive)
+            {
+                ViewBag.Message = "Can not delete Default or Active Translation";
+                ViewBag.allowDelete = false;
+            }
+
+            ViewBag.ObjectId = foundTranslation.Id;
+
+            return View(foundTranslation);
+        }
+
+        //
+        // POST: /Admin/Translation/Delete?url
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(string url, Translation submitTranslation)
+        {
+            var translationService = new TranslationService();
+            var foundTranslation = translationService.Details(url);
+
+            if (foundTranslation == null)
+            {
+                System.Diagnostics.Debug.WriteLine("Delete Translation not found");
+                return RedirectToAction("Index", "Translation");
+            }
+
+            submitTranslation.Id = foundTranslation.Id;
+            submitTranslation.Name = foundTranslation.Name;
+            submitTranslation.Code = foundTranslation.Code;
+
+            if (foundTranslation.IsDefault || foundTranslation.IsActive)
+            {
+                ViewBag.Message = "Can not delete Translation.";
+                ViewBag.ObjectId = foundTranslation.Id;
+                return View(foundTranslation);
+            }
+
+            submitTranslation.Url = "";
+            submitTranslation.IsDeleted = true;
+            submitTranslation.IsActive = false;
+            submitTranslation.IsDefault = false;
+
+            translationService.Update(submitTranslation);
+
+            return RedirectToAction("Index", "Translation");
+        }
+
 
     }
 }

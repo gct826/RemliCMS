@@ -1,0 +1,75 @@
+﻿@model RemliCMS.WebData.Entities.PageTitle
+
+<h2>@ViewBag.Title</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="error">@ViewBag.Message</div>
+}
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>PageTitle Create</legend>
+        
+        <div class="row">
+            <div class="small-9 large-4 columns">
+                <label>Page Name</label>
+                @ViewBag.pageHeader
+            </div>
+        </div>
+        
+        <br/>
+
+        <div class ="row">
+            <div class="small-9 large-4 columns">
+                <label>Language</label>   
+                @ViewBag.translation
+               <input data-val="true" data-val-required="The Id field is required." id="TranslationId" name="TranslationId" type="hidden" value="@ViewBag.translationId" />
+            </div>
+        </div>
+
+        <br/>
+        
+        <div class ="row">
+            <div class="small-9 large-4 columns">
+                <label>@Html.LabelFor(model => model.Title)</label>   
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+        
+        <div class ="row">
+            <div class="small-9 large-4 columns">
+                <label>@Html.LabelFor(model => model.IsActive)</label>   
+                @Html.EditorFor(model => model.IsActive)
+                @Html.ValidationMessageFor(model => model.IsActive)
+            </div>
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back", "Index", "PageHeader")
+</div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "pageheader"});}
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('form').submit(function () {
+            $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+        });
+    </script>
+}

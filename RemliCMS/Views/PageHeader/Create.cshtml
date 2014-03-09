@@ -1,0 +1,66 @@
+﻿@*/admin/PageHeader/Create*@
+
+@model RemliCMS.WebData.Entities.PageHeader
+
+<div class="row">
+    <div class="large-12 columns">
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>PageHeader Create</legend>
+        
+                <div class="row">
+                    <div class="small-12 large-12 columns">
+                        <label>@Html.LabelFor(model => model.ParentId)</label>
+                        @ViewBag.ParentName
+                    </div>
+                </div>
+        
+                <br/>
+
+                <div class ="row">
+                    <div class="small-9 large-4 columns">
+                        <label>@Html.LabelFor(model => model.Permalink)</label>   
+                        @Html.EditorFor(model => model.Permalink)
+                        @Html.ValidationMessageFor(model => model.Permalink)
+                    </div>
+                </div>
+
+                <div class ="row">
+                    <div class="small-9 large-4 columns">
+                        <label>@Html.LabelFor(model => model.Name)</label>   
+                        @Html.EditorFor(model => model.Name)
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+
+                <p>
+                    <input type="submit" value="Create" />
+                </p>
+            </fieldset>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+        
+    </div>
+</div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "pageheader"});}
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('form').submit(function () {
+            $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+        });
+    </script>
+}

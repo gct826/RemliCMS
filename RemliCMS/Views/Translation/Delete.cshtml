@@ -1,0 +1,93 @@
+﻿@*admin/Translation/Delete*@
+
+@model RemliCMS.WebData.Entities.Translation
+
+<div class="row">
+    <div class="large-12 columns">    
+
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>Translation</legend>
+        
+                @Html.HiddenFor(model => model.Id)
+                <div class ="row">
+                    <div class="large-2 columns">
+                        <label>@Html.LabelFor(model => model.Url)</label>
+                        @Html.ValueFor(model => model.Url)
+                        @Html.HiddenFor(model => model.Url)
+                    </div>
+
+                    <div class="large-10 columns">
+                        @Html.HiddenFor(model => model.IsDefault)
+                        @if (Model.IsDefault == false)
+                        {
+                        }
+                        else
+                        {
+                            <p><kbd class="green">Default Translation</kbd></p>
+                        }
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class ="row">
+                    <div class="small-9 large-4 columns">
+                        <label>@Html.LabelFor(model => model.Name)</label>   
+                        @Html.ValueFor(model => model.Name)
+                    </div>
+                </div>
+                
+                <br/>
+                
+                <div class ="row">
+                    <div class="small-9 large-4 columns">
+                        <label>@Html.LabelFor(model => model.Code)</label>   
+                        @Html.ValueFor(model => model.Code)
+                    </div>
+                </div>
+                <br/>
+                     
+
+                <p>
+                    
+                    @if (ViewBag.allowDelete == false)
+                    {
+                        <input type="submit" value="Delete" disabled/>
+                    }
+                    else
+                    {
+                        <input type="submit" value="Delete"/>
+                    }
+                    <br/>
+                    Are you sure you want to delete @Html.ValueFor(model => model.Name) translation.
+                    This will delete all pages associated with this translation.</p>
+            </fieldset>
+        }
+        
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+        <br/>
+    </div>
+</div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader", "Shared", new { currentItem = "translation" });}
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('form').submit(function () {
+            $(this).find('input[type="submit" value="Save"]').attr('disabled', 'disabled');
+        });
+    </script>
+}

@@ -1,0 +1,56 @@
+﻿@*admin/PageHeader/Index*@
+
+@model IEnumerable<RemliCMS.WebData.Entities.PageHeader>
+
+<div class="row">
+    <div class="large-12 columns">
+        <p>
+            @Html.ActionLink("Create New Page", "Create", new {parentPermalink = "Root"})
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <table>
+            <thead>
+                <tr>
+                    <th>@*Default Flag*@
+                        Default
+                    </th>
+                    <th>@*Page Permalink*@
+                        @Html.DisplayNameFor(model => model.Permalink)
+                    </th>
+                    <th>@*Page Name*@
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>@*Page Edit*@
+                    </th>
+                    <th>@*Page Move*@
+                    </th>
+                    <th>@*Page Order*@
+                    </th>                    
+                    <th>@*Page Create*@
+                    </th>
+
+                    @{
+                        Html.RenderAction("Index", "PageTitle");
+                    }
+
+                </tr>
+            </thead>
+
+            @{
+                Html.RenderAction("IndexHelper", "PageHeader", new {useCase = "!Index", nodeLevel = 0 });
+            }
+    
+
+
+        </table>
+    </div>
+</div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "pageheader"});}
+}

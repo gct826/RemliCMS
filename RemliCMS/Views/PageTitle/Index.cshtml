@@ -1,0 +1,41 @@
+﻿@model IEnumerable<RemliCMS.Models.TitleModel>
+
+@if (ViewBag.headerView)
+{
+    foreach (var item in Model)
+    {
+        <th>
+            @Html.DisplayFor(modelItem =>item.Name)
+        </th>
+    }
+    
+}
+else
+{
+    foreach (var item in Model)
+    {
+        if (item.isActive)
+        {
+            <td class ="green">
+                @Html.DisplayFor(modelItem => item.Title)   
+                @*<a href="@Url.Action("Create", "PageTitle", new {pageHeaderId = ViewBag.pageHeaderId, translationId = item.TranslationId})"><i class="fi-pencil"></i></a>*@
+                <a href="@Url.Action("IndexId", "PageContent", new {pageHeaderId = ViewBag.pageHeaderId, translationId = item.TranslationId})"><i class="fi-page-edit"></i></a>
+            </td>
+        }
+        else
+        {
+            <td class ="red">
+                @if (item.Title == "")
+                {
+                    @Html.ActionLink("Create Page", "Create", new {pageHeaderId = ViewBag.pageHeaderId, translationId = item.TranslationId});
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Title)
+                    <a href="@Url.Action("IndexId", "PageContent", new {pageHeaderId = ViewBag.pageHeaderId, translationId = item.TranslationId})"><i class="fi-page-edit"></i></a>
+                }
+
+            </td>
+        }
+    }
+}

@@ -1,0 +1,54 @@
+﻿@*/Admin/Index*@
+
+<div class="row">
+    <div class="large-3 medium-3 small-4 columns">
+        <h3>Translation</h3>
+    </div>
+    <div class="large-3 medium-4 small-5 columns">
+        <div class="padding-small"></div>        
+        <p>@Html.ActionLink("Manage","Index","Translation")</p>        
+    </div>
+    <div class="large-12 columns">
+
+    @if (ViewBag.DefaultTranslation == "no default")
+    {
+        <p>Site default translation: none <br />
+        @Html.ActionLink("Create One", "Create", "Translation")</p>
+    }
+    else
+    {
+        <p>Site default translation: @ViewBag.DefaultTranslation (@ViewBag.DefaultTranslationName)</p>
+    }
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-4 medium-5 small-6 columns">
+        <h3>Page Management</h3>
+    </div>
+    <div class="large-3 medium-4 small-5 columns">
+        <div class="padding-small"></div>        
+        <p>@Html.ActionLink("Manage","Index","PageHeader")</p>        
+    </div>
+    <div class="large-12 columns">
+
+    @if (ViewBag.DefaultPage == "no default")
+    {
+        <p>Site default page: none <br />
+        @Html.ActionLink("Create One", "Create", "PageHeader", new {parentPermalink = "Root"},"")</p>
+    }
+    else
+    {
+        <p>Site default page: @ViewBag.DefaultPage (@ViewBag.DefaultPageName)</p>
+    }
+
+    </div>
+
+</div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "none"});}
+}
+

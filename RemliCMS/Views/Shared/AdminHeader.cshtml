@@ -1,0 +1,35 @@
+﻿<div class="contain-to-grid fixed">
+    <nav class="top-bar">
+        <ul class="title-area">
+            <li class="name">
+                <h1><a href="/admin">Site Administration</a></h1>
+            </li>
+        </ul>
+    
+        <section class="top-bar-section">
+            <ul class="right">
+                
+                @if (ViewBag.CurrentItem == "pageheader")
+                {
+                    <li class="active">@Html.ActionLink("Content", "Index", "PageHeader")</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Content", "Index", "PageHeader")</li>                    
+                }
+
+                @if (ViewBag.CurrentItem == "translation")
+                {
+                    <li class="active">@Html.ActionLink("Translation", "Index", "Translation")</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Translation", "Index", "Translation")</li>                    
+                }
+
+                <li><a href="/">Back to Site</a></li>
+
+            </ul>
+        </section>
+    </nav>
+</div>

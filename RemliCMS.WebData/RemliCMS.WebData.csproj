@@ -52,11 +52,17 @@
     <Compile Include="Entities\IMongoEntity.cs" />
     <Compile Include="Entities\MongoDBConfig.cs" />
     <Compile Include="Entities\MongoEntity.cs" />
+    <Compile Include="Entities\PageContent.cs" />
+    <Compile Include="Entities\PageHeader.cs" />
+    <Compile Include="Entities\PageIndex.cs" />
+    <Compile Include="Entities\PageTitle.cs" />
     <Compile Include="Entities\Translation.cs" />
     <Compile Include="MongoConnectionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EntityService.cs" />
     <Compile Include="Services\IEntityService.cs" />
+    <Compile Include="Services\PageHeaderService.cs" />
+    <Compile Include="Services\PageIndexService.cs" />
     <Compile Include="Services\TranslationService.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -34,8 +34,7 @@ namespace RemliCMS.WebData.Services
         public virtual void Delete(string id)
         {
             var result = this.MongoConnectionHandler.MongoCollection.Remove(
-                Query<T>.EQ(e => e.Id,
-                new ObjectId(id)),
+                Query<T>.EQ(e => e.Id, new ObjectId(id)),
                 RemoveFlags.None,
                 WriteConcern.Acknowledged);
 
@@ -62,6 +61,8 @@ namespace RemliCMS.WebData.Services
             // Update not required.
 
             //// Save the entity with safe mode (WriteConcern.Acknowledged)
+            //var query = Query<T>.EQ(e => e.Id, entity.Id);
+            //var sortBy = SortBy.Null;
 
             var result = this.MongoConnectionHandler.MongoCollection.Save(
                 entity,

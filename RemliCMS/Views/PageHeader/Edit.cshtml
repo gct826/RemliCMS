@@ -1,0 +1,89 @@
+﻿@*/admin/PageHeader/Edit*@
+
+@model RemliCMS.WebData.Entities.PageHeader
+
+<div class="row">
+    <div class="large-12 columns">
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>PageHeader Edit</legend>
+        
+                @Html.HiddenFor(model => model.Id)
+                
+                <div class="row">
+                    <div class="small-6 large-6 columns">
+                        <label>Page Location</label>
+                        @ViewBag.PagePath
+                    </div>
+                    
+                    <div class="small-6 large-4 columns">
+                        @if (Model.IsDefault)
+                        {
+                            <p><kbd class="green">Default Page Header</kbd></p>   
+                        }                     
+                        else   
+                        {
+                            <p>@Html.EditorFor(model => model.IsDefault) Set as Default</p>
+                        }
+                    </div>
+
+
+                </div>
+                
+                <br/>
+
+                <div class="row">
+                    <div class="small-6 large-4 columns">
+                        <label>@Html.LabelFor(model => model.Name)</label>
+                        @Html.EditorFor(model => model.Name)
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+
+                <br/>
+                
+                <div class="row">
+                    <div class="small-6 large-4 columns">
+                        <label>@Html.LabelFor(model => model.Permalink)</label>
+                        @Html.EditorFor(model => model.Permalink)
+                        @Html.ValidationMessageFor(model => model.Permalink)
+                    </div>
+                </div>
+                
+
+                
+                <br/>
+
+
+
+                <p>
+                    <input type="submit" value="Save" name="pageheader update"/>
+                </p>
+            </fieldset>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+        
+    </div>
+</div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader", "Shared", new { currentItem = "pageheader" });}
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('form').submit(function () {
+            $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+        });
+    </script>
+}

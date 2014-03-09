@@ -1,19 +1,6 @@
-﻿@model RemliCMS.WebData.Entities.Translation
+﻿@*admin/Translation/Create*@
 
-<div class="row">
-    <div class="large-12 columns">    
-        <h2>@ViewBag.Title</h2>
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
-        @if (ViewBag.Message != null)
-        {
-            <div class="error">@ViewBag.Message</div>
-        }
-    </div>
-</div>
+@model RemliCMS.WebData.Entities.Translation
 
 <div class="row">
     <div class="large-12 columns">
@@ -77,6 +64,11 @@
         <br/>
     </div>
 </div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "translation"});}
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

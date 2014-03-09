@@ -46,7 +46,8 @@ namespace RemliCMS.WebData.Services
         public List<Translation> ListAll()
         {
             // returns a list of all Translations, including active and none active ones.
-            var translationList = MongoConnectionHandler.MongoCollection.FindAll().ToList();
+            var translationQuery = Query<Translation>.EQ(g => g.IsDeleted, false);
+            var translationList = MongoConnectionHandler.MongoCollection.Find(translationQuery).ToList();
 
             return translationList;
         }

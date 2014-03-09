@@ -1,0 +1,39 @@
+﻿@*/admin/PageHeader/SetOrder*@
+
+@model IEnumerable<RemliCMS.WebData.Entities.PageHeader>
+
+<div class="row">
+    <table>
+        <thead>
+            <tr>
+                <th>@*Default Flag*@
+                    Default
+                </th>
+                <th>@*Page Permalink*@
+                    @Html.DisplayNameFor(model => model.Permalink)
+                </th>
+                <th>@*Page Name*@
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th width="50"></th>
+                <th width="50"></th>
+            </tr>
+        </thead>
+            
+        @{
+            Html.RenderAction("IndexHelper", "PageHeader", new { useCase = "!SetOrder", nodeLevel = 0, parentId = ViewBag.CurrentId });
+        }
+    
+    </table>
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>    
+
+</div>
+
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "pageheader"});}
+}
