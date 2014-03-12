@@ -40,7 +40,6 @@ namespace RemliCMS.Controllers
                 ViewBag.DbName = mongoConfig.DbName;                
             }
 
-
             var translationService = new TranslationService();
 
             ViewBag.TranslationDefault = translationService.GetDefaultUrl();
@@ -70,6 +69,58 @@ namespace RemliCMS.Controllers
         }
 
         //
+        // GET: /Home/Page?permalink
+        public ActionResult Page(string permalink)
+        {
+            RouteValues routeValues = RouteValue;
+
+            //System debug mode
+            if (System.Configuration.ConfigurationManager.AppSettings["Mode"] == "debug")
+            {
+                var mongoConfig = new MongoDbConfig
+                {
+                    DbLocation = System.Configuration.ConfigurationManager.AppSettings["MongoDbLocation"],
+                    DbName = System.Configuration.ConfigurationManager.AppSettings["MongoDbName"]
+                };
+
+                ViewBag.Debug = true;
+                ViewBag.Translation = routeValues.Translation;
+                ViewBag.Controller = routeValues.Controller;
+                ViewBag.Action = routeValues.Action;
+                ViewBag.Permalink = routeValues.Permalink;
+                ViewBag.DbLocation = mongoConfig.DbLocation;
+                ViewBag.DbName = mongoConfig.DbName;
+            }
+
+            var pageHeaderService = new PageHeaderService();
+            var translationService = new TranslationService();
+
+            var pageHeader = pageHeaderService.Details(permalink);
+            var translation = translationService.Details(routeValues.Translation);
+
+            if (pageHeader == null)
+            {
+                return RedirectToAction("Error", "Shared", new { errorCode = 404 });
+            }
+
+            var pageTitle = pageHeaderService.ReturnPageTitle(pageHeader.Id, translation.Id);
+
+            if (pageTitle == null || pageTitle.IsActive == false)
+            {
+                return RedirectToAction("Error", "Shared", new { errorCode = 404 });
+            }
+
+            ViewBag.Title = pageTitle.Title;
+            ViewBag.TranslationId = translation.Id;
+
+            var pageIndexService = new PageIndexService();
+            var pageIndexList = pageIndexService.ListIndexs(pageHeader.Id);
+
+            return View(pageIndexList);
+        }
+
+
+        //
         // GET: /Home/RouteDebug
         [ChildActionOnly]
         public ActionResult RouteDebug()
@@ -86,6 +137,7 @@ namespace RemliCMS.Controllers
             var pageIndexObjectId = new ObjectId(pageIndexId);
             var translationObjectId = new ObjectId(translationId);
 
+            ViewBag.contentClass = pageIndexService.GetContentClass(pageIndexObjectId, translationObjectId);
             ViewBag.Content = pageIndexService.GetContentString(pageIndexObjectId, translationObjectId);
 
             return PartialView();

@@ -1,8 +1,14 @@
-﻿@model IEnumerable<RemliCMS.WebData.Entities.PageIndex>
+﻿@*/Admin/PageContent/Index*@
+
+@model IEnumerable<RemliCMS.WebData.Entities.PageIndex>
 
 <div class="row">
-    @Html.ActionLink("Edit Title","Create", "PageTitle", new {pageHeaderId = ViewBag.pageHeaderId, translationId = ViewBag.TranslationId})
+    <div class="large-12 columns">
+        @Html.ActionLink("Edit Title","Create", "PageTitle", new {pageHeaderId = ViewBag.pageHeaderId, translationId = ViewBag.TranslationId})
+    </div>
 </div>
+
+<br/>
 
 @foreach (var item in Model)
 
@@ -11,7 +17,7 @@
         Html.RenderAction("PageContent", "Home", new { pageIndexId = item.Id, translationId = ViewBag.TranslationId });
     }
     
-    <div class="row">
+    <div class="row display">
         <div class="large-4 columns">
             <p>
                 Created date: @Html.DisplayFor(modelItem => item.CreatedDate)
@@ -30,12 +36,10 @@
             </p>
         </div>
     </div>
-
-
 }
 
 <div class="row">
-    <div>
+    <div class="large-12 columns">
         @Html.ActionLink("Add New Section", "AddIndex", new {pageHeaderId = ViewBag.pageHeaderId, translationId = ViewBag.TranslationId})
     </div>
 </div>

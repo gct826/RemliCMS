@@ -20,9 +20,22 @@ namespace RemliCMS.WebData
  
         public MongoConnectionHandler()
         {
-            var mongoConfig = new MongoDbConfig
+            var dbUser = System.Configuration.ConfigurationManager.AppSettings["MongoDbUser"];
+            var dbPwd = System.Configuration.ConfigurationManager.AppSettings["MongoDbPwd"];
+            var dbLocation = System.Configuration.ConfigurationManager.AppSettings["MongoDbLocation"];
+
+            if (dbUser != "")
             {
-                DbLocation = System.Configuration.ConfigurationManager.AppSettings["MongoDbLocation"],
+                dbLocation = "mongodb://" + dbUser + ":" + dbPwd + "@" + dbLocation;
+            }
+            else
+            {
+                dbLocation = "mongodb://" + dbLocation;
+            }
+
+            var mongoConfig = new MongoDbConfig
+            {   
+                DbLocation = dbLocation,
                 DbName = System.Configuration.ConfigurationManager.AppSettings["MongoDbName"]
             };
 

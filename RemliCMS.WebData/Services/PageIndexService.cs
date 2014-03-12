@@ -27,11 +27,11 @@ namespace RemliCMS.WebData.Services
 
             var foundPageIndex = MongoConnectionHandler.MongoCollection.Find(pageHeaderQuery)
                 .SetSortOrder(SortBy<PageIndex>.Ascending(g => g.Order))
-                .Last();
+                .LastOrDefault();
 
             if (foundPageIndex == null)
             {
-                return 0;
+                return -1;
             }
 
             return foundPageIndex.Order;
@@ -125,6 +125,24 @@ namespace RemliCMS.WebData.Services
 
             return pageContent.Content;
         }
+
+        public string GetContentClass(ObjectId pageIndexObjectId, ObjectId translationObjectId)
+        {
+            var pageIndexQuery = Query<PageIndex>.EQ(g => g.Id, pageIndexObjectId);
+            var foundPageIndex = MongoConnectionHandler.MongoCollection.FindOne(pageIndexQuery);
+
+            var pageContent = foundPageIndex.PageContents.FindLast(q => q.TranslationId == translationObjectId);
+
+            if (pageContent == null)
+            {
+                return null;
+            }
+
+            string contentClass = "small-" + foundPageIndex.SmWidth + " large-" + foundPageIndex.LgWidth + " columns";
+
+            return contentClass;
+        }
+
 
         public void AddContent(ObjectId pageIndexObjectId, PageContent pageContent)
         {

@@ -148,6 +148,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DbLocation.cs" />
+    <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\TitleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routes\BaseModule.cs" />
@@ -164,6 +165,7 @@
     <Content Include="Content\foundation\foundation.mvc.css" />
     <Content Include="Content\foundation\foundation_rtl.css" />
     <Content Include="Content\foundation\normalize.css" />
+    <Content Include="Content\logo.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -294,6 +296,9 @@
     <Content Include="Views\Translation\Delete.cshtml" />
     <Content Include="Views\PageHeader\SetParent.cshtml" />
     <Content Include="Views\PageHeader\SetOrder.cshtml" />
+    <Content Include="Views\Shared\NavBar.cshtml" />
+    <Content Include="Views\Shared\TranslationSwitcher.cshtml" />
+    <Content Include="Views\Home\Page.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

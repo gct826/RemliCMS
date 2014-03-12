@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MongoDB.Bson;
+using RemliCMS.Models;
 using RemliCMS.Routes;
 using RemliCMS.WebData.Entities;
+using RemliCMS.WebData.Services;
 
 namespace RemliCMS.Controllers
 {
@@ -69,5 +72,60 @@ namespace RemliCMS.Controllers
 
             return PartialView();
         }
+
+        //
+        // GET: /Shared/NavBar
+        [ChildActionOnly]
+        public ActionResult NavBar()
+        {
+            RouteValues routeValues = RouteValue;
+
+            var menuItem = new List<MenuModel>();
+
+            //if (routeValues.Translation.ToLower() == "admin")
+            //{
+            //    ViewBag.isAdmin = true;
+
+            //    menuItem.Add(new MenuModel() { Title = "Home", Permalink = "Home", isActive = false });
+            //    return PartialView(menuItem);
+            //}
+
+            var pageHeaderService = new PageHeaderService();
+            var pageHeaders = pageHeaderService.ListAllChildren(ObjectId.Empty);
+
+            var translationService = new TranslationService();
+            var translation = translationService.Details(routeValues.Translation);
+
+            foreach (var item in pageHeaders)
+            {
+                var title = pageHeaderService.ReturnPageTitle(item.Id, translation.Id);
+
+                bool isCurrent = false || item.Permalink == routeValues.Permalink;
+
+                if (title != null)
+                {
+                    menuItem.Add(new MenuModel() { Title = title.Title, Permalink = item.Permalink, IsActive = title.IsActive, IsCurrent = isCurrent });
+                }
+
+            }
+
+            return PartialView(menuItem);
+        }
+
+        // GET: /Home/TranslationSwitcher
+        [ChildActionOnly]
+        public ActionResult TranslationSwitcher()
+        {
+            RouteValues routeValues = RouteValue;
+            var translationService = new TranslationService();
+            var translationList = translationService.ListAll();
+
+            ViewBag.currentCode = routeValues.Translation.ToLower();
+            ViewBag.Seperator = " · ";
+
+            return PartialView(translationList);
+
+        }
+
     }
 }

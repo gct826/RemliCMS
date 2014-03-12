@@ -1,0 +1,42 @@
+﻿@model IEnumerable<RemliCMS.Models.MenuModel>
+
+<div class="row">
+    <div class="nav-bar">
+        <div class="large-3 columns">
+            <a href="@Url.Action("Index","Home")"><img src="~/Content/logo.png" width="90" alt="desc" style="border:none" /></a>
+        </div>
+                        
+        <div class="large-8 columns ">
+            @{
+                Html.RenderAction("TranslationSwitcher", "Shared");   
+            }
+
+
+            <div>
+                <ul class ="button-group right">
+                    @foreach (var item in Model)
+                    {
+                        if (item.IsActive && item.IsCurrent)
+                        {
+                            <li>
+                                <a href="" class="current button no-bottom-margin">
+                                    @item.Title
+                                </a>
+                            </li>
+                        }
+                    
+                        if (item.IsActive  && !item.IsCurrent)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "Home", new {permalink = item.Permalink})" class="button no-bottom-margin">
+                                    @item.Title
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+
+        </div>
+
+    </div>
+</div>

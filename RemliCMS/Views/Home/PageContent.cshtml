@@ -1,3 +1,6 @@
 ﻿<div class="row">
-    @Html.Raw(ViewBag.Content)
+    <div class="@ViewBag.contentClass">
+        @Html.Raw(ViewBag.Content)
+    </div>
 </div>
+

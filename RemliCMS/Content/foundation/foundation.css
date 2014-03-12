@@ -117,7 +117,7 @@ select {
   margin-bottom: 0;
   max-width: 62.5rem;
   *zoom: 1; }
-  .row:before, .row:after {
+    .row:before, .row:after {
     content: " ";
     display: table; }
   .row:after {
@@ -154,6 +154,15 @@ select {
         display: table; }
       .row .row.collapse:after {
         clear: both; }
+
+    .row.display {
+        background: #eeeeee;
+        font-size: 11px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        line-height: 2rem;
+        border: solid 1px #c6c6c6;
+    }
 
 .column,
 .columns {
@@ -2157,6 +2166,7 @@ button, .button {
     margin-right: 0.625rem; }
     .button-bar .button-group div {
       overflow: hidden; }
+
 
 /* Panels */
 .panel {

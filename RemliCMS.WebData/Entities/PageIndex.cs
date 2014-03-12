@@ -26,9 +26,13 @@ namespace RemliCMS.WebData.Entities
         [DisplayName("Sort Order")]
         public int Order { get; set; }
 
-        [BsonElement("width")]
-        [DisplayName("Content Width")]
-        public int Width { get; set; }
+        [BsonElement("sm_width")]
+        [DisplayName("Small Width")]
+        public int SmWidth { get; set; }
+
+        [BsonElement("lg_width")]
+        [DisplayName("Large Width")]
+        public int LgWidth { get; set; }
 
         [BsonElement("rowbreak")]
         [DisplayName("Row Break")]

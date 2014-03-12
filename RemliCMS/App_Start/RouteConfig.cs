@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using RemliCMS.WebData.Entities;
 using RemliCMS.WebData.Services;
 
 namespace RemliCMS
@@ -18,19 +19,10 @@ namespace RemliCMS
                 var pageHeaderService = new PageHeaderService();
 
                 var permalink = values[parameterName].ToString().ToLower();
+                return pageHeaderService.IsExistPermalink(permalink);
 
-                bool foundLink;
-
-                try
-                {
-                    foundLink = pageHeaderService.IsExistPermalink(permalink);
-                }
-                catch
-                {
-                    foundLink = false;
-                }
-
-                return true;
+                //var url = values["translation"].ToString().ToLower();
+                //return pageHeaderService.IsActivePermalink(permalink, url);
             }
         }
 
@@ -47,16 +39,6 @@ namespace RemliCMS
             }
         }
 
-        //public class TranslationDefault
-        //{
-        //    public string Default()
-        //    {
-        //        var translationService = new TranslationService();
-        //        return translationService.GetDefaultUrl();
-        //    }
-        //}
-
-
         public static void RegisterRoutes(RouteCollection routes)
         {
             var translationService = new TranslationService();
@@ -70,7 +52,7 @@ namespace RemliCMS
                 defaults: new {
                     translation = translationService.GetDefaultUrl(), 
                     controller = "Home", 
-                    action = "Index",
+                    action = "Page",
                     permalink = pageHeaderService.GetDefaultPermalink()
                 }
             );
@@ -97,9 +79,10 @@ namespace RemliCMS
             routes.MapRoute(
                 name: "Default",
                 url: "{translation}/{permalink}",
-                defaults: new { translation = translationService.GetDefaultUrl(),
+                defaults: new { 
+                    translation = translationService.GetDefaultUrl(),
                     controller = "Home", 
-                    action = "Index",
+                    action = "Page",
                     permalink = pageHeaderService.GetDefaultPermalink()
                 },
                 constraints: new { translation = new TranslationConstraint(), permalink = new CmsUrlConstraint() }

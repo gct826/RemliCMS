@@ -1,0 +1,22 @@
+﻿@model IEnumerable<RemliCMS.WebData.Entities.PageIndex>
+
+@foreach (var item in Model)
+
+{
+    {
+        Html.RenderAction("PageContent", "Home", new {pageIndexId = item.Id, translationId = ViewBag.TranslationId});
+    }
+}
+
+@section head
+{
+    @{ Html.RenderAction("NavBar","Shared");}
+}
+
+@section routedebug
+{
+    @if(ViewBag.Debug == true) {
+        {Html.RenderPartial("RouteDebug");}
+    }
+    
+}

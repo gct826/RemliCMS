@@ -10,9 +10,17 @@
         
         <div class ="row">
             <div class="small-9 large-4 columns">
-                <label>@Html.LabelFor(model => model.Width)</label>   
-                @Html.EditorFor(model => model.Width)
-                @Html.ValidationMessageFor(model => model.Width)
+                <label>@Html.LabelFor(model => model.SmWidth)</label>
+                @Html.DropDownListFor(model => model.SmWidth, new SelectList(ViewBag.columnWidthDD, "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.SmWidth)
+            </div>
+        </div>
+
+        <div class ="row">
+            <div class="small-9 large-4 columns">
+                <label>@Html.LabelFor(model => model.LgWidth)</label>   
+                @Html.DropDownListFor(model => model.LgWidth, new SelectList(ViewBag.columnWidthDD, "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.LgWidth)
             </div>
         </div>
 

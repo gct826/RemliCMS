@@ -101,12 +101,6 @@ namespace RemliCMS.Controllers
         //GET: /Admin/PageContent/AddIndex?pageHeaderId&translationId
         public ActionResult AddIndex(string pageHeaderId, string translationId)
         {
-            //RouteValues routeValues = RouteValue;
-            //if (routeValues.Translation != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-
             if (pageHeaderId == null)
             {
                 return RedirectToAction("Index", "PageHeader");
@@ -125,7 +119,8 @@ namespace RemliCMS.Controllers
                 {
                     PageHeaderId = foundPageHeader.Id,
                     CreatedDate = DateTime.Now,
-                    Width = 12,
+                    SmWidth = 12,
+                    LgWidth = 12,
                     Order = lastOrderNum + 1
                 };
 
@@ -166,7 +161,10 @@ namespace RemliCMS.Controllers
             ViewBag.translation = foundTranslation.Name;
             ViewBag.indexId = foundPageIndex.Id;
             ViewBag.translationId = foundTranslation.Id;
-            ViewBag.width = foundPageIndex.Width;
+            ViewBag.smwidth = foundPageIndex.SmWidth;
+            ViewBag.lgwidth = foundPageIndex.LgWidth;
+            
+            ViewBag.contentClass = "small-" + foundPageIndex.SmWidth + " large-" + foundPageIndex.LgWidth + " columns";
 
             var foundContent = pageIndexService.GetLastContent(foundPageIndex.Id, foundTranslation.Id);
 
@@ -277,8 +275,6 @@ namespace RemliCMS.Controllers
                 return RedirectToAction("Index", "PageHeader");
             }
 
-
-
             pageIndexService.MoveOrderUp(currentPageIndex.Id);
 
             return RedirectToAction("IndexId", "PageContent", new { currentPageIndex.PageHeaderId, translationId });
@@ -310,6 +306,24 @@ namespace RemliCMS.Controllers
             ViewBag.indexId = indexId;
             ViewBag.translationId = translationId;
 
+            List<SelectListItem> columnDD = new List<SelectListItem>();
+            columnDD.Add(new SelectListItem { Value = "1", Text = "1"});
+            columnDD.Add(new SelectListItem { Value = "2", Text = "2" });
+            columnDD.Add(new SelectListItem { Value = "3", Text = "3" });
+            columnDD.Add(new SelectListItem { Value = "4", Text = "4" });
+            columnDD.Add(new SelectListItem { Value = "5", Text = "5" });
+            columnDD.Add(new SelectListItem { Value = "6", Text = "6" });
+            columnDD.Add(new SelectListItem { Value = "7", Text = "7" });
+            columnDD.Add(new SelectListItem { Value = "8", Text = "8" });
+            columnDD.Add(new SelectListItem { Value = "9", Text = "9" });
+            columnDD.Add(new SelectListItem { Value = "10", Text = "10" });
+            columnDD.Add(new SelectListItem { Value = "11", Text = "11" });
+            columnDD.Add(new SelectListItem { Value = "12", Text = "12" });
+
+            ViewBag.columnWidthDD = columnDD;
+
+
+            
             return PartialView(foundPageIndex);
         }
 
@@ -341,7 +355,8 @@ namespace RemliCMS.Controllers
             ViewBag.indexId = indexId;
             ViewBag.translationId = translationId;
 
-            foundPageIndex.Width = submitIndex.Width;
+            foundPageIndex.SmWidth = submitIndex.SmWidth;
+            foundPageIndex.LgWidth = submitIndex.LgWidth;
 
             pageIndexService.Update(foundPageIndex);
 

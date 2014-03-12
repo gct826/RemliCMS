@@ -32,6 +32,32 @@ namespace RemliCMS.WebData.Services
             return foundPageHeader != null;
         }
 
+        public bool IsActivePermalink(string permalink, string url)
+        {
+            // checks whether the page is active for the translation.
+            var pageHeaderQuery = Query<PageHeader>.EQ(g => g.Permalink, permalink.ToLower());
+            var foundPageHeader = MongoConnectionHandler.MongoCollection.FindOne(pageHeaderQuery);
+
+
+            if (foundPageHeader != null)
+            {
+                var translationService = new TranslationService();
+                var foundTranslation = translationService.Details(url);
+                var pageTitleList = foundPageHeader.PageTitles.ToList();
+                var pageHeaderTitle = pageTitleList.FindLast(pt => pt.TranslationId == foundTranslation.Id);
+
+                if (pageHeaderTitle != null)
+                {
+                    return pageHeaderTitle.IsActive;
+                }
+
+            }
+
+
+
+            return false;
+        }
+
         public List<PageHeader> ListAllChildren(ObjectId parentObjectId)
         {
             // returns a list of all Page Headers, including active and none active ones for a given parent.
@@ -178,7 +204,7 @@ namespace RemliCMS.WebData.Services
 
             if (pageHeaderList.Count == 0)
             {
-                return 0;
+                return -1;
             }
                 
             return pageHeaderList.Last().Order;

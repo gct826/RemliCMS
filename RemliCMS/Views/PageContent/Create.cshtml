@@ -9,38 +9,52 @@
         
         <div class="row">
             <div class="small-9 large-4 columns">
-                Page Name: @ViewBag.Location
+                <label>Page Name</label>
+                @ViewBag.Location
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="row">
+            <div class="small-9 large-4 columns">
+                <label>Language</label>
+                @ViewBag.translation
+               <input data-val="true" data-val-required="The Id field is required." id="TranslationId" name="TranslationId" type="hidden" value="@ViewBag.translationId" />
             </div>
         </div>
         
         <br/>
 
         <div class ="row">
-            <div class="small-9 large-4 columns">
-                Language: @ViewBag.translation
-               <input data-val="true" data-val-required="The Id field is required." id="TranslationId" name="TranslationId" type="hidden" value="@ViewBag.translationId" />
+            
+            <div class="large-12 columns">
+                <label>Width</label>
+
+                <div class="small-9 large-4 columns">
+                
+                    Content Width (Small): @ViewBag.smwidth
+                </div>
+                <div class="small-9 large-4 columns">
+                    Content Width (Large): @ViewBag.lgwidth
+                </div>
+
+                @Html.ActionLink("Edit", "SetWidth", "PageContent", new {ViewBag.indexId, ViewBag.translationId},"")
             </div>
         </div>
 
         <br/>
 
         <div class ="row">
-            <div class="small-9 large-4 columns">
-                Content Width: @ViewBag.width
-            </div>
-            @Html.ActionLink("Edit", "SetWidth", "PageContent", new {ViewBag.indexId, ViewBag.translationId},"")
-
-
-        </div>
-
-        <div class ="row">
-            <div class="small-4 large-4 columns">
+            <div class="@ViewBag.contentClass">
                 <label>@Html.LabelFor(model => model.Content)</label>   
                 @Html.TextAreaFor(model => model.Content,new { id="txtInput", @style = "resize: none; height:auto; overflow:hidden"})
                 @Html.ValidationMessageFor(model => model.Content)
             </div>
         </div>
         
+        <br/>
+
         <div class ="row">
             <div class="small-9 large-4 columns">
                 <label>@Html.LabelFor(model => model.IsActive)</label>   
