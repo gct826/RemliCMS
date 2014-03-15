@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<RemliCMS.WebData.Entities.Translation>
 
-<div class="row">
+@*<div class="row">
     <p class ="tiny right header_nav_margin">
     @ViewBag.Seperator
 
@@ -8,10 +8,23 @@
     {
         if (item.IsActive && item.Code != ViewBag.currentCode)
         {
-            @Html.ActionLink(item.Name, "Index", "Home", new {permalink = ViewContext.RouteData.Values["permalink"],language = item.Code},"") 
+            <a href="/@item.Url/@ViewBag.Permalink">@item.Name</a>
             @ViewBag.Seperator
         }
     }
     </p>
-</div>
-        
+</div>*@
+  
+<a href="#" data-dropdown="drop1" class="tiny button dropdown">@ViewBag.currentName</a>      
+<ul id="drop1" data-dropdown-content class="f-dropdown">
+    @foreach (var item in Model)
+    {
+        if (item.IsActive && item.Code != ViewBag.currentCode)
+        {
+            <li>
+                <a href="/@item.Url/@ViewBag.Permalink">@item.Name</a>
+            </li>        
+        }
+    }
+
+</ul>

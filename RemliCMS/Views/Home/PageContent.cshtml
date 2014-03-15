@@ -1,6 +1,38 @@
-﻿<div class="row">
-    <div class="@ViewBag.contentClass">
-        @Html.Raw(ViewBag.Content)
-    </div>
+﻿@if (ViewBag.RowHead)
+{
+    @:<div class="row">
+}
+
+<div class="@ViewBag.contentClass">
+    @Html.Raw(ViewBag.Content)
+
+
+    @if (ViewBag.IsAdmin)
+    {
+            
+        <br/>
+        
+        if (ViewBag.RowHead)
+         {
+             <a href="@Url.Action("UnSetRow", "PageContent", new {indexId = ViewBag.pageIndexObjectId, translationId = ViewBag.TranslationId})"><i class="fi-previous"></i></a>
+         }
+         else
+         {
+             <a href="@Url.Action("SetRow", "PageContent", new {indexId = ViewBag.pageIndexObjectId, translationId = ViewBag.TranslationId})"><i class="fi-rewind"></i></a>
+         }            
+
+        <a href="@Url.Action("MoveDown", "PageContent", new {indexId = ViewBag.pageIndexObjectId, translationId = ViewBag.TranslationId})"><i class="fi-arrow-down"></i></a>
+        <a href="@Url.Action("MoveUp", "PageContent", new {indexId = ViewBag.pageIndexObjectId, translationId = ViewBag.TranslationId})"><i class="fi-arrow-up"></i></a>
+
+        <a href="@Url.Action("Create", "PageContent", new {indexId = ViewBag.pageIndexObjectId, translationId = ViewBag.TranslationId})"><i class="fi-pencil"></i></a>        
+        
+
+    }
+    
 </div>
 
+@if (ViewBag.RowTail)
+{
+    @:</div>
+    <br />
+}

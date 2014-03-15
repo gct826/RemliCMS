@@ -1,37 +1,43 @@
-﻿@model RemliCMS.WebData.Entities.PageIndex
+﻿@*/Admin/PageContent/SetWidth*@
 
+@model RemliCMS.WebData.Entities.PageIndex
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+<div class="row">
+    <div class="large-12 columns">
 
-    <fieldset>
-        <legend>Width Edit</legend>
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>Width Edit</legend>
         
-        <div class ="row">
-            <div class="small-9 large-4 columns">
-                <label>@Html.LabelFor(model => model.SmWidth)</label>
-                @Html.DropDownListFor(model => model.SmWidth, new SelectList(ViewBag.columnWidthDD, "Value", "Text"))
-                @Html.ValidationMessageFor(model => model.SmWidth)
-            </div>
+                <div class ="row">
+                    <div class="small-9 large-4 columns">
+                        <label>@Html.LabelFor(model => model.SmWidth)</label>
+                        @Html.DropDownListFor(model => model.SmWidth, new SelectList(ViewBag.columnWidthDD, "Value", "Text"))
+                        @Html.ValidationMessageFor(model => model.SmWidth)
+                    </div>
+                </div>
+
+                <div class ="row">
+                    <div class="small-9 large-4 columns">
+                        <label>@Html.LabelFor(model => model.LgWidth)</label>   
+                        @Html.DropDownListFor(model => model.LgWidth, new SelectList(ViewBag.columnWidthDD, "Value", "Text"))
+                        @Html.ValidationMessageFor(model => model.LgWidth)
+                    </div>
+                </div>
+
+                <p>
+                    <input type="submit" value="Save" />
+                </p>
+            </fieldset>
+        }
+
+        <div>
+            @Html.ActionLink("Back", "Create", "PageContent", new {ViewBag.indexId, ViewBag.translationId},"")
         </div>
-
-        <div class ="row">
-            <div class="small-9 large-4 columns">
-                <label>@Html.LabelFor(model => model.LgWidth)</label>   
-                @Html.DropDownListFor(model => model.LgWidth, new SelectList(ViewBag.columnWidthDD, "Value", "Text"))
-                @Html.ValidationMessageFor(model => model.LgWidth)
-            </div>
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back", "Create", "PageContent", new {ViewBag.indexId, ViewBag.translationId},"")
+    </div>
 </div>
 
 @section head

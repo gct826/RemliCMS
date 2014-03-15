@@ -4,39 +4,18 @@
 
 <div class="row">
     <div class="large-12 columns">
-        @Html.ActionLink("Edit Title","Create", "PageTitle", new {pageHeaderId = ViewBag.pageHeaderId, translationId = ViewBag.TranslationId})
+        @Html.ActionLink("Edit Title","Create", "PageTitle", new {pageHeaderId = ViewBag.pageHeaderId, translationId = ViewBag.TranslationId},"")
     </div>
 </div>
 
 <br/>
-
 @foreach (var item in Model)
 
-{
     {
-        Html.RenderAction("PageContent", "Home", new { pageIndexId = item.Id, translationId = ViewBag.TranslationId });
+    Html.RenderAction("PageContent", "Home", new { pageIndexId = item.Id, translationId = ViewBag.TranslationId, isAdmin=true });
     }
-    
-    <div class="row display">
-        <div class="large-4 columns">
-            <p>
-                Created date: @Html.DisplayFor(modelItem => item.CreatedDate)
-            </p>
-        </div>
-        <div class="large-4 columns">
-            <p>
-            Order: @Html.DisplayFor(modelItem => item.Order)
-            </p>
-        </div>
-        <div class="large-4 columns">
-            <p>
-                @Html.ActionLink("Edit", "Create", new {indexId = item.Id, translationId = ViewBag.TranslationId}) |
-                @Html.ActionLink("Move Down", "MoveDown", new {indexId = item.Id, translationId = ViewBag.TranslationId}) |
-                @Html.ActionLink("Move Up", "MoveUp", new {indexId = item.Id, translationId = ViewBag.TranslationId})
-            </p>
-        </div>
-    </div>
-}
+
+<br/>
 
 <div class="row">
     <div class="large-12 columns">

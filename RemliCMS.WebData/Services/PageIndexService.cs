@@ -143,6 +143,84 @@ namespace RemliCMS.WebData.Services
             return contentClass;
         }
 
+        public bool GetRowHead(ObjectId pageIndexObjectId, ObjectId translationObjectId)
+        {
+            var pageIndexQuery = Query<PageIndex>.EQ(g => g.Id, pageIndexObjectId);
+            var foundPageIndex = MongoConnectionHandler.MongoCollection.FindOne(pageIndexQuery);
+
+            var pageContent = foundPageIndex.PageContents.FindLast(q => q.TranslationId == translationObjectId);
+
+            if (pageContent == null )
+            {
+                return false;
+            }
+            return foundPageIndex.RowBreakHead;
+        }
+        
+        public bool GetRowTail(ObjectId pageIndexObjectId, ObjectId translationObjectId)
+        {
+            var pageIndexQuery = Query<PageIndex>.EQ(g => g.Id, pageIndexObjectId);
+            var foundPageIndex = MongoConnectionHandler.MongoCollection.FindOne(pageIndexQuery);
+
+            var pageContent = foundPageIndex.PageContents.FindLast(q => q.TranslationId == translationObjectId);
+
+            if (pageContent == null)
+            {
+                return false;
+            }
+            return foundPageIndex.RowBreakTail;
+        }
+        public void SetRowBreak(ObjectId pageIndexObjectId)
+        {
+            var pageIndexQuery = Query<PageIndex>.EQ(g => g.Id, pageIndexObjectId);
+            var currentPageIndex = MongoConnectionHandler.MongoCollection.FindOne(pageIndexQuery);
+
+            currentPageIndex.RowBreakHead = true;
+
+            if (currentPageIndex.Order == 0)
+            {
+                Update(currentPageIndex);
+                return;
+            }
+
+            var prevPageIndexQuery = Query.And(
+                    Query<PageIndex>.EQ(g => g.PageHeaderId, currentPageIndex.PageHeaderId),
+                    Query<PageIndex>.EQ(g => g.Order, currentPageIndex.Order - 1)
+                    );
+
+            var prevPageIndex = MongoConnectionHandler.MongoCollection.FindOne(prevPageIndexQuery);
+
+            prevPageIndex.RowBreakTail = true;
+
+            Update(currentPageIndex);
+            Update(prevPageIndex);
+        }
+
+        public void UnSetRowBreak(ObjectId pageIndexObjectId)
+        {
+            var pageIndexQuery = Query<PageIndex>.EQ(g => g.Id, pageIndexObjectId);
+            var currentPageIndex = MongoConnectionHandler.MongoCollection.FindOne(pageIndexQuery);
+
+            currentPageIndex.RowBreakHead = false;
+
+            if (currentPageIndex.Order == 0)
+            {
+                return;
+            }
+
+            var prevPageIndexQuery = Query.And(
+                    Query<PageIndex>.EQ(g => g.PageHeaderId, currentPageIndex.PageHeaderId),
+                    Query<PageIndex>.EQ(g => g.Order, currentPageIndex.Order - 1)
+                    );
+
+            var prevPageIndex = MongoConnectionHandler.MongoCollection.FindOne(prevPageIndexQuery);
+
+            prevPageIndex.RowBreakTail = false;
+
+            Update(currentPageIndex);
+            Update(prevPageIndex);
+        }
+
 
         public void AddContent(ObjectId pageIndexObjectId, PageContent pageContent)
         {

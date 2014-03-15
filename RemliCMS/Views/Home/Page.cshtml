@@ -3,10 +3,9 @@
 @foreach (var item in Model)
 
 {
-    {
         Html.RenderAction("PageContent", "Home", new {pageIndexId = item.Id, translationId = ViewBag.TranslationId});
-    }
 }
+
 
 @section head
 {

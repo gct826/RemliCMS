@@ -130,15 +130,27 @@ namespace RemliCMS.Controllers
 
         // GET: /Home/PageContent?pageindexId&translationId
         [ChildActionOnly]
-        public ActionResult PageContent(string pageIndexId, string translationId)
+        public ActionResult PageContent(string pageIndexId, string translationId, bool isAdmin = false)
         {
             var pageIndexService = new PageIndexService();
 
             var pageIndexObjectId = new ObjectId(pageIndexId);
             var translationObjectId = new ObjectId(translationId);
-
+         
             ViewBag.contentClass = pageIndexService.GetContentClass(pageIndexObjectId, translationObjectId);
             ViewBag.Content = pageIndexService.GetContentString(pageIndexObjectId, translationObjectId);
+            ViewBag.IsAdmin = false;
+
+            ViewBag.RowHead = pageIndexService.GetRowHead(pageIndexObjectId, translationObjectId);
+            ViewBag.RowTail = pageIndexService.GetRowTail(pageIndexObjectId, translationObjectId);
+
+            if (isAdmin == true)
+            {
+                ViewBag.contentClass = ViewBag.contentClass + " edit-panel";
+                ViewBag.IsAdmin = true;
+                ViewBag.TranslationId = translationId;
+                ViewBag.pageIndexObjectId = pageIndexId;
+            }
 
             return PartialView();
         }

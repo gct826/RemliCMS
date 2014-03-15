@@ -34,9 +34,13 @@ namespace RemliCMS.WebData.Entities
         [DisplayName("Large Width")]
         public int LgWidth { get; set; }
 
-        [BsonElement("rowbreak")]
-        [DisplayName("Row Break")]
-        public bool RowBreak { get; set; }
+        [BsonElement("rowbreak_head")]
+        [DisplayName("Row Break - Head")]
+        public bool RowBreakHead { get; set; }
+
+        [BsonElement("rowbreak_tail")]
+        [DisplayName("Row Break - Tail")]
+        public bool RowBreakTail { get; set; }
 
         [BsonElement("pageContent")]
         [DisplayName("Contents")]

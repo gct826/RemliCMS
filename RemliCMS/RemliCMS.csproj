@@ -227,6 +227,7 @@
     <Content Include="Content\foundation\foundation-icons.ttf" />
     <Content Include="Content\foundation\foundation-icons.woff" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\foundation.min.js" />
     <Content Include="Scripts\foundation\foundation.abide.js" />
     <Content Include="Scripts\foundation\foundation.accordion.js" />
     <Content Include="Scripts\foundation\foundation.alert.js" />

@@ -1,15 +1,14 @@
 ﻿@model IEnumerable<RemliCMS.Models.MenuModel>
 
 <div class="row">
-    <div class="nav-bar">
+    <div class="top">
+    
         <div class="large-3 columns">
-            <a href="@Url.Action("Index","Home")"><img src="~/Content/logo.png" width="90" alt="desc" style="border:none" /></a>
+            <a href="@Url.Action("Page","Home")"><img src="~/Content/logo.png" width="90" alt="desc" style="border:none" /></a>
         </div>
                         
         <div class="large-8 columns ">
-            @{
-                Html.RenderAction("TranslationSwitcher", "Shared");   
-            }
+
 
 
             <div>
@@ -19,7 +18,7 @@
                         if (item.IsActive && item.IsCurrent)
                         {
                             <li>
-                                <a href="" class="current button no-bottom-margin">
+                                <a href="" class="current button tiny">
                                     @item.Title
                                 </a>
                             </li>
@@ -28,15 +27,21 @@
                         if (item.IsActive  && !item.IsCurrent)
                         {
                             <li>
-                                <a href="@Url.Action("Index", "Home", new {permalink = item.Permalink})" class="button no-bottom-margin">
+                                <a href="/@ViewBag.TranslationUrl/@item.Permalink" class="button tiny">
                                     @item.Title
                                 </a>
                             </li>
                         }
                     }
+                        
+                        @{
+                            Html.RenderAction("TranslationSwitcher", "Shared");   
+                        }
+
                 </ul>
 
-        </div>
+            </div>
 
+        </div>
     </div>
 </div>

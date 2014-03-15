@@ -72,12 +72,6 @@ namespace RemliCMS.Controllers
         //GET: /Admin/PageContent/IndexId?pageHeaderId&translationId
         public ActionResult IndexId(string pageHeaderId, string translationId)
         {
-            //RouteValues routeValues = RouteValue;
-            //if (routeValues.Translation != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-
             if (pageHeaderId == null || translationId == null)
             {
                 return RedirectToAction("Index", "PageHeader");
@@ -121,6 +115,8 @@ namespace RemliCMS.Controllers
                     CreatedDate = DateTime.Now,
                     SmWidth = 12,
                     LgWidth = 12,
+                    RowBreakHead = true,
+                    RowBreakTail = true,
                     Order = lastOrderNum + 1
                 };
 
@@ -136,12 +132,6 @@ namespace RemliCMS.Controllers
         public ActionResult Create(string indexId, string translationId)
         {
             ViewBag.Title = "Content Edit";
-            
-            //RouteValues routeValues = RouteValue;
-            //if (routeValues.Translation != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
 
             if (indexId == null || translationId == null)
             {
@@ -163,7 +153,8 @@ namespace RemliCMS.Controllers
             ViewBag.translationId = foundTranslation.Id;
             ViewBag.smwidth = foundPageIndex.SmWidth;
             ViewBag.lgwidth = foundPageIndex.LgWidth;
-            
+            ViewBag.permalink = foundPageHeader.Permalink;
+
             ViewBag.contentClass = "small-" + foundPageIndex.SmWidth + " large-" + foundPageIndex.LgWidth + " columns";
 
             var foundContent = pageIndexService.GetLastContent(foundPageIndex.Id, foundTranslation.Id);
@@ -204,13 +195,11 @@ namespace RemliCMS.Controllers
                 ViewBag.translation = foundTranslation.Name;
                 ViewBag.translationId = foundTranslation.Id;
 
-                //var foundContent = pageIndexService.GetContent(foundPageIndex.Id, foundTranslation.Id);
-
                 pageContent.TranslationId = foundTranslation.Id;
                 pageContent.CreatedDate = DateTime.Now;
 
                 pageIndexService.AddContent(foundPageIndex.Id, pageContent);
-                return RedirectToAction("IndexId", "PageContent", new { foundPageHeader.Id, translationId });
+                return RedirectToAction("IndexId", "PageContent", new { pageHeaderId = foundPageHeader.Id, translationId });
 
             }
             catch (Exception)
@@ -226,12 +215,6 @@ namespace RemliCMS.Controllers
         //GET: /Admin/PageContent/MoveDown?indexId&translationId
         public ActionResult MoveDown(string indexId, string translationId)
         {
-            //RouteValues routeValues = RouteValue;
-            //if (routeValues.Language != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-
             if (indexId == null || translationId == null)
             {
                 return RedirectToAction("Index", "PageHeader");
@@ -255,12 +238,6 @@ namespace RemliCMS.Controllers
         //GET: /Admin/PageContent/MoveUp?indexId&translationId
         public ActionResult MoveUp(string indexId, string translationId)
         {
-            //RouteValues routeValues = RouteValue;
-            //if (routeValues.Language != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-
             if (indexId == null || translationId == null)
             {
                 return RedirectToAction("Index", "PageHeader");
@@ -284,12 +261,6 @@ namespace RemliCMS.Controllers
         //GET: /Admin/PageContent/SetWidth?indexId
         public ActionResult SetWidth(string indexId, string translationId)
         {
-            //RouteValues routeValues = RouteValue;
-            //if (routeValues.Language != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-
             if (indexId == null || translationId == null)
             {
                 return RedirectToAction("Index", "PageHeader");
@@ -322,9 +293,7 @@ namespace RemliCMS.Controllers
 
             ViewBag.columnWidthDD = columnDD;
 
-
-            
-            return PartialView(foundPageIndex);
+            return View(foundPageIndex);
         }
 
         //
@@ -333,12 +302,6 @@ namespace RemliCMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SetWidth(string indexId, string translationId, PageIndex submitIndex)
         {
-            //RouteValues routeValues = RouteValue;
-            //if (routeValues.Language != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-
             if (indexId == null || translationId == null)
             {
                 return RedirectToAction("Index", "PageHeader");
@@ -364,6 +327,51 @@ namespace RemliCMS.Controllers
 
         }
 
+        //
+        //GET: /Admin/PageContent/SetRow?indexId&translationId
+        public ActionResult SetRow(string indexId, string translationId)
+        {
+            if (indexId == null || translationId == null)
+            {
+                return RedirectToAction("Index", "PageHeader");
+            }
+
+            var pageIndexService = new PageIndexService();
+
+            var currentPageIndex = pageIndexService.GetById(indexId);
+
+            if (currentPageIndex == null)
+            {
+                return RedirectToAction("Index", "PageHeader");
+            }
+
+            pageIndexService.SetRowBreak(currentPageIndex.Id);
+
+            return RedirectToAction("IndexId", "PageContent", new { currentPageIndex.PageHeaderId, translationId });
+        }
+
+        //
+        //GET: /Admin/PageContent/UnSetRow?indexId&translationId
+        public ActionResult UnSetRow(string indexId, string translationId)
+        {
+            if (indexId == null || translationId == null)
+            {
+                return RedirectToAction("Index", "PageHeader");
+            }
+
+            var pageIndexService = new PageIndexService();
+
+            var currentPageIndex = pageIndexService.GetById(indexId);
+
+            if (currentPageIndex == null)
+            {
+                return RedirectToAction("Index", "PageHeader");
+            }
+
+            pageIndexService.UnSetRowBreak(currentPageIndex.Id);
+
+            return RedirectToAction("IndexId", "PageContent", new { currentPageIndex.PageHeaderId, translationId });
+        }
     }
 }
 

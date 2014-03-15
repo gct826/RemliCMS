@@ -82,14 +82,6 @@ namespace RemliCMS.Controllers
 
             var menuItem = new List<MenuModel>();
 
-            //if (routeValues.Translation.ToLower() == "admin")
-            //{
-            //    ViewBag.isAdmin = true;
-
-            //    menuItem.Add(new MenuModel() { Title = "Home", Permalink = "Home", isActive = false });
-            //    return PartialView(menuItem);
-            //}
-
             var pageHeaderService = new PageHeaderService();
             var pageHeaders = pageHeaderService.ListAllChildren(ObjectId.Empty);
 
@@ -109,6 +101,8 @@ namespace RemliCMS.Controllers
 
             }
 
+            ViewBag.TranslationUrl = routeValues.Translation;
+
             return PartialView(menuItem);
         }
 
@@ -120,8 +114,12 @@ namespace RemliCMS.Controllers
             var translationService = new TranslationService();
             var translationList = translationService.ListAll();
 
+            var currentTranslation = translationList.Find(p => p.Url == routeValues.Translation.ToLower());
+
+            ViewBag.currentName = currentTranslation.Name;
             ViewBag.currentCode = routeValues.Translation.ToLower();
             ViewBag.Seperator = " · ";
+            ViewBag.Permalink = routeValues.Permalink;
 
             return PartialView(translationList);
 
