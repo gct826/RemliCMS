@@ -372,6 +372,25 @@ namespace RemliCMS.Controllers
 
             return RedirectToAction("IndexId", "PageContent", new { currentPageIndex.PageHeaderId, translationId });
         }
+
+        // GET: /Admin/PageContent/Translation
+        [ChildActionOnly]
+        public ActionResult Translation(string pageHeaderId, string translationId)
+        {
+            var translationService = new TranslationService();
+            var translationList = translationService.ListAll();
+
+            var currentTranslation = translationService.GetById(translationId);
+
+            ViewBag.currentName = currentTranslation.Name;
+            ViewBag.currentCode = currentTranslation.Code;
+            ViewBag.Seperator = " · ";
+            ViewBag.PageHeaderId = pageHeaderId;
+
+            return PartialView(translationList);
+
+        }
+
     }
 }
 

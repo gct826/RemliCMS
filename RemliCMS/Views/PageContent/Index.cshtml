@@ -3,27 +3,32 @@
 @model IEnumerable<RemliCMS.WebData.Entities.PageIndex>
 
 <div class="row">
+    <div class="large-12 columns right">
+        @{ Html.RenderAction("Translation", "PageContent", new {pageHeaderId = ViewBag.pageHeaderId, translationId = ViewBag.TranslationId}); }
+    </div>
+</div>
+
+<div class="row">
     <div class="large-12 columns">
-        @Html.ActionLink("Edit Title","Create", "PageTitle", new {pageHeaderId = ViewBag.pageHeaderId, translationId = ViewBag.TranslationId},"")
+        @Html.ActionLink("Edit Title", "Create", "PageTitle", new { pageHeaderId = ViewBag.pageHeaderId, translationId = ViewBag.TranslationId }, "")
     </div>
 </div>
 
 <br/>
 @foreach (var item in Model)
-
-    {
-    Html.RenderAction("PageContent", "Home", new { pageIndexId = item.Id, translationId = ViewBag.TranslationId, isAdmin=true });
-    }
+{
+    Html.RenderAction("PageContent", "Home", new { pageIndexId = item.Id, translationId = ViewBag.TranslationId, isAdmin = true });
+}
 
 <br/>
 
 <div class="row">
     <div class="large-12 columns">
-        @Html.ActionLink("Add New Section", "AddIndex", new {pageHeaderId = ViewBag.pageHeaderId, translationId = ViewBag.TranslationId})
+        @Html.ActionLink("Add New Section", "AddIndex", new { pageHeaderId = ViewBag.pageHeaderId, translationId = ViewBag.TranslationId })
     </div>
 </div>
 
 @section head
 {
-    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "pageheader"});}
+    @{ Html.RenderAction("AdminHeader", "Shared", new { currentItem = "pageheader" });}
 }

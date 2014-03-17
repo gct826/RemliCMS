@@ -101,6 +101,15 @@ namespace RemliCMS.Controllers
 
             }
 
+            if (System.Configuration.ConfigurationManager.AppSettings["TranslationSwitcher"] == "on")
+            {
+                ViewBag.TranslationSwitcher = "on";
+            }
+            else
+            {
+                ViewBag.TranslationSwitcher = "off";
+            }
+
             ViewBag.TranslationUrl = routeValues.Translation;
 
             return PartialView(menuItem);

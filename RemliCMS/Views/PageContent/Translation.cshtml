@@ -1,0 +1,22 @@
+﻿@*/Admin/PageContent/Translation*@
+
+@model IEnumerable<RemliCMS.WebData.Entities.Translation>
+ 
+<dl class="sub-nav">
+    <dt>Translation:</dt>
+    @foreach (var item in Model)
+    {
+        if (item.IsActive && item.Code != ViewBag.currentCode)
+        {
+            <dd>
+            @Html.ActionLink(item.Name, "IndexId", "PageContent", new { pageHeaderId = ViewBag.PageHeaderId, translationId = item.Id }, "")
+            </dd>        
+        }
+        else
+        {
+            <dd class="active">
+            @Html.ActionLink(item.Name, "IndexId", "PageContent", new { pageHeaderId = ViewBag.PageHeaderId, translationId = item.Id }, "")
+            </dd>
+        }
+    }
+</dl>

@@ -19,6 +19,7 @@ namespace RemliCMS
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/foundation").Include(
+                        "~/Scripts/foundation/foundation.js",
                         "~/Scripts/foundation/foundation*"));
 
             bundles.Add(new ScriptBundle("~/bundles/foundation-min").Include(

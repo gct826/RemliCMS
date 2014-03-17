@@ -300,6 +300,7 @@
     <Content Include="Views\Shared\NavBar.cshtml" />
     <Content Include="Views\Shared\TranslationSwitcher.cshtml" />
     <Content Include="Views\Home\Page.cshtml" />
+    <Content Include="Views\PageContent\Translation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

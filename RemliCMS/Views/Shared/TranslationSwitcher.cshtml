@@ -1,19 +1,4 @@
 ﻿@model IEnumerable<RemliCMS.WebData.Entities.Translation>
-
-@*<div class="row">
-    <p class ="tiny right header_nav_margin">
-    @ViewBag.Seperator
-
-    @foreach (var item in Model)
-    {
-        if (item.IsActive && item.Code != ViewBag.currentCode)
-        {
-            <a href="/@item.Url/@ViewBag.Permalink">@item.Name</a>
-            @ViewBag.Seperator
-        }
-    }
-    </p>
-</div>*@
   
 <a href="#" data-dropdown="drop1" class="tiny button dropdown">@ViewBag.currentName</a>      
 <ul id="drop1" data-dropdown-content class="f-dropdown">

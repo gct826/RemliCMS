@@ -10,4 +10,3 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\Sy
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\bin\Debug\System.Net.Http.Formatting.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\obj\Debug\RemliCMS.WebData.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\obj\Debug\RemliCMS.WebData.pdb
-C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.WebData\obj\Debug\RemliCMS.WebData.csprojResolveAssemblyReference.cache

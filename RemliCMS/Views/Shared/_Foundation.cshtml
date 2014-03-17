@@ -5,7 +5,7 @@
         @ViewBag.Test
 
         @*Set the viewport width to device width for mobile *@
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="viewport" content="width=device-width" />
 
         <title>@ViewBag.Title - Welcome to Foundation</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -49,9 +49,8 @@
 
         @RenderSection("routedebug", required:false)
             
-        @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/foundation-min")
+        @Scripts.Render("~/bundles/foundation")
         <script>
             $(document).foundation();
         </script>

@@ -33,10 +33,12 @@
                             </li>
                         }
                     }
-                        
-                        @{
-                            Html.RenderAction("TranslationSwitcher", "Shared");   
+                    
+                    @if (@ViewBag.TranslationSwitcher == "on")    
+                        {
+                        Html.RenderAction("TranslationSwitcher", "Shared");   
                         }
+
 
                 </ul>
 
