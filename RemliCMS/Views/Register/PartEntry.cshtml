@@ -1,0 +1,306 @@
+﻿@*/translation/Register/PartEntry*@
+
+@model RemliCMS.RegSystem.Entities.Participant
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script> 
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<div class="row">
+    <div class="large-12 columns">
+
+        @if (ViewBag.Found)
+        {
+            //Html.RenderAction("Summary", "Register", new { Id = ViewBag.RegistrationID });
+
+
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <legend>Participant</legend>
+
+
+                <div class="row">
+                    <div class="large-4 medium-6 small-12 columns">
+                        @if (ViewBag.isPage2)
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.FirstName)
+
+                                @Html.TextBoxFor(model => model.FirstName, new { disabled = "disabled", @readonly = "readonly" })
+                                @Html.HiddenFor(model => model.FirstName)
+                            </label>
+                        }
+                        else
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.FirstName)
+
+                                @Html.ValidationMessageFor(model => model.FirstName)
+                                @Html.EditorFor(model => model.FirstName)
+                            </label>
+                        }
+                    </div>
+                    <div class="large-4 medium-6 small-12 columns">
+                        @if (ViewBag.isPage2)
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.LastName)
+                                @Html.TextBoxFor(model => model.LastName, new { disabled = "disabled", @readonly = "readonly" })
+                                @Html.HiddenFor(model => model.LastName)
+                            </label>
+                        }
+                        else
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.LastName)
+                                @Html.ValidationMessageFor(model => model.LastName)
+                                @Html.EditorFor(model => model.LastName)
+                            </label>
+                        }
+                    </div>
+                    <div class="large-4 medium-6 small-12 columns">
+                        @if (ViewBag.isPage2)
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.ChineseName)
+                                @Html.TextBoxFor(model => model.ChineseName, new { disabled = "disabled", @readonly = "readonly" })
+                                @Html.HiddenFor(model => model.ChineseName)
+                            </label>
+                        }
+                        else
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.ChineseName)
+                                @Html.ValidationMessageFor(model => model.ChineseName)
+                                @Html.EditorFor(model => model.ChineseName)
+                            </label>
+                        }
+                    </div>
+
+
+                    <div class="large-4 medium-6 small-12 columns">
+                        @if (ViewBag.isPage2)
+                        {
+                            <div class="editor-label readonly">
+                                @Html.LabelFor(model => model.GenderId)
+                            </div>
+                                            
+                            <div class="editor-field readonly">
+                                @Html.HiddenFor(model => model.GenderId)
+                            </div>                                            
+                        }
+                        else
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.GenderId)
+                                @Html.ValidationMessageFor(model => model.GenderId)
+                                @foreach (SelectListItem item in @ViewBag.GenderId)
+                                {
+                                    @Html.RadioButtonFor(model => model.GenderId, item.Value)
+                                    @:&nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
+                                    <br/>
+                                }
+                            </label>    
+
+                        }                                                                             
+                    </div> 
+                    <div class="large-4 medium-6 small-12 columns">
+                        @if (ViewBag.isPage2)
+                        {
+                            <div class="editor-label readonly">
+                                @Html.LabelFor(model => model.AgeRangeId)
+                            </div>
+                            <div class="editor-field readonly">
+                                @Html.HiddenFor(model => model.AgeRangeId)
+                            </div>                                        
+                        }
+                        else
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.AgeRangeId)
+                                @Html.ValidationMessageFor(model => model.AgeRangeId)    
+                                @foreach (SelectListItem item in @ViewBag.AgeRangeId)
+                                {
+                                    @Html.RadioButtonFor(model => model.AgeRangeId, item.Value)
+                                    @:&nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
+                                    <br/>
+                                }
+                            </label>
+                        }                                                                             
+                    </div> 
+                    <div class="large-4 medium-6 small-12 columns">
+                        @if (ViewBag.isPage2)
+                        {
+                            <div class="editor-label readonly">
+                                @Html.LabelFor(model => model.SessionId)
+                            </div>
+                            <div class="editor-field readonly">
+                                @Html.HiddenFor(model => model.SessionId)
+                            </div>                                     
+                        }
+                        else
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.SessionId)
+                                @Html.ValidationMessageFor(model => model.SessionId)                                            
+                                @foreach (SelectListItem item in @ViewBag.SessionId)
+                                {
+                                    @Html.RadioButtonFor(model => model.SessionId, item.Value)
+                                    @:&nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
+                                    <br/>
+                                }
+                            </label>
+                        }                                                                             
+                    </div> 
+                    <div class="large-4 medium-6 small-12 columns">
+                        @if (ViewBag.isPage2)
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.RoomTypeId)
+                            </label>
+                            <div class="editor-field">                                             
+                                @Html.ValidationMessageFor(model => model.RoomTypeId)
+                            </div>
+                        }
+                        else
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.RoomTypeId)
+                                @Html.ValidationMessageFor(model => model.RoomTypeId)
+                                @foreach (SelectListItem item in @ViewBag.RoomTypeId)
+                                {
+                                    @Html.RadioButtonFor(model => model.RoomTypeId, item.Value)
+                                    @:&nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
+                                    <br />
+                                }
+                            </label>
+                        }
+                    </div>
+                    <div class="large-4 medium-6 small-12 columns">
+                        @if (ViewBag.isPage2)
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.RoomNote)
+                                @Html.TextBoxFor(model => model.RoomNote, new { disabled = "disabled", @readonly = "readonly" })
+                                @Html.HiddenFor(model => model.RoomNote)
+                            </label>
+                        }
+                        else
+                        {
+                            <label>
+                                @Html.LabelFor(model => model.RoomNote)
+                                @Html.ValidationMessageFor(model => model.RoomNote)
+                                @Html.EditorFor(model => model.RoomNote)
+                            </label>
+                        }
+                    </div> 
+                    <div class="large-4 medium-6 small-12 columns">
+                        
+                        <input class="button expand" type="submit" title="Save" value="Save"/>   
+
+                    </div>@*
+                        <div class="3u">
+                            <table>
+                                <tr class="radioselect">
+                                    <td>
+                                        @if (ViewBag.isPage2)
+                                        {
+                                            <div class="editor-label readonly">
+                                                @Html.LabelFor(model => model.PartPrice)
+                                            </div>
+                                            <div class="editor-label large">
+                                                @String.Format("{0:C}", @ViewBag.PartPrice)
+                                            </div>                                  
+                                        }
+                                        else
+                                        {
+                                        }                                                                             
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="3u">
+                            <table>
+                                <tr class="radioselect">
+                                    <td>
+                                        @if (ViewBag.isPage2)
+                                        {
+                                            if (ViewContext.RouteData.Values["language"].ToString() == "en")
+                                            {    
+                                                <input type="button" title="Back" value="Back" onclick="location.href='@Url.Action("Modify", new {RegUID = ViewBag.RegUID, isPage2=false, id = ViewBag.ParticipantID })    '" />
+                                                <input type="submit" title="Next" value="Next" name="roomnote"/>   
+                                            }
+
+                                            if (ViewContext.RouteData.Values["language"].ToString() == "ch")
+                                            {    
+                                                <input type="button" title="向后" value="向后" onclick="location.href='@Url.Action("Modify", new { RegUID = ViewBag.RegUID, isPage2 = false, id = ViewBag.ParticipantID })    '" />
+                                                <input type="submit" title="下页" value="下页" name="roomnote"/>    
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (ViewContext.RouteData.Values["language"].ToString() == "en")
+                                            {                                              
+                                                <input type="submit" title="Next" value="Next" name="roomnote" />  
+                                                <input type="button" title="Cancel" value="Cancel" onclick="location.href='@Url.Action("Modify", "Register", new { RegUID = ViewBag.RegUID })    '" />
+                                            }
+
+                                            if (ViewContext.RouteData.Values["language"].ToString() == "ch")
+                                            {                                              
+                                                <input type="submit" title="下页" value="下页" name="roomnote" />  
+                                                <input type="button" title="取消" value="取消" onclick="location.href='@Url.Action("Modify", "Register", new { RegUID = ViewBag.RegUID })    '" />
+                                            }
+
+                                        }                                                                       
+                                    </td>
+                                </tr>
+                            </table>
+                        </div> *@
+                </div>      
+
+
+            </fieldset>
+
+    
+        }   
+        
+    </div>
+</div>
+
+@section head
+{
+    @{ Html.RenderAction("NavBar", "Shared");}
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+<script>
+    function setupLabel() {
+        if ($('.label_check input').length) {
+            $('.label_check').each(function(){ 
+                $(this).removeClass('c_on');
+            });
+            $('.label_check input:checked').each(function(){ 
+                $(this).parent('label').addClass('c_on');
+            });                
+        };
+        if ($('.label_radio input').length) {
+            $('.label_radio').each(function(){ 
+                $(this).removeClass('r_on');
+            });
+            $('.label_radio input:checked').each(function(){ 
+                $(this).parent('label').addClass('r_on');
+            });
+        };
+    };
+    $(document).ready(function(){
+        $('body').addClass('has-js');
+        $('.label_check, .label_radio').click(function(){
+            setupLabel();
+        });
+        setupLabel(); 
+    });
+</script>
+
+    }

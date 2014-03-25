@@ -115,7 +115,7 @@ namespace RemliCMS.Controllers
             return PartialView(menuItem);
         }
 
-        // GET: /Home/TranslationSwitcher
+        // GET: /Shared/TranslationSwitcher
         [ChildActionOnly]
         public ActionResult TranslationSwitcher()
         {
@@ -131,8 +131,8 @@ namespace RemliCMS.Controllers
             ViewBag.Permalink = routeValues.Permalink;
 
             return PartialView(translationList);
-
         }
+        
 
     }
 }

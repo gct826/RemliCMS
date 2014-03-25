@@ -142,13 +142,17 @@
     <Compile Include="Controllers\PageContentController.cs" />
     <Compile Include="Controllers\PageHeaderController.cs" />
     <Compile Include="Controllers\PageTitleController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\RegFieldController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\TranslationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DbLocation.cs" />
+    <Compile Include="Helpers\MultiButtonAttribute.cs" />
     <Compile Include="Models\MenuModel.cs" />
+    <Compile Include="Models\RegTranslationModel.cs" />
     <Compile Include="Models\TitleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routes\BaseModule.cs" />
@@ -159,6 +163,7 @@
     <Compile Include="Routes\RouteValues.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
     <Content Include="Content\foundation\foundation-icons.css" />
     <Content Include="Content\foundation\foundation-icons.svg" />
     <Content Include="Content\foundation\foundation.css" />
@@ -301,6 +306,14 @@
     <Content Include="Views\Shared\TranslationSwitcher.cshtml" />
     <Content Include="Views\Home\Page.cshtml" />
     <Content Include="Views\PageContent\Translation.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Register\PartEntry.cshtml" />
+    <Content Include="Views\RegField\Index.cshtml" />
+    <Content Include="Views\RegField\IndexHelper.cshtml" />
+    <Content Include="Views\RegField\Create.cshtml" />
+    <Content Include="Views\RegField\AddText.cshtml" />
+    <Content Include="Views\RegField\TranslationText.cshtml" />
+    <Content Include="Views\RegField\TranslationHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -309,6 +322,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RemliCMS.RegSystem\RemliCMS.RegSystem.csproj">
+      <Project>{a84e38b7-5b87-4942-9cdb-6bf9dd0115bf}</Project>
+      <Name>RemliCMS.RegSystem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RemliCMS.WebData\RemliCMS.WebData.csproj">
       <Project>{9908bd79-fb47-4dfc-8c16-a88989517277}</Project>
       <Name>RemliCMS.WebData</Name>

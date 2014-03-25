@@ -1,0 +1,25 @@
+﻿@*/Admin/RegField/TranslationHelper*@
+
+@model IEnumerable<RemliCMS.Models.RegTranslationModel>
+
+@if (ViewBag.headerView)
+{
+    foreach (var item in Model)
+    {
+        <th>
+            @item.text
+        </th>
+    }
+    <th></th>
+}
+else
+{
+    foreach (var item in Model)
+    {
+        <td>
+            @item.text
+        </td>
+    }
+
+}
+

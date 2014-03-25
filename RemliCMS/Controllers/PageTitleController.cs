@@ -20,13 +20,6 @@ namespace RemliCMS.Controllers
         [ChildActionOnly]
         public ActionResult Index(string pageHeaderId = null)
         {
-            //RouteValues routeValues = RouteValue;
-            //if (routeValues.Translation != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-            
-
             var translationService = new TranslationService();
             var translationList = translationService.ListAll();
 

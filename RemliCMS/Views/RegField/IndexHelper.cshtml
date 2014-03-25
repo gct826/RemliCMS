@@ -1,0 +1,27 @@
+﻿@*/Admin/RegField/IndexHelper*@
+
+@model IEnumerable<RemliCMS.RegSystem.Entities.RegValue>
+
+<table>
+    <tr>
+        <th>
+            Value
+        </th>    
+        @{ Html.RenderAction("TranslationHelper", "RegField"); }
+        <th></th>
+    </tr>
+    
+        @foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Value</td>
+     
+        @{ Html.RenderAction("TranslationHelper", "RegField", new {regFieldId = ViewBag.regFieldId, value = item.Value}); }
+        <td>
+            <a href="@Url.Action("AddText", "RegField", new {ViewBag.regFieldId, item.Value})"><i class="fi-pencil"></i></a>
+        </td>   
+    </tr>
+            
+}
+</table>
+

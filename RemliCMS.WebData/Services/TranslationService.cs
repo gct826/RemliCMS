@@ -67,8 +67,26 @@ namespace RemliCMS.WebData.Services
             var translationQuery = Query<Translation>.EQ(g => g.Id, translationObjectId);
             var foundTranslation = MongoConnectionHandler.MongoCollection.FindOne(translationQuery);
 
+            if (foundTranslation == null)
+            {
+                return "";
+            }
+
             return foundTranslation.Name;
         }
 
+        public ObjectId GetTranslationObjectId(string submitUrl)
+        {
+            // returns Translation ObjectId based on Code. 
+            var translationQuery = Query<Translation>.EQ(g => g.Url, submitUrl.ToLower());
+            var translation = MongoConnectionHandler.MongoCollection.FindOne(translationQuery);
+
+            if (translation == null)
+            {
+                return ObjectId.Empty;
+            }
+
+            return translation.Id;
+        } 
     }
 }

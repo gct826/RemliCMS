@@ -1,0 +1,51 @@
+﻿@*admin/RegField/Index*@
+
+@model IEnumerable<RemliCMS.RegSystem.Entities.RegField>
+
+<div class="row">
+    <div class="large-12 columns">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        
+        <table>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Key)
+                </th>
+                <th>
+                    Values
+                </th>
+                <th></th>                
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Key)
+                    </td>
+                    <td>
+                        @{ Html.RenderAction("IndexHelper","RegField", new {regFieldId = item.Id});}
+                    </td>
+                    <td>
+                        @Html.ActionLink("add value","AddValue", new {regFieldId = item.Id})
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "translation"});}
+}
+

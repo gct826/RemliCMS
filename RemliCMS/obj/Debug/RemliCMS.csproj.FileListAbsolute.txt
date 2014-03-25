@@ -38,3 +38,5 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.WebPa
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.csprojResolveAssemblyReference.cache
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.pdb
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\RemliCMS.RegSystem.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\RemliCMS.RegSystem.pdb

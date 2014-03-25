@@ -31,8 +31,15 @@ namespace RemliCMS
             public bool Match(HttpContextBase httpContext, Route route, string parameterName,
                               RouteValueDictionary values, RouteDirection routeDirection)
             {
+                
                 var translationService = new TranslationService();
                 var url = values[parameterName].ToString().ToLower();
+                
+                if (url == "admin")
+                {
+                    return true;
+                }
+
                 var foundTranslation = translationService.IsActiveUrl(url);
 
                 return foundTranslation;
@@ -65,19 +72,44 @@ namespace RemliCMS
 
 
             routes.MapRoute(
+                name: "AdminIndex",
+                url: "admin",
+                defaults: new { translation = "admin", controller = "Admin", action = "Index" }
+            );
+
+
+            routes.MapRoute(
                 name: "Error",
                 url: "error/{errorCode}",
                 defaults: new { controller = "Shared", action = "Error", errorCode = UrlParameter.Optional }
             );
 
             routes.MapRoute(
-                name: "Admin",
-                url: "admin/{controller}/{action}/{id}",
-                defaults: new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
+                name: "Default",
+                url: "{translation}/{controller}/{action}/{id}",
+                defaults: new { translation = translationService.GetDefaultUrl(), controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+
+
+            //routes.MapRoute(
+            //    name: "Admin",
+            //    url: "admin/{controller}/{action}/{id}",
+            //    defaults: new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
+            //);
+
+            routes.MapRoute(
+                name: "Registration",
+                url: "{translation}/register/{action}/{id}",
+                defaults: new {
+                        translation = translationService.GetDefaultUrl(),
+                        controller = "Register", 
+                        action = "Index", 
+                        id = UrlParameter.Optional
+                    }
             );
 
             routes.MapRoute(
-                name: "Default",
+                name: "Permalink",
                 url: "{translation}/{permalink}",
                 defaults: new { 
                     translation = translationService.GetDefaultUrl(),

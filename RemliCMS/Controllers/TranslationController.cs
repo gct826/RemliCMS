@@ -66,6 +66,7 @@ namespace RemliCMS.Controllers
             }
             catch
             {
+                ViewBag.Message = "Translation Save Error";
                 return View(submitTranslation); 
             }
             return View(submitTranslation); 

@@ -1,0 +1,83 @@
+﻿@*/translation/Register/Index*@
+
+@model RemliCMS.RegSystem.Entities.Registration
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script> 
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<div class="row">
+	<div class="large-4 columns">
+		@if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+		{
+		    <h2>Register</h2>
+		}
+		@if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+		{
+		    <h2>注册</h2>
+		}                    
+                    
+		<div class="message">
+		    @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+		    {
+		        @ViewBag.MessageEn
+		    }
+		    @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+		    {
+		        @ViewBag.MessageCh
+		    }
+		</div>    
+	</div>
+</div>
+                            
+@if (ViewBag.RegIsAllowed)
+{
+
+	<div class="row">
+		<div class="large-4 columns">
+            
+		    @using (Html.BeginForm())
+		    {
+		        @Html.EditorForModel()
+
+		        <br />
+		        if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+		        {
+		            <input class="button" type="submit" title="Create New Registration" value="Create New Registration" name="action" />
+		            <input class="button" type="submit" title="Open Registration" value="Open Registration" name="action" />
+		        }
+		        if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+		        {
+		            <input class="button" type="submit" title="" value="创建新注册" name="action" />
+		            <input class="button" type="submit" title="" value="修改注册" name="action" />
+		        }
+		    }
+		</div>
+                
+		<div class="large-8 columns">
+		    <h2> </h2>
+		    <br />
+		    @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+		    {
+		        <p>
+                    Enter an e-mail address and phone number to start the registration. Please remember the e-mail address and phone number you
+		            use as this will allow you the ability to view the registration at a later date as necessary.
+		        </p>
+		        <input type="button" value ="Back to Home" onclick=" location.href = '@Url.Action("Index", "Home")    ' " />
+		    }
+
+		    @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+		    {
+		        <p>
+		            输入电子邮件地址和电话号码开始注册。请记住e-mail地址和电话号码，因为这将让你能够查看和修改登记在以后的日子必要的。
+		        </p>
+		        <input type="button" value ="返回主页" onclick=" location.href = '@Url.Action("Index", "Home")    ' " />
+		    }
+                
+		</div>
+	</div>
+}
+
+@section head
+{
+    @{ Html.RenderAction("NavBar","Shared");}
+}

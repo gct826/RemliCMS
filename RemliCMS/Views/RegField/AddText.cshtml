@@ -1,0 +1,75 @@
+﻿@*Admin/RegField/AddText*@
+
+@model IEnumerable<RemliCMS.RegSystem.Entities.RegText>
+
+<div class="row">
+    <div class="large-12 columns">
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>PageTitle Create</legend>
+        
+                <div class="row">
+                    <div class="small-9 large-4 columns">
+                        <label>Reg Field</label>
+                        @ViewBag.regField
+                    </div>
+                </div>
+        
+                <br/>
+
+                <div class ="row">
+                    <div class="small-9 large-4 columns">
+                        <label>Value</label>   
+                        @ViewBag.value
+                    </div>
+                </div>
+
+                <br/>
+        
+                @foreach(var item in Model)
+                {
+                <div class ="row">
+                    <div class="small-4 large-4 columns">
+                        @{ Html.RenderAction("TranslationText", "RegField", new {translationId = item.TranslationId.ToString()}); } 
+                        
+                    </div>
+        
+
+                    <div class="small-4 large-4 columns left">
+                        <label>@Html.LabelFor(modelItem => item.Text)</label>         
+                        @Html.TextBoxFor(modelItem => item.Text, new {Name = item.TranslationId})
+                    </div>
+                </div>
+
+
+                }
+                <p>
+                    <input type="submit" value="Save" />
+                </p>
+            </fieldset>
+        }
+
+        <div>
+            @Html.ActionLink("Back", "Index", "PageHeader")
+        </div>
+    </div>
+</div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "pageheader"});}
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('form').submit(function () {
+            $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+        });
+    </script>
+}
+
