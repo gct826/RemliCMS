@@ -85,6 +85,19 @@ namespace RemliCMS
             );
 
             routes.MapRoute(
+                name: "Permalink",
+                url: "{translation}/{permalink}",
+                defaults: new
+                {
+                    translation = translationService.GetDefaultUrl(),
+                    controller = "Home",
+                    action = "Page",
+                    permalink = pageHeaderService.GetDefaultPermalink()
+                },
+                constraints: new { translation = new TranslationConstraint(), permalink = new CmsUrlConstraint() }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{translation}/{controller}/{action}/{id}",
                 defaults: new { translation = translationService.GetDefaultUrl(), controller = "Home", action = "Index", id = UrlParameter.Optional }
@@ -108,17 +121,7 @@ namespace RemliCMS
                     }
             );
 
-            routes.MapRoute(
-                name: "Permalink",
-                url: "{translation}/{permalink}",
-                defaults: new { 
-                    translation = translationService.GetDefaultUrl(),
-                    controller = "Home", 
-                    action = "Page",
-                    permalink = pageHeaderService.GetDefaultPermalink()
-                },
-                constraints: new { translation = new TranslationConstraint(), permalink = new CmsUrlConstraint() }
-            );
+
             
             //routes.MapRoute(
             //    name: "Default",
