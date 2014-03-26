@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -88,9 +89,15 @@ namespace RemliCMS.RegSystem.Services
             {
                 var addValueText = new ValueText();
                 addValueText.Value = value.Value;
-                addValueText.Text = value.Translation.Find(g => g.TranslationId == translationObjectId).Text;
-                
-                returnValueTextList.Add(addValueText);
+                try
+                {
+                    addValueText.Text = value.Translation.FindLast(g => g.TranslationId == translationObjectId).Text;
+                    returnValueTextList.Add(addValueText);
+                }
+                catch
+                {
+                    //Ignores any value with no associated text
+                }
             }
             
             return returnValueTextList;

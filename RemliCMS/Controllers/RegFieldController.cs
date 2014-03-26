@@ -78,7 +78,14 @@ namespace RemliCMS.Controllers
             {
                 var translationText = new RegTranslationModel();
                 translationText.translationId = translation.Id.ToString();
-                translationText.text = textList.FindLast(pt => pt.TranslationId == translation.Id).Text;
+                try
+                {
+                    translationText.text = textList.FindLast(pt => pt.TranslationId == translation.Id).Text;
+                }
+                catch
+                {
+                    translationText.text = "";
+                }
                 valueList.Add(translationText);
             }
 
