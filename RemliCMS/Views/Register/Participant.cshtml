@@ -1,19 +1,15 @@
-﻿@*/translation/Register/PartEntry*@
+﻿@*/translation/Register/Participant*@
 
 @model RemliCMS.RegSystem.Entities.Participant
 
-@*
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script> 
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-*@
+@Html.Action("Summary", "Register", new { RegId = ViewBag.RegID });
 
 <div class="row">
     <div class="large-12 columns">
+      @using (Html.BeginForm())
+      {
+        @Html.AntiForgeryToken()
 
-            @*Html.RenderAction("Summary", "Register", new { Id = ViewBag.RegistrationID });*@
-
-@using (Html.BeginForm())
-{
         <div class="row">
             
             <input data-val="true" data-val-required="The Id field is required." id="RegId" name="RegId" type="hidden" value="@ViewBag.RegId" />
@@ -46,49 +42,53 @@
                 <label>
                     @Html.LabelFor(model => model.GenderId)
                     @Html.ValidationMessageFor(model => model.GenderId)
-                    @foreach (SelectListItem item in @ViewBag.GenderId)
-                    {
+                </label>
+                @foreach (SelectListItem item in @ViewBag.GenderId)
+                {
+                    <label>
                         @Html.RadioButtonFor(model => model.GenderId, item.Value)
-                        @:&nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
-                        <br/>
-                    }
-                </label>    
+                        &nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
+                    </label>
+                }
             </div> 
             <div class="large-4 medium-6 small-12 columns">
                 <label>
                     @Html.LabelFor(model => model.AgeRangeId)
                     @Html.ValidationMessageFor(model => model.AgeRangeId)    
-                    @foreach (SelectListItem item in @ViewBag.AgeRangeId)
-                    {
-                        @Html.RadioButtonFor(model => model.AgeRangeId, item.Value)
-                        @:&nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
-                        <br/>
-                    }
                 </label>
+                @foreach (SelectListItem item in @ViewBag.AgeRangeId)
+                {
+                    <label>
+                        @Html.RadioButtonFor(model => model.AgeRangeId, item.Value)
+                        &nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
+                    </label>
+                }
             </div> 
             <div class="large-4 medium-6 small-12 columns">
                 <label>
                     @Html.LabelFor(model => model.SessionId)
-                    @Html.ValidationMessageFor(model => model.SessionId)                                            
-                    @foreach (SelectListItem item in @ViewBag.SessionId)
-                    {
+                    @Html.ValidationMessageFor(model => model.SessionId)       
+                </label>                                  
+                @foreach (SelectListItem item in @ViewBag.SessionId)
+                {
+                    <label>
                         @Html.RadioButtonFor(model => model.SessionId, item.Value)
-                        @:&nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
-                        <br/>
-                    }
-                </label>
+                        &nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
+                    </label>
+                }
             </div> 
             <div class="large-4 medium-6 small-12 columns">
                 <label>
                     @Html.LabelFor(model => model.RoomTypeId)
                     @Html.ValidationMessageFor(model => model.RoomTypeId)
-                    @foreach (SelectListItem item in @ViewBag.RoomTypeId)
-                    {
-                        @Html.RadioButtonFor(model => model.RoomTypeId, item.Value)
-                        @:&nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
-                        <br />
-                    }
                 </label>
+                @foreach (SelectListItem item in @ViewBag.RoomTypeId)
+                {
+                    <label>
+                        @Html.RadioButtonFor(model => model.RoomTypeId, item.Value)
+                        &nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
+                    </label>
+                }
             </div>
             <div class="large-4 medium-6 small-12 columns">
                 <label>
@@ -103,7 +103,7 @@
 
             </div>
         </div>      
-}
+      }
 
         
         

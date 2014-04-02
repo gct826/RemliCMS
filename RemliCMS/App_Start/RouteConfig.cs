@@ -116,7 +116,7 @@ namespace RemliCMS
                 defaults: new {
                         translation = translationService.GetDefaultUrl(),
                         controller = "Register", 
-                        action = "Index", 
+                        action = "Index",
                         id = UrlParameter.Optional
                     }
             );

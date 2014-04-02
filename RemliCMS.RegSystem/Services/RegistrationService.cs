@@ -53,5 +53,14 @@ namespace RemliCMS.RegSystem.Services
             return foundRegistration.RegId;
 
         }
+
+        public Registration GetByRegId(int regId)
+        {
+            var registrationQuery = Query<Registration>.EQ(g => g.RegId, regId);
+            var foundRegistration = MongoConnectionHandler.MongoCollection.FindOne(registrationQuery);
+
+            return foundRegistration;
+        }
     }
+
 }

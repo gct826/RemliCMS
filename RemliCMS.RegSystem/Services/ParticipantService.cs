@@ -18,6 +18,30 @@ namespace RemliCMS.RegSystem.Services
 
             return foundParticipant;
         }
-     
+
+        public int GetLastId()
+        {
+            var foundParticipant = MongoConnectionHandler.MongoCollection.FindAll()
+                .SetSortOrder(SortBy<Participant>.Ascending(g => g.PartId))
+                .LastOrDefault();
+
+            if (foundParticipant == null)
+            {
+                return 0;
+            }
+            return foundParticipant.PartId;
+
+        }
+
+        public List<Participant> GetParticipantList(int regId)
+        {
+            var participantsQuery = Query<Participant>.EQ(g => g.RegId, regId);
+
+            var foundParticipantList = MongoConnectionHandler.MongoCollection.Find(participantsQuery)
+                .SetSortOrder(SortBy<Participant>.Ascending(g => g.PartId))
+                .ToList();
+
+            return foundParticipantList;
+        }
     }
 }

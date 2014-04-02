@@ -37,6 +37,7 @@
             
 		    @using (Html.BeginForm())
 		    {
+                @Html.AntiForgeryToken()
 		        @Html.EditorForModel()
 
 		        <br />

@@ -1,8 +1,8 @@
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\bin\Debug\RemliCMS.RegSystem.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\bin\Debug\RemliCMS.RegSystem.pdb
-C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.dll
-C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.pdb
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\bin\Debug\MongoDB.Bson.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\bin\Debug\MongoDB.Driver.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\bin\Debug\MongoDB.Bson.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\bin\Debug\MongoDB.Driver.xml
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.pdb

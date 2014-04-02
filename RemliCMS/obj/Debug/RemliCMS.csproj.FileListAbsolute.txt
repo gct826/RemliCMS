@@ -8,6 +8,7 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\MongoDB.Bson.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\MongoDB.Driver.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\Newtonsoft.Json.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\Ninject.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\RemliCMS.RegSystem.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\RemliCMS.WebData.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Net.Http.Formatting.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.Http.dll
@@ -20,6 +21,7 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.WebPa
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.WebPages.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.WebPages.Razor.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\WebGrease.dll
+C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\RemliCMS.RegSystem.pdb
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\RemliCMS.WebData.pdb
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\MongoDB.Bson.xml
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\MongoDB.Driver.xml
@@ -38,5 +40,3 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\System.Web.WebPa
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.csprojResolveAssemblyReference.cache
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\obj\Debug\RemliCMS.pdb
-C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\RemliCMS.RegSystem.dll
-C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS\bin\RemliCMS.RegSystem.pdb

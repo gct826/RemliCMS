@@ -46,6 +46,18 @@ namespace RemliCMS.RegSystem.Services
 
         }
 
+        public string GetValueText(ObjectId translationObjectId, string regFieldkey, int regValue)
+        {
+            var regFeildService = new RegFieldService();
+            var regFieldObjectId = regFeildService.FindRegFieldObjectId(regFieldkey);
+
+            var textList = ListValueText(regFieldObjectId, regValue);
+
+            var text = textList.FindLast(g => g.TranslationId == translationObjectId).Text;
+
+            return text;
+
+        }
         public List<RegValue> GetAllValues(ObjectId regFieldObjectId)
         {
             var valueQuery = Query<RegValue>.EQ(g => g.RegFieldObjectId, regFieldObjectId);
@@ -89,14 +101,13 @@ namespace RemliCMS.RegSystem.Services
             {
                 var addValueText = new ValueText();
                 addValueText.Value = value.Value;
-                try
+
+                var translationList = value.Translation.FindAll(g => g.TranslationId == translationObjectId).ToList();
+                
+                if (translationList.Count != 0)
                 {
-                    addValueText.Text = value.Translation.FindLast(g => g.TranslationId == translationObjectId).Text;
+                    addValueText.Text = translationList.Last().Text;
                     returnValueTextList.Add(addValueText);
-                }
-                catch
-                {
-                    //Ignores any value with no associated text
                 }
             }
             

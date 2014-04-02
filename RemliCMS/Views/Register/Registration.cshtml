@@ -1,0 +1,8 @@
+﻿@*//Register/Modify/RegUID*@
+
+@{
+    ViewBag.Title = "Registration";
+}
+
+@Html.Action("Summary", "Register", new { regId = ViewBag.RegId });
+@Html.Action("SummaryHelper", "Register", new {translationObjectId = ViewBag.TranslationObjectId, regId = ViewBag.RegId });

@@ -1,0 +1,35 @@
+﻿@*/admin/RegPrice/PriceEdit*@
+
+@model RemliCMS.RegSystem.Entities.RegPrice
+
+<div class="row">
+    <div class="large-12 columns">
+        @using (Html.BeginForm())
+        {
+            @Html.EditorForModel()
+
+            <input class="button" type="submit" title="Save" value="Save" />
+        }
+    </div>
+    
+    <div>
+        @Html.ActionLink("Back", "Index")
+    </div>
+</div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "pageheader"});}
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        $('form').submit(function() {
+            $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+        });
+    </script>
+}
+

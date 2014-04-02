@@ -144,6 +144,7 @@
     <Compile Include="Controllers\PageTitleController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RegFieldController.cs" />
+    <Compile Include="Controllers\RegPriceController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\TranslationController.cs" />
     <Compile Include="Global.asax.cs">
@@ -314,6 +315,14 @@
     <Content Include="Views\RegField\AddText.cshtml" />
     <Content Include="Views\RegField\TranslationText.cshtml" />
     <Content Include="Views\RegField\TranslationHelper.cshtml" />
+    <Content Include="Views\Register\Participant.cshtml" />
+    <Content Include="Views\RegPrice\Index.cshtml" />
+    <Content Include="Views\RegPrice\IndexHelper.cshtml" />
+    <Content Include="Views\RegPrice\PriceEdit.cshtml" />
+    <Content Include="Views\Register\Summary.cshtml" />
+    <Content Include="Views\Register\Registration.cshtml" />
+    <Content Include="Views\Register\SummaryHelper.cshtml" />
+    <Content Include="Views\Register\RegValueText.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

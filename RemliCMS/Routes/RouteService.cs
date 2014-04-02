@@ -40,13 +40,14 @@ namespace RemliCMS.Routes
             }
 
             var permalink = "not found";
-            try
-            {
-                permalink = controllerContext.RouteData.Values["permalink"].ToString();
-            }
-            catch
-            {
-            }
+            
+            //try
+            //{
+            //    permalink = controllerContext.RouteData.Values["permalink"].ToString();
+            //}
+            //catch
+            //{
+            //}
 
 
             return new RouteValues
@@ -54,10 +55,25 @@ namespace RemliCMS.Routes
                     Translation = translation,
                     Controller = controller,
                     Action = action,
-                    Permalink = permalink
+                    //Permalink = permalink
                 };
 
         }
+
+        //public string GetTranslation(ControllerContext controllerContext)
+        //{
+        //    var translation = "not found";
+        //    try
+        //    {
+        //        translation = controllerContext.RouteData.Values["translation"].ToString();
+        //    }
+        //    catch
+        //    {
+        //    }
+        //    return translation;
+            
+        //}
+
 
     }
 }

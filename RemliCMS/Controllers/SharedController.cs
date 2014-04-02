@@ -87,6 +87,10 @@ namespace RemliCMS.Controllers
 
             var translationService = new TranslationService();
             var translation = translationService.Details(routeValues.Translation);
+            if (translation == null)
+            {
+                return RedirectToAction("Error", "Shared", new { errorCode = 404 });
+            }
 
             foreach (var item in pageHeaders)
             {

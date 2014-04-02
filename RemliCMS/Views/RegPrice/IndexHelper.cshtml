@@ -1,0 +1,26 @@
+﻿@*/admin/RegPrice/IndexHelper*@
+
+@model IEnumerable<RemliCMS.RegSystem.Entities.ValueText>
+
+@if (ViewBag.Header)
+{
+    foreach (var item in Model)
+    {
+        <th>
+            @item.Value - @item.Text
+        </th>
+    }
+}
+else
+{
+    foreach (var item in Model)
+    {
+        <td>
+            @item.Text 
+            <a href="@Url.Action("PriceEdit","RegPrice", new {ageRangeId = item.Value, roomTypeId = ViewBag.RoomTypeId})"><i class="fi-pencil"></i></a>
+
+        </td>
+    }    
+
+
+}

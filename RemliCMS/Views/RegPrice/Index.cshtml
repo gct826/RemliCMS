@@ -1,0 +1,34 @@
+﻿@*/admin/RegPrice/Index*@
+
+@model IEnumerable<RemliCMS.RegSystem.Entities.ValueText>
+<div class="row">>
+    <div class="large-12 columns">
+        <table>
+            <tr>
+                <th>
+                    Registration Type
+                </th>
+                @Html.Action("IndexHelper")
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Value - @item.Text
+                    </td>
+                @Html.Action("IndexHelper", new {roomTypeId = item.Value})
+                </tr>
+            }
+
+        </table>
+    
+    </div>
+</div>
+
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "translation"});}
+}
