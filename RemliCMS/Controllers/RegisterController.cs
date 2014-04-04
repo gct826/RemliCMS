@@ -142,7 +142,7 @@ namespace RemliCMS.Controllers
 
             ViewBag.RegObjectId = foundRegistration.Id;
             ViewBag.RegId = foundRegistration.RegId;
-            ViewBag.ParticipantID = foundParticipant.PartId;
+            ViewBag.ParticipantId = foundParticipant.PartId;
             ViewBag.SessionId = new SelectList(regValueService.GetValueTextList("sessions", translationObjectId), "Value", "Text");
             ViewBag.AgeRangeId = new SelectList(regValueService.GetValueTextList("agerange", translationObjectId), "Value", "Text");
             ViewBag.GenderId = new SelectList(regValueService.GetValueTextList("gender", translationObjectId), "Value", "Text");
@@ -182,14 +182,13 @@ namespace RemliCMS.Controllers
                 return View();
             }
 
+            var saveParticipant = new Participant();
+            TryUpdateModel(saveParticipant);
+
             if (foundRegistration.RegId != 0 && partId == 0)
             {
                 if (ModelState.IsValid)
                 {
-                    var saveParticipant = new Participant();
-
-                    TryUpdateModel(saveParticipant);
-
                     saveParticipant.PartId = participantService.GetLastId() + 1;
                     saveParticipant.RegId = foundRegistration.RegId;
                     saveParticipant.StatusId = (int)1;
@@ -206,7 +205,6 @@ namespace RemliCMS.Controllers
 
                 }
 
-
                 ViewBag.RegObjectId = foundRegistration.Id;
                 ViewBag.RegId = foundRegistration.RegId;
 
@@ -217,12 +215,24 @@ namespace RemliCMS.Controllers
 
                 ViewBag.Message = "Save Error";
 
-                return View();
+                return View(saveParticipant);
+            }
+
+            var foundParticipant = participantService.GetByPartId(saveParticipant.PartId);
+
+            if (foundParticipant.RegId == saveParticipant.RegId)
+            {
+                saveParticipant.Id = foundParticipant.Id;
+                saveParticipant.StatusId = (int)1;
+                saveParticipant.PartPrice = regPriceService.GetPrice(saveParticipant.RoomTypeId, saveParticipant.AgeRangeId);
+                
+                participantService.Update(saveParticipant);
+                return RedirectToAction("Registration", new { regObjectId = foundRegistration.Id });
             }
 
             ViewBag.Found = false;
             ViewBag.Message = "Catchall Error";
-            return View();
+            return View(saveParticipant);
 
         }
 
@@ -324,6 +334,8 @@ namespace RemliCMS.Controllers
                 ViewBag.RegID = foundRegEntry.RegId;
                 ViewBag.RegObjectID = foundRegEntry.Id;
                 ViewBag.RegIsConfirm = false;
+
+
 
                 if (isAdmin)
                 {

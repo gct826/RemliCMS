@@ -51,13 +51,24 @@ namespace RemliCMS.RegSystem.Services
             var regFeildService = new RegFieldService();
             var regFieldObjectId = regFeildService.FindRegFieldObjectId(regFieldkey);
 
+            if (regFieldObjectId == ObjectId.Empty)
+            {
+                return "Reg Field Not Found";
+            }
+            
             var textList = ListValueText(regFieldObjectId, regValue);
+
+            if (textList.Count == 0)
+            {
+                return "Reg Value Not Found";
+            }
 
             var text = textList.FindLast(g => g.TranslationId == translationObjectId).Text;
 
             return text;
 
         }
+
         public List<RegValue> GetAllValues(ObjectId regFieldObjectId)
         {
             var valueQuery = Query<RegValue>.EQ(g => g.RegFieldObjectId, regFieldObjectId);

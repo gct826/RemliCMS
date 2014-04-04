@@ -85,6 +85,16 @@
             @foreach (var item in Model)
             {
                 <div class="row panel">
+                    <div class="large-12 medium-12 small-12 columns">
+                        <p>
+                            @Html.ActionLink("edit participant", "Participant", "Register",new {regObjectId = ViewBag.RegObjectID, partId = item.PartId }, new {@class = "label right" })
+
+                            <label>Participant Id</label>
+
+                            <strong>@Html.DisplayFor(modelItem => item.PartId)</strong>
+                            
+                        </p>
+                    </div>
                     <div class="large-3 medium-6 small-12 columns">
                         <p>
                             <label>@Html.DisplayNameFor(model => model.FirstName)</label>
@@ -136,6 +146,15 @@
                             <strong>@String.Format("{0:C}", item.PartPrice)</strong>
                         </p>
                     </div>
+                    @if(item.RoomNote != null)
+                    {
+                        <div class="large-12 medium-12 small-12 columns">
+                            <p>
+                                <label>@Html.DisplayNameFor(model => model.RoomNote)</label>
+                                <strong>@Html.DisplayFor(modelItem => item.RoomNote)</strong>
+                            </p>
+                        </div>
+                    }
                 </div>
 
                 
