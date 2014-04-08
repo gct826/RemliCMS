@@ -17,15 +17,15 @@ namespace RemliCMS.RegSystem.Entities
         [BsonElement("regEmail")]
         [Required(ErrorMessage = "Email Address is required")]
         [DisplayName("E-mail 電郵")]
-        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Email is not valid.")]
         [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Email is not valid.")]
         public string RegEmail { get; set; }
 
         [BsonElement("regPhone")]
         [Required(ErrorMessage = "Phone is required")]
         [DisplayName("Phone 電話")]
-        [RegularExpression(@"^\(?([2-9][0-8][0-9])\)?[- .●]?([2-9][0-9]{2})[- .●]?([0-9]{4})$", ErrorMessage = "Phone is not valid.")]
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone is not valid.")]
         public string RegPhone { get; set; }
 
         [ScaffoldColumn(false)]

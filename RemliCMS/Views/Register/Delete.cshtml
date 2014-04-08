@@ -1,0 +1,103 @@
+﻿@*/translation/Register/Delete*@
+
+@model RemliCMS.RegSystem.Entities.Participant
+
+@Html.Action("Summary", "Register", new { RegId = ViewBag.RegID });
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <input data-val="true" data-val-required="The Id field is required." id="RegId" name="RegId" type="hidden" value="@ViewBag.RegId" />
+    <input data-val="true" data-val-required="The Id field is required." id="PartId" name="PartId" type="hidden" value="@ViewBag.ParticipantId" />
+
+    <div class="row">
+        <div class="large-12 columns">
+        
+            @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+            {
+                <p>Are you sure you want to remove the following participant?</p>
+                <input class="button tiny" type="submit" title="Delete" value="Delete" name ="submit"/>
+                @Html.ActionLink("Cancel", "Registration", "Register", new {regObjectId = ViewBag.RegObjectID}, new {@class = "button tiny alert"})
+            }
+
+            @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+            {
+                <p>你确定你要删除的参与者?</p>
+                <input class="button tiny" type="submit" title="Delete" value="Delete" name ="submit"/>
+                @Html.ActionLink("Cancel", "Registration", "Register", new {regObjectId = ViewBag.RegObjectID}, new {@class = "button tiny alert"})
+            }
+        </div>
+    </div>
+}
+
+@Html.Action("SummaryHelper", "Register", new { translationObjectId = ViewBag.TranslationObjectId, regId = ViewBag.RegId, isAdmin = false, partId = ViewBag.ParticipantId })
+
+
+@*using (Html.BeginForm())
+    {
+    @Html.AntiForgeryToken()
+    
+        <div class="row">
+            
+
+
+            <input data-val="true" data-val-required="The Id field is required." id="StatusId" name="StatusId" type="hidden" value="1" />
+            <input data-val="true" data-val-required="The Id field is required." id="PartPrice" name="PartPrice" type="hidden" value="0" />
+            
+            <div class="large-6 medium-6 small-12 columns">
+                <label>Participant Id</label>
+                <strong>@Html.DisplayFor(model => model.PartId)</strong>
+            </div>
+
+            <div class="large-6 medium-6 small-12 columns">
+                <input class="button wide tiny" type="submit" title="Delete" value="Delete" name="submit"/>   
+                @Html.ActionLink("Cancel", "Registration", "Register", new { regObjectId = ViewBag.RegObjectID }, new { @class = "button tiny wide alert" })
+            </div>
+
+            <div class="large-4 medium-6 small-12 columns">
+                <label>
+                    @Html.LabelFor(model => model.FirstName)
+                    <strong>@Html.DisplayFor(model => model.FirstName)</strong>
+                </label>
+            </div>
+
+            <div class="large-4 medium-6 small-12 columns">
+                <label>
+                    @Html.LabelFor(model => model.LastName)
+                    <strong>@Html.DisplayFor(model => model.LastName)</strong>
+                </label>
+            </div>
+
+            <div class="large-4 medium-6 small-12 columns">
+                <label>
+                    @Html.LabelFor(model => model.ChineseName)
+                    <strong>@Html.DisplayFor(model => model.ChineseName)</strong>
+                </label>
+            </div>
+            <div class="large-4 medium-6 small-12 columns">
+                <label>
+                    @Html.LabelFor(model => model.GenderId)
+                    <strong>@{ Html.RenderAction("RegValueText", new {translationObjectId = ViewBag.TranslationObjectId, regValueKey = "gender", regValue = Model.GenderId});}</strong>
+                </label>
+            </div>
+            <div class="large-4 medium-6 small-12 columns">
+                <label>
+                    @Html.DisplayNameFor(model => model.AgeRangeId)
+                    <strong>@{ Html.RenderAction("RegValueText", new {translationObjectId = ViewBag.TranslationObjectId, regValueKey = "agerange", regValue = Model.AgeRangeId});}</strong>
+                </label>
+            </div>
+            <div class="large-4 medium-6 small-12 columns">
+                <label>
+                    @Html.DisplayNameFor(model => model.SessionId)
+                    <strong>@{ Html.RenderAction("RegValueText", new {translationObjectId = ViewBag.TranslationObjectId, regValueKey = "sessions", regValue = Model.SessionId});}</strong>
+                </label>
+            </div>
+        </div>
+    
+        }*@
+
+@section head
+{
+    @{ Html.RenderAction("NavBar", "Shared");}
+}
+

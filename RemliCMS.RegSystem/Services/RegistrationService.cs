@@ -61,6 +61,18 @@ namespace RemliCMS.RegSystem.Services
 
             return foundRegistration;
         }
+
+        public Registration OpenReg(string regEmail, string regPhone)
+        {
+            var registrationQuery = Query.And(
+                    Query<Registration>.EQ(g => g.RegEmail, regEmail),
+                    Query<Registration>.EQ(g => g.RegPhone, regPhone)
+                    );
+
+            var foundRegistration = MongoConnectionHandler.MongoCollection.FindOne(registrationQuery);
+
+            return foundRegistration;
+        }
     }
 
 }

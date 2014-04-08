@@ -7,8 +7,8 @@
 
     <div class="row">
         <div class="large-6 medium-6 small-12 columns">
-            @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
-            {
+            @if (ViewContext.RouteData.Values["translation"].ToString() == "en" || ViewBag.isAdmin)
+    {
                 <h4>Registration Id &nbsp; @Html.DisplayFor(item => item.RegId)</h4>
             }
             @if (ViewContext.RouteData.Values["translation"].ToString() == "ch")
@@ -17,7 +17,7 @@
             }
         </div>
         <div class="large-4 medium-6 small-12 columns">
-            @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+            @if (ViewContext.RouteData.Values["translation"].ToString() == "en" || ViewBag.isAdmin)
             {
                 <input class="button tiny expand" type="button" title="Close Registration" value="Close Registration" onclick="location.href='@Url.Action("Index", "Register")    '" />
             }

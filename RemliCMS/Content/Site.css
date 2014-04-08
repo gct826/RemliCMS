@@ -130,6 +130,9 @@ td .margin {
         border-color: #DFDFDF;
 }
 
+.wide {
+    width: 7rem;
+}
 /* Content Edit Panels */
 .edit-panel {
   border-style: dashed;

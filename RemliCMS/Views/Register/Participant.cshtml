@@ -99,7 +99,8 @@
             </div> 
             <div class="large-4 medium-6 small-12 columns">
                         
-                <input class="button expand" type="submit" title="Save" value="Save" name="submit"/>   
+                <input class="button wide tiny" type="submit" title="Save" value="Save" name="submit"/>   
+                @Html.ActionLink("Back", "Registration", "Register", new { regObjectId = ViewBag.RegObjectID }, new { @class = "button tiny wide alert" })
 
             </div>
         </div>      
@@ -116,7 +117,6 @@
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 
 <script>
     function setupLabel() {

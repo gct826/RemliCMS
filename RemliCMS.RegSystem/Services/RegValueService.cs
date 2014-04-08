@@ -58,7 +58,7 @@ namespace RemliCMS.RegSystem.Services
             
             var textList = ListValueText(regFieldObjectId, regValue);
 
-            if (textList.Count == 0)
+            if (textList == null || textList.Count == 0)
             {
                 return "Reg Value Not Found";
             }
@@ -88,6 +88,10 @@ namespace RemliCMS.RegSystem.Services
 
             var foundValue = MongoConnectionHandler.MongoCollection.FindOne(valueQuery);
 
+            if (foundValue == null)
+            {
+                return null;
+            }
             return foundValue.Translation.ToList();
         }
 

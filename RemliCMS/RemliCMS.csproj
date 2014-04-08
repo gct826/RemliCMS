@@ -323,6 +323,8 @@
     <Content Include="Views\Register\Registration.cshtml" />
     <Content Include="Views\Register\SummaryHelper.cshtml" />
     <Content Include="Views\Register\RegValueText.cshtml" />
+    <Content Include="Views\Register\LedgerHelper.cshtml" />
+    <Content Include="Views\Register\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

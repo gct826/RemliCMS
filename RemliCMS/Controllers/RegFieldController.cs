@@ -78,14 +78,19 @@ namespace RemliCMS.Controllers
             {
                 var translationText = new RegTranslationModel();
                 translationText.translationId = translation.Id.ToString();
-                try
-                {
-                    translationText.text = textList.FindLast(pt => pt.TranslationId == translation.Id).Text;
-                }
-                catch
-                {
-                    translationText.text = "";
-                }
+
+                var text = textList.FindLast(pt => pt.TranslationId == translation.Id);
+                translationText.text = text == null ? "" : text.Text;
+
+                //try
+                //{
+                //    translationText.text = textList.FindLast(pt => pt.TranslationId == translation.Id).Text;
+                //}
+                //catch
+                //{
+                //    translationText.text = "";
+                //}
+
                 valueList.Add(translationText);
             }
 
@@ -224,7 +229,12 @@ namespace RemliCMS.Controllers
                 {
                     var addRegText = new RegText();
                     addRegText.TranslationId = translation.Id;
-                    addRegText.Text = foundValue.FindLast(pt => pt.TranslationId == translation.Id).Text;
+                    
+                    var text = foundValue.FindLast(pt => pt.TranslationId == translation.Id);
+                    addRegText.Text = text == null ? "" : text.Text;
+                    
+                    //addRegText.Text = foundValue.FindLast(pt => pt.TranslationId == translation.Id).Text;
+                    
                     regText.Add(addRegText);
                 }
             }
