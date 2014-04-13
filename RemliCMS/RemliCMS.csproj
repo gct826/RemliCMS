@@ -142,6 +142,7 @@
     <Compile Include="Controllers\PageContentController.cs" />
     <Compile Include="Controllers\PageHeaderController.cs" />
     <Compile Include="Controllers\PageTitleController.cs" />
+    <Compile Include="Controllers\RegAdminController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RegFieldController.cs" />
     <Compile Include="Controllers\RegPriceController.cs" />
@@ -325,6 +326,8 @@
     <Content Include="Views\Register\RegValueText.cshtml" />
     <Content Include="Views\Register\LedgerHelper.cshtml" />
     <Content Include="Views\Register\Delete.cshtml" />
+    <Content Include="Views\Register\Scholarship.cshtml" />
+    <Content Include="Views\RegAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

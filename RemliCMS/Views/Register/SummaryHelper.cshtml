@@ -3,11 +3,11 @@
 @model IEnumerable<RemliCMS.RegSystem.Entities.Participant>
 
 
-@if (ViewBag.RegIsConfirm != false)
+@if (ViewBag.RegIsConfirm != true)
 {
     <div class="row">
         <div class="large-12 medium-12 small-12 columns">
-            <h5>Total Registration Cost: @ViewBag.TotalCost</h5>
+            <h5>Total Registration Cost: @String.Format("{0:C}", ViewBag.TotalCost)</h5>
         </div>
     </div>
 }

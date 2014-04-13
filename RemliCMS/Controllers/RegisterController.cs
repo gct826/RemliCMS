@@ -23,6 +23,19 @@ namespace RemliCMS.Controllers
         // GET: /Register/
         public ActionResult Index()
         {
+            ViewBag.Title = "Registration";
+
+            RouteValues routeValues = RouteValue;
+            var translationService = new TranslationService();
+            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
+
+            ViewBag.isAdmin = false;
+            if (routeValues.Translation == "admin")
+            {
+                ViewBag.isAdmin = true;
+                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+            }
+
             var registrationService = new RegistrationService();
 
             ViewBag.RegIsAllowed = registrationService.AllowRegistration();
@@ -49,6 +62,19 @@ namespace RemliCMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(FormCollection values)
         {
+            ViewBag.Title = "Registration";
+
+            RouteValues routeValues = RouteValue;
+            var translationService = new TranslationService();
+            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
+
+            ViewBag.isAdmin = false;
+            if (routeValues.Translation == "admin")
+            {
+                ViewBag.isAdmin = true;
+                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+            }
+
             var registrationService = new RegistrationService();
             var order = new Registration();
 
@@ -84,6 +110,7 @@ namespace RemliCMS.Controllers
                     newReg.RegId = registrationService.GetLastId() + 1;
                     newReg.DateCreated = DateTime.Now;
                     newReg.IsConfirmed = false;
+                    newReg.IsDeleted = false;
 
                     registrationService.Update(newReg);
 
@@ -120,6 +147,8 @@ namespace RemliCMS.Controllers
         // GET: /Register/Participant?regObjectId&partId
         public ActionResult Participant(string regObjectId, int partId)
         {
+            ViewBag.Title = "Participant";
+
             RouteValues routeValues = RouteValue;
             var translationService = new TranslationService();
             var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
@@ -195,6 +224,8 @@ namespace RemliCMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Participant(string regObjectId, int partId, FormCollection collection)
         {
+            ViewBag.Title = "Participant";
+
             RouteValues routeValues = RouteValue;
             var translationService = new TranslationService();
             var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
@@ -291,6 +322,8 @@ namespace RemliCMS.Controllers
         // GET: /Register/Delete?regObjectId&partId
         public ActionResult Delete(string regObjectId, int partId)
         {
+            ViewBag.Title = "Remove Participant";
+
             RouteValues routeValues = RouteValue;
             var translationService = new TranslationService();
             var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
@@ -343,6 +376,8 @@ namespace RemliCMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(string regObjectId, int partId, FormCollection collection)
         {
+            ViewBag.Title = "Remove Participant";
+
             RouteValues routeValues = RouteValue;
             var translationService = new TranslationService();
             var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
@@ -399,9 +434,11 @@ namespace RemliCMS.Controllers
         }
 
         //
-        // GET: /Register/Registration/RegUID
+        // GET: /Register/Registration?regObjectId&confirmation
         public ActionResult Registration(string regObjectId, bool confirmation = false)
         {
+            ViewBag.Title = "Registration";
+
             RouteValues routeValues = RouteValue;
             var translationService = new TranslationService();
             var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
@@ -418,34 +455,74 @@ namespace RemliCMS.Controllers
             {
                 return RedirectToAction("Index", "Register");
             }
-            else
+            ViewBag.Title = "Registration";
+
+            var registrationService = new RegistrationService();
+            var foundRegistration = registrationService.GetById(regObjectId);
+
+            if (foundRegistration != null)
             {
-                ViewBag.Title = "Registration";
-
-                var registrationService = new RegistrationService();
-                var foundRegistration = registrationService.GetById(regObjectId);
-
-                if (foundRegistration != null)
+                //EventHistory NewEvent = new EventHistory();
+                //NewEvent.AddHistory(FoundRegID, "General Registration Opened", 0);
+                if (foundRegistration.IsConfirmed)
                 {
-                    //EventHistory NewEvent = new EventHistory();
-                    //NewEvent.AddHistory(FoundRegID, "General Registration Opened", 0);
-                    if (foundRegistration.IsConfirmed)
-                    {
-                        confirmation = false;
-                    }
+                    confirmation = false;
+                }
                     
-                    ViewBag.confirmation = confirmation;
-                    ViewBag.TranslationObjectId = translationObjectId;
-                    ViewBag.RegId = foundRegistration.RegId;
-                    ViewBag.RegObjectId = foundRegistration.Id;
-                    ViewBag.IsConfirmed = foundRegistration.IsConfirmed;
-                    return View();
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Register");
-                }
+                ViewBag.confirmation = confirmation;
+                ViewBag.TranslationObjectId = translationObjectId;
+                ViewBag.RegId = foundRegistration.RegId;
+                ViewBag.RegObjectId = foundRegistration.Id;
+                ViewBag.IsConfirmed = foundRegistration.IsConfirmed;
+                return View();
             }
+                    
+            return RedirectToAction("Index", "Register");
+        }
+
+        //
+        // POST: /Register/Registration?regObjectId&confirmation
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Registration(string regObjectId, bool confirmation, FormCollection collection)
+        {
+            ViewBag.Title = "Registration";
+
+            if (regObjectId == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var registrationService = new RegistrationService();
+            var foundRegistration = registrationService.GetById(regObjectId);
+
+
+            var saveRegistration = new Registration();
+            TryUpdateModel(saveRegistration);
+
+            if (foundRegistration.RegId == saveRegistration.RegId)
+            {
+                var totalPrice = registrationService.getTotalPrice(foundRegistration.RegId);
+                
+                foundRegistration.IsConfirmed = true;
+                registrationService.Update(foundRegistration);
+
+                var ledgerService = new LedgerService();
+                var newLedger = new Ledger
+                    {
+                        RegId = foundRegistration.RegId,
+                        LedgerTypeId = (int) 1,
+                        LedgerAmount = totalPrice,
+                        LedgerDate = DateTime.Now
+                    };
+
+                ledgerService.Update(newLedger);
+
+                return RedirectToAction("Registration", new { regObjectId = foundRegistration.Id });
+            }
+
+            return RedirectToAction("Registration", new { regObjectId = foundRegistration.Id });
+
         }
 
         //
@@ -458,7 +535,7 @@ namespace RemliCMS.Controllers
                 ViewBag.Found = false;
                 ViewBag.Message = "Participant not found";
                 ViewBag.MessageCh = "没有找到登记";
-                return View();
+                return PartialView();
             }
 
             var registrationService = new RegistrationService();
@@ -469,13 +546,13 @@ namespace RemliCMS.Controllers
                 ViewBag.Found = true;
                 ViewBag.isAdmin = isAdmin;
                 ViewBag.RegUID = foundRegEntry.Id;
-                return View(foundRegEntry);
+                return PartialView(foundRegEntry);
             }
 
             ViewBag.Found = false;
             ViewBag.Message = "Participant not found";
             ViewBag.MessageCh = "没有找到登记";
-            return View();
+            return PartialView();
         }
 
         //
@@ -519,28 +596,28 @@ namespace RemliCMS.Controllers
                 else
                 {
                     ViewBag.RegIsConfirm = true; //hides the buttons
-                    return View(returnList);
+                    return PartialView(returnList);
                 }
             }
 
             if (isAdmin)
             {
-                return View(participantList);
+                return PartialView(participantList);
             }
             else
             {
-                return View(participantList.Where(p => !p.StatusId.Equals((int) 4)));
+                return PartialView(participantList.Where(p => !p.StatusId.Equals((int) 4)));
             }
         }
 
         //
         // GET: /Register/LedgerHelper?RegId&isAdmin
         [ChildActionOnly]
-        public ActionResult LedgerHelper(string translationObjectId, int regId = 0, bool isAdmin = false)
+        public ActionResult LedgerHelper(string translationObjectId, int regId = 0)
         {
             if (regId == 0)
             {
-                return View();
+                return RedirectToAction("Index", "Register");
             }
             
             var registrationService = new RegistrationService();
@@ -548,13 +625,16 @@ namespace RemliCMS.Controllers
 
             if (foundRegEntry == null)
             {
-                return View();
+                return RedirectToAction("Index", "Register");
             }
 
-            var participantService = new ParticipantService();
-            var participantList = participantService.GetParticipantList(regId);
+            var ledgerService = new LedgerService();
+            var ledgerList = ledgerService.GetLedgerList(regId);
 
-            return View();
+            ViewBag.TranslationObjectId = translationObjectId;
+            ViewBag.RegObjectId = foundRegEntry.Id;
+
+            return PartialView(ledgerList);
         }
 
         //
@@ -580,9 +660,24 @@ namespace RemliCMS.Controllers
         }
 
         //
-        // GET: /Register/Confirm?string RegUID
-        public ActionResult Confirm(string regObjectId, bool isAdmin = false)
+        // GET: /Register/Scholarship/RegUID
+        public ActionResult Scholarship(string regObjectId)
         {
+            ViewBag.Title = "Scholorship";
+
+            RouteValues routeValues = RouteValue;
+            var translationService = new TranslationService();
+            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
+
+            ViewBag.isAdmin = false;
+            if (routeValues.Translation == "admin")
+            {
+                ViewBag.isAdmin = true;
+                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+            }
+
+            ViewBag.TranslationObjectId = translationObjectId;
+
             if (regObjectId == null)
             {
                 return RedirectToAction("Index", "Register");
@@ -591,14 +686,74 @@ namespace RemliCMS.Controllers
             var registrationService = new RegistrationService();
             var foundRegEntry = registrationService.GetById(regObjectId);
 
-            if (foundRegEntry != null)
+            if (foundRegEntry == null)
             {
-                ViewBag.Found = true;
-                ViewBag.RegUID = foundRegEntry.Id;
-                return View(foundRegEntry);
+                return RedirectToAction("Index", "Register");
             }
-                
+
+            if (foundRegEntry.RegId != 0)
+            {
+                ViewBag.TotalPrice = registrationService.getTotalPrice(foundRegEntry.RegId);
+                ViewBag.RegId = foundRegEntry.RegId;
+                ViewBag.RegObjectId = foundRegEntry.Id;
+
+                return View();
+            }
+
             return RedirectToAction("Index", "Register");
+
+        }
+
+        //
+        // POST: /Register/Scholorship/RegUID
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Scholarship(string regObjectId, FormCollection submitLedger)
+        {
+            ViewBag.Title = "Scholorship";
+
+            RouteValues routeValues = RouteValue;
+            var translationService = new TranslationService();
+            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
+
+            ViewBag.isAdmin = false;
+            if (routeValues.Translation == "admin")
+            {
+                ViewBag.isAdmin = true;
+                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+            }
+
+            ViewBag.TranslationObjectId = translationObjectId;
+
+            if (regObjectId == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var registrationService = new RegistrationService();
+            var foundRegEntry = registrationService.GetById(regObjectId);
+
+            if (foundRegEntry == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var saveLedger = new Ledger();
+            TryUpdateModel(saveLedger);
+
+            var ledgerService = new LedgerService();
+            var newLedger = new Ledger
+            {
+                RegId = foundRegEntry.RegId,
+                LedgerTypeId = (int)2,
+                LedgerAmount = saveLedger.LedgerAmount,
+                LedgerDate = DateTime.Now
+            };
+
+            ledgerService.Update(newLedger);
+
+            return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });
+            
         }
 
         //
@@ -782,43 +937,6 @@ namespace RemliCMS.Controllers
 
 //        }
 
-//        //
-//        // GET: /Register/Complete/RegUID
-//        public ActionResult Complete(string RegUID, FormCollection values)
-//        {
-//            if (RegUID == null)
-//            {
-//                ViewBag.Found = false;
-//                return View();
-//            }
-
-//            if (values.Count == 0)
-//            {
-//                RegistrationEntry FoundEntry = new RegistrationEntry();
-//                int FoundRegID = FoundEntry.RegUIDtoID(RegUID);
-
-//                if (FoundRegID != 0)
-//                {
-//                    ViewBag.Found = true;
-//                    ViewBag.Scholarship = false;
-//                    ViewBag.TotalPrice = FoundEntry.RegTotalPrice(FoundRegID);
-//                    ViewBag.RegID = FoundRegID;
-//                    ViewBag.RegUID = RegUID;
-
-//                    return View();
-//                }
-//                else
-//                {
-//                    ViewBag.Found = false;
-//                    ViewBag.MessageEn = "Invalid Registration Key";
-//                    ViewBag.MessageCh = "没有找到登记";
-//                    return View();
-//                }
-//            }
-
-//            ViewBag.Found = false;
-//            return View();
-//        }
 
 //        //
 //        // POST: /Register/Complete/RegUID

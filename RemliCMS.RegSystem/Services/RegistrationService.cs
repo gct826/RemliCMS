@@ -43,8 +43,8 @@ namespace RemliCMS.RegSystem.Services
         public int GetLastId()
         {
             var foundRegistration = MongoConnectionHandler.MongoCollection.FindAll()
-                .SetSortOrder(SortBy<Registration>.Ascending(g => g.RegId))
-                .LastOrDefault();
+                                                          .SetSortOrder(SortBy<Registration>.Ascending(g => g.RegId))
+                                                          .LastOrDefault();
 
             if (foundRegistration == null)
             {
@@ -65,14 +65,41 @@ namespace RemliCMS.RegSystem.Services
         public Registration OpenReg(string regEmail, string regPhone)
         {
             var registrationQuery = Query.And(
-                    Query<Registration>.EQ(g => g.RegEmail, regEmail),
-                    Query<Registration>.EQ(g => g.RegPhone, regPhone)
-                    );
+                Query<Registration>.EQ(g => g.RegEmail, regEmail),
+                Query<Registration>.EQ(g => g.RegPhone, regPhone)
+                );
 
             var foundRegistration = MongoConnectionHandler.MongoCollection.FindOne(registrationQuery);
 
             return foundRegistration;
         }
-    }
 
+        public decimal getTotalPrice(int regId)
+        {
+            var participantService = new ParticipantService();
+            var foundParticipantList = participantService.GetParticipantList(regId);
+
+            if (foundParticipantList.Count == 0)
+            {
+                return 0;
+            }
+
+            var totalCost = foundParticipantList.Where(p => p.StatusId != 4).
+                                                 Aggregate((decimal) 0, (c, p) => c + p.PartPrice);
+
+            return totalCost;
+        }
+
+        public List<Registration> ListAllRegistrations()
+        {
+            //var registrationQuery = Query<Registration>.EQ(g => g.IsDeleted, false);
+
+            //var foundRegistrationList = MongoConnectionHandler.MongoCollection.Find(registrationQuery).ToList();
+
+            var foundRegistrationList = MongoConnectionHandler.MongoCollection.FindAll().ToList();
+
+            return foundRegistrationList;
+        }
+
+    }
 }

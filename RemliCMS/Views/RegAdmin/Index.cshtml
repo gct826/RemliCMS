@@ -1,0 +1,70 @@
+﻿@*/admin/RegAdmin/Index*@
+
+@model IEnumerable<RemliCMS.RegSystem.Entities.Registration>
+
+<div class="row">
+    <div class="large-12 columns">
+        <h3>Registration List</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegEmail)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegPhone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateCreated)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsConfirmed)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsDeleted)
+                    </th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Registration", "Register", new {regObjectId = item.Id.ToString()})">@item.RegId</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegEmail)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegPhone)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsConfirmed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    </td>
+                </tr>
+                
+            }
+
+        </table>
+    </div>
+</div>
+
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "pageheader"});}
+}

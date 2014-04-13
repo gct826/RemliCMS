@@ -1,0 +1,69 @@
+﻿@*/translation/Register/Scholarship*@
+
+@model RemliCMS.RegSystem.Entities.Ledger
+
+@{Html.RenderAction("Summary", "Register", new { regId = ViewBag.RegId, ViewBag.isAdmin });}
+
+<div class="row">
+	<div class="large-12 columns">
+	    
+        @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+	    {    
+	        <p>Your total price for summer conference is @String.Format("{0:C}", ViewBag.TotalPrice).</p>
+	    }
+	    
+        @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+	    {
+	        <p>你的夏季会总价格为是 @String.Format("{0:C}", ViewBag.TotalPrice).</p>
+	    }
+
+	@using (Html.BeginForm())
+	{
+     @Html.AntiForgeryToken()
+	@Html.ValidationSummary(true)    
+        
+	    if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+	    {
+            <div class="large-6 small-12 columns">
+            <label>
+                <p>Please enter Scholarship request amount.</p>                	                    
+            @Html.EditorFor(model => model.LedgerAmount)
+            @Html.ValidationMessageFor(model => model.LedgerAmount)
+	        </label>
+
+	        <input class="button tiny" type="submit" value="Submit Request" />
+	        <input class="button tiny alert" type="button" title="Cancel Request" value="Cancel Request" onclick="location.href='@Url.Action("Registration", "Register", new { RegObjectId = ViewBag.RegObjectId })    '" />
+            </div>
+	    }
+	    if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+	    {
+            <div class="large-6 small-12 columns">
+	        <label>
+	            <p>请输入奖学金申请量。</p>                
+            @Html.EditorFor(model => model.LedgerAmount)
+            @Html.ValidationMessageFor(model => model.LedgerAmount)
+	        </label>
+     
+     	    <input class="button tiny" type="submit" value="提交申请" />
+	        <input class="button tiny alert" type="button" title="取消申请" value="取消申请" onclick="location.href='@Url.Action("Registration", "Register", new { RegObjectId = ViewBag.RegObjectId })    '" />
+            </div>
+        }
+
+    }
+ 
+	</div>
+</div>       
+
+
+@section head
+{
+    @if (ViewBag.isAdmin == false)
+    {
+        Html.RenderAction("NavBar", "Shared");
+    }
+    else
+    {
+        Html.RenderAction("AdminHeader", "Shared", new { currentItem = "registration" });
+    }
+}
+

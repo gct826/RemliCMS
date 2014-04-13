@@ -4,26 +4,37 @@
     ViewBag.Title = "Registration";
 }
 
-@Html.Action("Summary", "Register", new { regId = ViewBag.RegId, ViewBag.isAdmin });
+@{Html.RenderAction("Summary", "Register", new { regId = ViewBag.RegId, ViewBag.isAdmin });}
 
 <div class="row">
-    <div class="large-12 columns">
         
         @if (@ViewBag.IsConfirmed)
         {
-
-            <div class="large-4 columns">
+            <div class="large-7 medium-6 small-12 columns">
                 @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
                 {
-                    <p>This registration has been confirmed and can not be modified.</p>
-                    <p>If you need to modify, please email <a href="mailto:gct826@gmail.com">gct826@gmail.com</a> with your modification request.</p>
+                    <p>Your Registration has now been confirmed and can not be modified. Please remember the e-mail and phone number you used for the registration.
+                        This will allow you to go back and check or your registration at any time. 
+                    </p>
+                    <p>
+                    Please remember to write a check payable to T4C, and your Registration Number @ViewBag.RegId in the Memo line. You can bring your payment (check or credit) to the registration booth on Sunday. 
+                    T4CW: Please have your payment ready at Check In. If you need scholorships select Scholorship Request to apply.
+                    </p>
 
-                }
+                    <p>If you have any questions, please email <a href="mailto:sc@tcccc.org">sc@tcccc.org</a> with your modification request.</p>
+                }`
                         
                 @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
                 {
-                    <p>注册已被证实，不能修改。</p>
-                    <p>如果需要修改，请电邮 <a href="mailto:gct826@gmail.com">gct826@gmail.com</a>。</p>
+                    <p>您的注册现在已经得到了证实。请记住您用于注册的e-mail和电话号码。
+                        这将允许你回去，并在任何时候检查或修改您的注册。
+                    </p>
+                    <p>
+                    请记得写一张支票支付给T4C, 和你的注册号码 @ViewBag.RegID 在“备忘录”行。把你的付款（支票或信用卡）於主日交給夏令會註冊處。
+                    西區: 請於報到登记入營時付款。如果你需要奖学金，选择申请奖学金。
+                    </p>
+
+                    <p>如果需要修改，请电邮 <a href="mailto:sc@tcccc.org">sc@tcccc.org</a>。</p>
 
                 }
                 
@@ -38,69 +49,69 @@
                     <input type="button" title="Reg List" value="Reg List" onclick=" location.href = '@Url.Action("Index", "AdminRegistration")    ' " />
                     <input type="button" title="History" value="History" onclick=" location.href = '@Url.Action("Reg", "AdminHistory", new { id = ViewBag.RegID })    ' " />
                 }
-                        
-
             </div>
-            @*Html.RenderAction("PaymentSummary", "Register", new { ID = ViewBag.RegID });*@
+
+                Html.RenderAction("LedgerHelper", "Register", new { translationObjectId = ViewBag.TranslationObjectId, regId = ViewBag.RegId });
 
         }
 
         @if (ViewBag.IsConfirmed == false && ViewBag.confirmation == false)
         {
-            if (ViewContext.RouteData.Values["translation"].ToString() == "en")
-            {
-                <p>Select "Add Participant to add a new participant. Please click "Confirm Registration" once you're done.</p>
-                <input class="button tiny" type="button" title="Add New" value="Add Participant" onclick=" location.href = '@Url.Action("Participant", "Register", new { regObjectId = ViewBag.RegObjectId, partId = 0 })    ' " />
-                <input class="button tiny" type="button" title="Confim" value="Confirm Registration" onclick=" location.href = '@Url.Action("Registration", "Register", new { regObjectId = ViewBag.RegObjectId, confirmation = true }, "")    ' " />
-            }
+            <div class="large-12 columns">
+                @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+                {
+                    <p>Select "Add Participant to add a new participant. Please click "Confirm Registration" once you're done.</p>
+                    <input class="button tiny" type="button" title="Add New" value="Add Participant" onclick=" location.href = '@Url.Action("Participant", "Register", new { regObjectId = ViewBag.RegObjectId, partId = 0 })    ' " />
+                    <input class="button tiny" type="button" title="Confim" value="Confirm Registration" onclick=" location.href = '@Url.Action("Registration", "Register", new { regObjectId = ViewBag.RegObjectId, confirmation = true }, "")    ' " />
+                }
 
-            if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
-            {
-                <p>请点击”加与会者“加一个新的参与者。请点击”证实注册“一旦你完成。</p>
-                <input type="button" title="加与会者" value="加与会者" onclick=" location.href = '@Url.Action("Participant", "Register", new { regObjectId = ViewBag.RegObjectId, partId = 0 })    ' " />
-                <input type="button" title="证实注册" value="证实注册" onclick=" location.href = @Url.Action("Registration", "Register", new { regObjectId = ViewBag.RegObjectId, confirmation = true }, "")    ' " />
-            }
+                @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+                {
+                    <p>请点击”加与会者“加一个新的参与者。请点击”证实注册“一旦你完成。</p>
+                    <input type="button" title="加与会者" value="加与会者" onclick=" location.href = '@Url.Action("Participant", "Register", new { regObjectId = ViewBag.RegObjectId, partId = 0 })    ' " />
+                    <input type="button" title="证实注册" value="证实注册" onclick=" location.href = @Url.Action("Registration", "Register", new { regObjectId = ViewBag.RegObjectId, confirmation = true }, "")    ' " />
+                }
 
-            if (ViewBag.isAdmin == true)
-            {
-                <input class="button tiny" type="button" title="Add New" value="Add Participant" onclick=" location.href = '@Url.Action("Participant", "Register", new { regObjectId = ViewBag.RegObjectId, partId = 0 })    ' " />
-                <input class="button tiny" type="button" title="Confim" value="Confirm Registration" onclick=" location.href = '@Url.Action("Confirm", "Register", new { regObjectId = ViewBag.RegObjectId, isAdmin = ViewBag.isAdmin }, "")    ' " />
-                <input class="button tiny" type="button" title="Part Search" value="Part Search" onclick=" location.href = '@Url.Action("Index", "SearchRegistration")    ' " />
-                <input class="button tiny" type="button" title="Reg List" value="Reg List" onclick=" location.href = '@Url.Action("Index", "AdminRegistration")    ' " />
-                <input class="button tiny" type="button" title="History" value="History" onclick=" location.href = '@Url.Action("Reg", "AdminHistory", new { id = ViewBag.RegID })    ' " />
-            }
+                @if (ViewBag.isAdmin == true)
+                {
+                    <input class="button tiny" type="button" title="Add New" value="Add Participant" onclick=" location.href = '@Url.Action("Participant", "Register", new { regObjectId = ViewBag.RegObjectId, partId = 0 })    ' " />
+                    <input class="button tiny" type="button" title="Confim" value="Confirm Registration" onclick=" location.href = '@Url.Action("Confirm", "Register", new { regObjectId = ViewBag.RegObjectId, isAdmin = ViewBag.isAdmin }, "")    ' " />
+                    <input class="button tiny" type="button" title="Part Search" value="Part Search" onclick=" location.href = '@Url.Action("Index", "SearchRegistration")    ' " />
+                    <input class="button tiny" type="button" title="Reg List" value="Reg List" onclick=" location.href = '@Url.Action("Index", "AdminRegistration")    ' " />
+                    <input class="button tiny" type="button" title="History" value="History" onclick=" location.href = '@Url.Action("Reg", "AdminHistory", new { id = ViewBag.RegID })    ' " />
+                }
+            </div>
+            
         }
 
         @if (ViewBag.confirmation)
         {
             using (Html.BeginForm())
-             {
+            {
                  @Html.AntiForgeryToken()
                  <input data-val="true" data-val-required="The Id field is required." id="RegId" name="RegId" type="hidden" value="@ViewBag.RegId" />
 
-                 <div class="row">
                      <div class="large-12 columns">
         
                          @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
                          {
                              <p>Please click Confirm again to Confirm Registration.</p>
                              <input class="button tiny" type="submit" title="Confirm" value="Confirm" name ="submit"/>
-                             @Html.ActionLink("Cancel", "Registration", "Register", new {regObjectId = ViewBag.RegObjectId}, new {@class = "button tiny alert"})
+                             @Html.ActionLink("Cancel", "Registration", "Register", new { regObjectId = ViewBag.RegObjectId }, new { @class = "button tiny alert" })
                          }
 
                          @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
                          {
                              <p>你确定你要删除的参与者?</p>
                              <input class="button tiny" type="submit" title="Confirm" value="Confirm" name ="submit"/>
-                             @Html.ActionLink("Cancel", "Registration", "Register", new {regObjectId = ViewBag.RegObjectId}, new {@class = "button tiny alert"})
+                             @Html.ActionLink("Cancel", "Registration", "Register", new { regObjectId = ViewBag.RegObjectId }, new { @class = "button tiny alert" })
                          }
                      </div>
-                 </div>
-             }
+            }
         }
             
     </div>
-</div>
+
 
 <div class="row">
     
@@ -117,9 +128,18 @@
 </div>
 
 
-@Html.Action("SummaryHelper", "Register", new { translationObjectId = ViewBag.TranslationObjectId, regId = ViewBag.RegId, ViewBag.isAdmin, partId = 0 })
+@{
+    Html.RenderAction("SummaryHelper", "Register", new {translationObjectId = ViewBag.TranslationObjectId, regId = ViewBag.RegId, ViewBag.isAdmin, partId = 0});
+}
 
 @section head
 {
-    @{ Html.RenderAction("NavBar", "Shared");}
+    @if (ViewBag.isAdmin == false)
+    {
+        Html.RenderAction("NavBar", "Shared");
+    }
+    else
+    {
+        Html.RenderAction("AdminHeader", "Shared", new { currentItem = "registration" });
+    }
 }

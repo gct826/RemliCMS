@@ -1,5 +1,38 @@
-﻿@{
-    ViewBag.Title = "LedgerHelper";
-}
+﻿@*translation/Register/LedgerHelper*@
 
-<h2>LedgerHelper</h2>
+@model IEnumerable<RemliCMS.RegSystem.Entities.Ledger>
+
+
+<div class ="large-5 medium-6 small-12 columns">
+    <label>Payment Amount</label>
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LedgerDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LedgerTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LedgerAmount)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @String.Format("{0:MM/dd/yy}", item.LedgerDate)
+                </td>
+                <td>
+                    @{ Html.RenderAction("RegValueText", new { translationObjectId = ViewBag.TranslationObjectId, regValueKey = "ledger", regValue = item.LedgerTypeId }); }
+                </td>
+                <td>
+                    @String.Format("{0:C}", item.LedgerAmount)
+                </td>
+            </tr>
+        }
+    </table>
+                    
+    @Html.ActionLink("Scholarship Request", "Scholarship", "Register", new { regObjectId = ViewBag.RegObjectId }, new { @class = "button tiny" })
+</div>

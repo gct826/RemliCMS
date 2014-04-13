@@ -2,7 +2,7 @@
 
 @model RemliCMS.RegSystem.Entities.Participant
 
-@Html.Action("Summary", "Register", new { RegId = ViewBag.RegID });
+@{Html.RenderAction("Summary", "Register", new { regId = ViewBag.RegId});}
 
 <div class="row">
     <div class="large-12 columns">
@@ -113,7 +113,14 @@
 
 @section head
 {
-    @{ Html.RenderAction("NavBar", "Shared");}
+    @if (ViewBag.isAdmin == false)
+    {
+        Html.RenderAction("NavBar", "Shared");
+    }
+    else
+    {
+        Html.RenderAction("AdminHeader", "Shared", new { currentItem = "registration" });
+    }
 }
 
 @section Scripts {

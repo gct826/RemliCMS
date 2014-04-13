@@ -30,10 +30,17 @@ namespace RemliCMS.RegSystem.Entities
 
         [ScaffoldColumn(false)]
         [BsonElement("isConfirmed")]
+        [DisplayName("Confirmed")]
         public Boolean IsConfirmed { get; set; }
 
         [ScaffoldColumn(false)]
         [BsonElement("dateCreated")]
+        [DisplayName("Created Date")]
         public DateTime DateCreated { get; set; }
+
+        [ScaffoldColumn(false)]
+        [BsonElement("isDeleted")]
+        [DisplayName("Deleted")]
+        public Boolean IsDeleted { get; set; }
     }
 }
