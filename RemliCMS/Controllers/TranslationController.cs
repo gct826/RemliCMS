@@ -5,6 +5,7 @@ using RemliCMS.WebData.Services;
 
 namespace RemliCMS.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class TranslationController : BaseController
     {
         public TranslationController(IRouteService routeService) : base(routeService)

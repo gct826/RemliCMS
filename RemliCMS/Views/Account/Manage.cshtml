@@ -1,0 +1,26 @@
+﻿@*/admin/account/manage*@
+
+@model RemliCMS.Models.LocalPasswordModel
+
+<div class="row">
+    <div class="large-12 columns">
+        <p class="message-success">@ViewBag.StatusMessage</p>
+
+        <p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
+
+        @if (ViewBag.HasLocalPassword)
+        {
+            @Html.Partial("_ChangePasswordPartial")
+        }
+        else
+        { 
+            @Html.Partial("_SetPasswordPartial")
+        }
+    </div>
+
+</div>
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader", "Shared", new { currentItem = "pageheader" });}
+}

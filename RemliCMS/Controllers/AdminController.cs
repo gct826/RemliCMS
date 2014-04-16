@@ -17,7 +17,7 @@ namespace RemliCMS.Controllers
 
         //
         // GET: /Admin/Index
-
+        [Authorize(Roles="admin")]
         public ActionResult Index()
         {
             ViewBag.Title = "Site Administration";

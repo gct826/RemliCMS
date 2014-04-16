@@ -1,0 +1,38 @@
+﻿@*/admin/account/register*@
+
+@model RemliCMS.Models.RegisterModel
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="row">
+        <div class="large-12 columns">
+            <label>
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName)                
+            </label>     
+        </div>
+        <div class="large-12 columns">
+            <label>
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password)                
+            </label>
+        </div>
+        <div class="large-12 columns">
+            @Html.LabelFor(m => m.ConfirmPassword)
+            @Html.PasswordFor(m => m.ConfirmPassword)            
+        </div>
+        <div class="large-12 columns">
+            <input class="button" type="submit" value="Register" />
+        </div>
+
+    </div>
+}
+
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader", "Shared", new { currentItem = "pageheader" });}
+}
+

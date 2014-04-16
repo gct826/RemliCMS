@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using MongoDB.Bson;
 using RemliCMS.RegSystem.Entities;
 using RemliCMS.RegSystem.Services;
@@ -32,8 +33,14 @@ namespace RemliCMS.Controllers
             ViewBag.isAdmin = false;
             if (routeValues.Translation == "admin")
             {
-                ViewBag.isAdmin = true;
-                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                if (User.IsInRole("admin"))
+                {
+                    ViewBag.isAdmin = true;
+                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                }
+
+                routeValues.Translation = translationService.GetDefaultUrl();
+                return RedirectToRoute(routeValues);
             }
 
             var registrationService = new RegistrationService();
@@ -71,8 +78,14 @@ namespace RemliCMS.Controllers
             ViewBag.isAdmin = false;
             if (routeValues.Translation == "admin")
             {
-                ViewBag.isAdmin = true;
-                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                if (User.IsInRole("admin"))
+                {
+                    ViewBag.isAdmin = true;
+                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                }
+
+                routeValues.Translation = translationService.GetDefaultUrl();
+                return RedirectToRoute(routeValues);
             }
 
             var registrationService = new RegistrationService();
@@ -156,8 +169,14 @@ namespace RemliCMS.Controllers
             ViewBag.isAdmin = false;
             if (routeValues.Translation == "admin")
             {
-                ViewBag.isAdmin = true;
-                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                if (User.IsInRole("admin"))
+                {
+                    ViewBag.isAdmin = true;
+                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                }
+
+                routeValues.Translation = translationService.GetDefaultUrl();
+                return RedirectToRoute(routeValues);
             }
 
             if (regObjectId == null || partId == null)
@@ -233,8 +252,14 @@ namespace RemliCMS.Controllers
             ViewBag.isAdmin = false;
             if (routeValues.Translation == "admin")
             {
-                ViewBag.isAdmin = true;
-                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                if (User.IsInRole("admin"))
+                {
+                    ViewBag.isAdmin = true;
+                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                }
+
+                routeValues.Translation = translationService.GetDefaultUrl();
+                return RedirectToRoute(routeValues);
             }
 
             if (regObjectId == null)
@@ -331,8 +356,14 @@ namespace RemliCMS.Controllers
             ViewBag.isAdmin = false;
             if (routeValues.Translation == "admin")
             {
-                ViewBag.isAdmin = true;
-                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                if (User.IsInRole("admin"))
+                {
+                    ViewBag.isAdmin = true;
+                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                }
+
+                routeValues.Translation = translationService.GetDefaultUrl();
+                return RedirectToRoute(routeValues);
             }
 
             if (regObjectId == null || partId == null)
@@ -385,9 +416,16 @@ namespace RemliCMS.Controllers
             ViewBag.isAdmin = false;
             if (routeValues.Translation == "admin")
             {
-                ViewBag.isAdmin = true;
-                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                if (User.IsInRole("admin"))
+                {
+                    ViewBag.isAdmin = true;
+                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                }
+
+                routeValues.Translation = translationService.GetDefaultUrl();
+                return RedirectToRoute(routeValues);
             }
+
             ViewBag.TranslationObjectId = translationObjectId;
 
             if (regObjectId == null || partId == null)
@@ -446,8 +484,14 @@ namespace RemliCMS.Controllers
             ViewBag.isAdmin = false;
             if (routeValues.Translation == "admin")
             {
-                ViewBag.isAdmin = true;
-                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                if (User.IsInRole("admin"))
+                {
+                    ViewBag.isAdmin = true;
+                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                }
+
+                routeValues.Translation = translationService.GetDefaultUrl();
+                return RedirectToRoute(routeValues);
             }
 
             
@@ -672,8 +716,14 @@ namespace RemliCMS.Controllers
             ViewBag.isAdmin = false;
             if (routeValues.Translation == "admin")
             {
-                ViewBag.isAdmin = true;
-                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                if (User.IsInRole("admin"))
+                {
+                    ViewBag.isAdmin = true;
+                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                }
+
+                routeValues.Translation = translationService.GetDefaultUrl();
+                return RedirectToRoute(routeValues);
             }
 
             ViewBag.TranslationObjectId = translationObjectId;
@@ -719,8 +769,14 @@ namespace RemliCMS.Controllers
             ViewBag.isAdmin = false;
             if (routeValues.Translation == "admin")
             {
-                ViewBag.isAdmin = true;
-                translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                if (User.IsInRole("admin"))
+                {
+                    ViewBag.isAdmin = true;
+                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                }
+
+                routeValues.Translation = translationService.GetDefaultUrl();
+                return RedirectToRoute(routeValues);
             }
 
             ViewBag.TranslationObjectId = translationObjectId;

@@ -7,6 +7,7 @@ using RemliCMS.WebData.Services;
 
 namespace RemliCMS.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class PageHeaderController : BaseController
     {
         public PageHeaderController(IRouteService routeService) : base(routeService)

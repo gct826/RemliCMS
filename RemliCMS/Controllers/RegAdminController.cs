@@ -13,6 +13,7 @@ using RemliCMS.WebData.Services;
 
 namespace RemliCMS.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class RegAdminController : BaseController
     {
         public RegAdminController(IRouteService routeService) : base(routeService)
@@ -22,7 +23,6 @@ namespace RemliCMS.Controllers
 
         //
         // GET: /RegAdmin/
-
         public ActionResult Index()
         {
             ViewBag.Title = "Registration Admin";
@@ -32,6 +32,24 @@ namespace RemliCMS.Controllers
             var registrationList = registrationService.ListAllRegistrations();
 
             return View(registrationList);
+        }
+
+        //
+        // GET: /RegAdmin/ParticipantSearch
+        public ActionResult ParticipantSearch()
+        {
+            ViewBag.Title = "Participant Search";
+
+            return View();
+        }
+
+        //
+        // POST: /RegAdmin/ParticipantSerach
+        public ActionResult ParticipantSearch(FormCollection searchfield)
+        {
+            ViewBag.Title = "Participant Search";
+
+            return View();
         }
 
     }
