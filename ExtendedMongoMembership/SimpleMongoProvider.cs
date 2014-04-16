@@ -203,7 +203,7 @@ namespace ExtendedMongoMembership
                     dbLocation = "mongodb://" + dbLocation;
                 }
 
-                _connectionString = dbLocation + "/" + dbName;
+                _connectionString = dbLocation;
             //}
 
             if (string.IsNullOrEmpty(_connectionString))
