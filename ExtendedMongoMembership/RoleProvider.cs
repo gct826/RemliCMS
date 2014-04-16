@@ -31,14 +31,14 @@ namespace ExtendedMongoMembership
 
 
             bool.TryParse(config["useAppHarbor"], out _useAppHarbor);
-            if (_useAppHarbor)
-            {
-                _connectionString =
-                    ConfigurationManager.AppSettings.Get("MONGOHQ_URL") ??
-                    ConfigurationManager.AppSettings.Get("MONGOLAB_URI");
-            }
-            else
-            {
+            //if (_useAppHarbor)
+            //{
+            //    _connectionString =
+            //        ConfigurationManager.AppSettings.Get("MONGOHQ_URL") ??
+            //        ConfigurationManager.AppSettings.Get("MONGOLAB_URI");
+            //}
+            //else
+            //{
                 var dbUser = System.Configuration.ConfigurationManager.AppSettings["MongoDbUser"];
                 var dbPwd = System.Configuration.ConfigurationManager.AppSettings["MongoDbPwd"];
                 var dbLocation = System.Configuration.ConfigurationManager.AppSettings["MongoDbLocation"];
@@ -54,7 +54,7 @@ namespace ExtendedMongoMembership
                 }
 
                 _connectionString = dbLocation + "/" + dbName;
-            }
+            //}
 
             if (string.IsNullOrEmpty(_connectionString))
             {
