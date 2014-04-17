@@ -141,7 +141,7 @@ namespace RemliCMS.Controllers
         {
             ViewBag.Title = "Manage Account";
 
-            ViewBag.StatusMessage =
+            ViewBag.Message =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."

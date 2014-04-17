@@ -96,7 +96,8 @@ namespace RemliCMS.RegSystem.Services
 
             //var foundRegistrationList = MongoConnectionHandler.MongoCollection.Find(registrationQuery).ToList();
 
-            var foundRegistrationList = MongoConnectionHandler.MongoCollection.FindAll().ToList();
+            var foundRegistrationList = MongoConnectionHandler.MongoCollection.FindAll()
+                .SetSortOrder(SortBy<Registration>.Ascending(g => g.RegId)).ToList();
 
             return foundRegistrationList;
         }

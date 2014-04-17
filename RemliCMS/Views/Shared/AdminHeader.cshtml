@@ -26,6 +26,15 @@
                 {
                     <li>@Html.ActionLink("Translation", "Index", "Translation")</li>                    
                 }
+                
+                @if (ViewBag.CurrentItem == "registration")
+                {
+                    <li class="active">@Html.ActionLink("Registration", "Index", "RegAdmin")</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Registration", "Index", "RegAdmin")</li>                    
+                }
 
                 <li><a href="/">Back to Site</a></li>
 

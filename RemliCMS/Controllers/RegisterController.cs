@@ -20,27 +20,45 @@ namespace RemliCMS.Controllers
         {
         }
 
+        public int IsAdmin()
+        {
+            RouteValues routeValues = RouteValue;
+            var translationService = new TranslationService();
+            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
+
+
+            if (routeValues.Translation == "admin")
+            {
+                if (User.IsInRole("admin"))
+                {
+                    ViewBag.isAdmin = true;
+                    ViewBag.translationObjectId =
+                        translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                    return 1;
+                }
+                else
+                {
+                    ViewBag.isAdmin = false;
+                    ViewBag.translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                    return -1;
+                }
+            }
+
+            ViewBag.isAdmin = false;
+            ViewBag.translationObjectId = translationObjectId;
+            return 0;
+        }
+
         //
         // GET: /Register/
         public ActionResult Index()
         {
             ViewBag.Title = "Registration";
 
-            RouteValues routeValues = RouteValue;
-            var translationService = new TranslationService();
-            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
-
-            ViewBag.isAdmin = false;
-            if (routeValues.Translation == "admin")
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
             {
-                if (User.IsInRole("admin"))
-                {
-                    ViewBag.isAdmin = true;
-                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
-                }
-
-                routeValues.Translation = translationService.GetDefaultUrl();
-                return RedirectToRoute(routeValues);
+                return RedirectToAction("Index", "Register", new { translation = "en" });
             }
 
             var registrationService = new RegistrationService();
@@ -71,21 +89,10 @@ namespace RemliCMS.Controllers
         {
             ViewBag.Title = "Registration";
 
-            RouteValues routeValues = RouteValue;
-            var translationService = new TranslationService();
-            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
-
-            ViewBag.isAdmin = false;
-            if (routeValues.Translation == "admin")
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
             {
-                if (User.IsInRole("admin"))
-                {
-                    ViewBag.isAdmin = true;
-                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
-                }
-
-                routeValues.Translation = translationService.GetDefaultUrl();
-                return RedirectToRoute(routeValues);
+                return RedirectToAction("Index", "Register", new { translation = "en" });
             }
 
             var registrationService = new RegistrationService();
@@ -162,21 +169,10 @@ namespace RemliCMS.Controllers
         {
             ViewBag.Title = "Participant";
 
-            RouteValues routeValues = RouteValue;
-            var translationService = new TranslationService();
-            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
-
-            ViewBag.isAdmin = false;
-            if (routeValues.Translation == "admin")
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
             {
-                if (User.IsInRole("admin"))
-                {
-                    ViewBag.isAdmin = true;
-                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
-                }
-
-                routeValues.Translation = translationService.GetDefaultUrl();
-                return RedirectToRoute(routeValues);
+                return RedirectToAction("Index", "Register", new { translation = "en" });
             }
 
             if (regObjectId == null || partId == null)
@@ -202,13 +198,13 @@ namespace RemliCMS.Controllers
                 ViewBag.RegObjectId = foundRegistration.Id;
                 ViewBag.RegId = foundRegistration.RegId;
                 ViewBag.ParticipantId = 0;
-                ViewBag.SessionId = new SelectList(regValueService.GetValueTextList("sessions", translationObjectId),
+                ViewBag.SessionId = new SelectList(regValueService.GetValueTextList("sessions", ViewBag.translationObjectId),
                                                    "Value", "Text");
-                ViewBag.AgeRangeId = new SelectList(regValueService.GetValueTextList("agerange", translationObjectId),
+                ViewBag.AgeRangeId = new SelectList(regValueService.GetValueTextList("agerange", ViewBag.translationObjectId),
                                                     "Value", "Text");
-                ViewBag.GenderId = new SelectList(regValueService.GetValueTextList("gender", translationObjectId),
+                ViewBag.GenderId = new SelectList(regValueService.GetValueTextList("gender", ViewBag.translationObjectId),
                                                   "Value", "Text");
-                ViewBag.RoomTypeID = new SelectList(regValueService.GetValueTextList("roomtype", translationObjectId),
+                ViewBag.RoomTypeID = new SelectList(regValueService.GetValueTextList("roomtype", ViewBag.translationObjectId),
                                                     "Value", "Text");
 
                 return View();
@@ -225,13 +221,13 @@ namespace RemliCMS.Controllers
             ViewBag.RegObjectId = foundRegistration.Id;
             ViewBag.RegId = foundRegistration.RegId;
             ViewBag.ParticipantId = foundParticipant.PartId;
-            ViewBag.SessionId = new SelectList(regValueService.GetValueTextList("sessions", translationObjectId),
+            ViewBag.SessionId = new SelectList(regValueService.GetValueTextList("sessions", ViewBag.translationObjectId),
                                                "Value", "Text");
-            ViewBag.AgeRangeId = new SelectList(regValueService.GetValueTextList("agerange", translationObjectId),
+            ViewBag.AgeRangeId = new SelectList(regValueService.GetValueTextList("agerange", ViewBag.translationObjectId),
                                                 "Value", "Text");
-            ViewBag.GenderId = new SelectList(regValueService.GetValueTextList("gender", translationObjectId), "Value",
+            ViewBag.GenderId = new SelectList(regValueService.GetValueTextList("gender", ViewBag.translationObjectId), "Value",
                                               "Text");
-            ViewBag.RoomTypeID = new SelectList(regValueService.GetValueTextList("roomtype", translationObjectId),
+            ViewBag.RoomTypeID = new SelectList(regValueService.GetValueTextList("roomtype", ViewBag.translationObjectId),
                                                 "Value", "Text");
 
             return View(foundParticipant);
@@ -245,21 +241,10 @@ namespace RemliCMS.Controllers
         {
             ViewBag.Title = "Participant";
 
-            RouteValues routeValues = RouteValue;
-            var translationService = new TranslationService();
-            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
-
-            ViewBag.isAdmin = false;
-            if (routeValues.Translation == "admin")
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
             {
-                if (User.IsInRole("admin"))
-                {
-                    ViewBag.isAdmin = true;
-                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
-                }
-
-                routeValues.Translation = translationService.GetDefaultUrl();
-                return RedirectToRoute(routeValues);
+                return RedirectToAction("Index", "Register", new { translation = "en" });
             }
 
             if (regObjectId == null)
@@ -310,13 +295,13 @@ namespace RemliCMS.Controllers
                 ViewBag.RegObjectId = foundRegistration.Id;
                 ViewBag.RegId = foundRegistration.RegId;
 
-                ViewBag.SessionId = new SelectList(regValueService.GetValueTextList("sessions", translationObjectId),
+                ViewBag.SessionId = new SelectList(regValueService.GetValueTextList("sessions", ViewBag.translationObjectId),
                                                    "Value", "Text");
-                ViewBag.AgeRangeId = new SelectList(regValueService.GetValueTextList("agerange", translationObjectId),
+                ViewBag.AgeRangeId = new SelectList(regValueService.GetValueTextList("agerange", ViewBag.translationObjectId),
                                                     "Value", "Text");
-                ViewBag.GenderId = new SelectList(regValueService.GetValueTextList("gender", translationObjectId),
+                ViewBag.GenderId = new SelectList(regValueService.GetValueTextList("gender", ViewBag.translationObjectId),
                                                   "Value", "Text");
-                ViewBag.RoomTypeID = new SelectList(regValueService.GetValueTextList("roomtype", translationObjectId),
+                ViewBag.RoomTypeID = new SelectList(regValueService.GetValueTextList("roomtype", ViewBag.translationObjectId),
                                                     "Value", "Text");
 
                 ViewBag.Message = "Save Error";
@@ -349,21 +334,10 @@ namespace RemliCMS.Controllers
         {
             ViewBag.Title = "Remove Participant";
 
-            RouteValues routeValues = RouteValue;
-            var translationService = new TranslationService();
-            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
-
-            ViewBag.isAdmin = false;
-            if (routeValues.Translation == "admin")
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
             {
-                if (User.IsInRole("admin"))
-                {
-                    ViewBag.isAdmin = true;
-                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
-                }
-
-                routeValues.Translation = translationService.GetDefaultUrl();
-                return RedirectToRoute(routeValues);
+                return RedirectToAction("Index", "Register", new { translation = "en" });
             }
 
             if (regObjectId == null || partId == null)
@@ -392,8 +366,6 @@ namespace RemliCMS.Controllers
                 return RedirectToAction("Index");
             }
 
-
-            ViewBag.TranslationObjectId = translationObjectId;
             ViewBag.RegObjectId = foundRegistration.Id;
             ViewBag.RegId = foundRegistration.RegId;
             ViewBag.ParticipantId = foundParticipant.PartId;
@@ -409,24 +381,11 @@ namespace RemliCMS.Controllers
         {
             ViewBag.Title = "Remove Participant";
 
-            RouteValues routeValues = RouteValue;
-            var translationService = new TranslationService();
-            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
-
-            ViewBag.isAdmin = false;
-            if (routeValues.Translation == "admin")
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
             {
-                if (User.IsInRole("admin"))
-                {
-                    ViewBag.isAdmin = true;
-                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
-                }
-
-                routeValues.Translation = translationService.GetDefaultUrl();
-                return RedirectToRoute(routeValues);
+                return RedirectToAction("Index", "Register", new { translation = "en" });
             }
-
-            ViewBag.TranslationObjectId = translationObjectId;
 
             if (regObjectId == null || partId == null)
             {
@@ -471,29 +430,21 @@ namespace RemliCMS.Controllers
             return View(foundParticipant);
         }
 
+
+
+
+        
         //
         // GET: /Register/Registration?regObjectId&confirmation
         public ActionResult Registration(string regObjectId, bool confirmation = false)
         {
             ViewBag.Title = "Registration";
 
-            RouteValues routeValues = RouteValue;
-            var translationService = new TranslationService();
-            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
-
-            ViewBag.isAdmin = false;
-            if (routeValues.Translation == "admin")
-            {
-                if (User.IsInRole("admin"))
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
                 {
-                    ViewBag.isAdmin = true;
-                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+                    return RedirectToAction("Index", "Register", new {translation = "en"});                
                 }
-
-                routeValues.Translation = translationService.GetDefaultUrl();
-                return RedirectToRoute(routeValues);
-            }
-
             
             if (regObjectId == null)
             {
@@ -514,7 +465,7 @@ namespace RemliCMS.Controllers
                 }
                     
                 ViewBag.confirmation = confirmation;
-                ViewBag.TranslationObjectId = translationObjectId;
+                //ViewBag.TranslationObjectId = translationObjectId;
                 ViewBag.RegId = foundRegistration.RegId;
                 ViewBag.RegObjectId = foundRegistration.Id;
                 ViewBag.IsConfirmed = foundRegistration.IsConfirmed;
@@ -531,6 +482,12 @@ namespace RemliCMS.Controllers
         public ActionResult Registration(string regObjectId, bool confirmation, FormCollection collection)
         {
             ViewBag.Title = "Registration";
+
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
+            {
+                return RedirectToAction("Index", "Register", new { translation = "en" });
+            }
 
             if (regObjectId == null)
             {
@@ -709,24 +666,11 @@ namespace RemliCMS.Controllers
         {
             ViewBag.Title = "Scholorship";
 
-            RouteValues routeValues = RouteValue;
-            var translationService = new TranslationService();
-            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
-
-            ViewBag.isAdmin = false;
-            if (routeValues.Translation == "admin")
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
             {
-                if (User.IsInRole("admin"))
-                {
-                    ViewBag.isAdmin = true;
-                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
-                }
-
-                routeValues.Translation = translationService.GetDefaultUrl();
-                return RedirectToRoute(routeValues);
+                return RedirectToAction("Index", "Register", new { translation = "en" });
             }
-
-            ViewBag.TranslationObjectId = translationObjectId;
 
             if (regObjectId == null)
             {
@@ -762,25 +706,11 @@ namespace RemliCMS.Controllers
         {
             ViewBag.Title = "Scholorship";
 
-            RouteValues routeValues = RouteValue;
-            var translationService = new TranslationService();
-            var translationObjectId = translationService.GetTranslationObjectId(routeValues.Translation);
-
-            ViewBag.isAdmin = false;
-            if (routeValues.Translation == "admin")
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
             {
-                if (User.IsInRole("admin"))
-                {
-                    ViewBag.isAdmin = true;
-                    translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
-                }
-
-                routeValues.Translation = translationService.GetDefaultUrl();
-                return RedirectToRoute(routeValues);
+                return RedirectToAction("Index", "Register", new { translation = "en" });
             }
-
-            ViewBag.TranslationObjectId = translationObjectId;
-
             if (regObjectId == null)
             {
                 return RedirectToAction("Index", "Register");

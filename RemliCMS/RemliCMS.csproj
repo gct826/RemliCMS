@@ -353,7 +353,7 @@
     <Content Include="Views\Register\Delete.cshtml" />
     <Content Include="Views\Register\Scholarship.cshtml" />
     <Content Include="Views\RegAdmin\Index.cshtml" />
-    <Content Include="Views\RegAdmin\ParticipantSearch.cshtml" />
+    <Content Include="Views\RegAdmin\Participant.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />

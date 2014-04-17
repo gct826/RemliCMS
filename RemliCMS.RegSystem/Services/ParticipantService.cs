@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -44,5 +45,27 @@ namespace RemliCMS.RegSystem.Services
             return foundParticipantList;
         }
 
+        public List<Participant> ListAllParticipants(string searchString = "")
+        {
+            if (searchString == "")
+            {
+                var foundParticipantList = MongoConnectionHandler.MongoCollection.FindAll()
+                    .SetSortOrder(SortBy<Participant>.Ascending(g => g.RegId)).ToList();
+                
+                return foundParticipantList;
+            }
+
+            var regex = new Regex(searchString);
+
+            var participantQuery = Query.Or(
+                Query<Participant>.Where(g => regex.IsMatch(g.LastName)),
+                Query<Participant>.Where(g => regex.IsMatch(g.FirstName)),
+                Query<Participant>.Where(g => regex.IsMatch(g.ChineseName)));
+
+            var foundRegistrationList = MongoConnectionHandler.MongoCollection.Find(participantQuery)
+                .SetSortOrder(SortBy<Registration>.Ascending(g => g.RegId)).ToList();
+
+            return foundRegistrationList;
+        }
     }
 }

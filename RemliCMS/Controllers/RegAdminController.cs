@@ -35,8 +35,25 @@ namespace RemliCMS.Controllers
         }
 
         //
-        // GET: /RegAdmin/ParticipantSearch
-        public ActionResult ParticipantSearch()
+        // GET: /RegAdmin/Participant
+        public ActionResult Participant(int numResult=0)
+        {
+            ViewBag.Title = "Participant Search";
+
+            var translationService = new TranslationService();
+            ViewBag.translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+
+            var participantService = new ParticipantService();
+
+            var participantList = participantService.ListAllParticipants();
+            
+            return View(participantList);
+        }
+
+        //
+        // POST: /RegAdmin/Participant
+        [HttpPost]
+        public ActionResult Participant(FormCollection searchfield)
         {
             ViewBag.Title = "Participant Search";
 
@@ -44,12 +61,19 @@ namespace RemliCMS.Controllers
         }
 
         //
-        // POST: /RegAdmin/ParticipantSerach
-        public ActionResult ParticipantSearch(FormCollection searchfield)
+        // GET: /RegAdmin/ParticipantHelper
+        public ActionResult ParticipantHelper(string partId)
         {
-            ViewBag.Title = "Participant Search";
+            var participantService = new ParticipantService();
+            var registrationService = new RegistrationService();
 
-            return View();
+            var partRegId = participantService.GetById(partId).RegId;
+            var regObjectId = registrationService.GetByRegId(partRegId).Id;
+
+
+
+            return RedirectToAction("Registration", "Register", new {regObjectId});
+
         }
 
     }

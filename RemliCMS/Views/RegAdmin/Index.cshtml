@@ -5,6 +5,7 @@
 <div class="row">
     <div class="large-12 columns">
         <h3>Registration List</h3>
+        <p>@Html.ActionLink("Participant List", "Participant", "RegAdmin", new {numResult=10},"")</p>
     </div>
 </div>
 
@@ -66,5 +67,5 @@
 
 @section head
 {
-    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "pageheader"});}
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "registration"});}
 }

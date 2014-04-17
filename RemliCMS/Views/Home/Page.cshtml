@@ -9,9 +9,15 @@
 
 @section head
 {
-    @{ Html.RenderAction("NavBar","Shared");}
+    @if (ViewBag.isAdmin == false)
+    {
+        Html.RenderAction("NavBar", "Shared");
+    }
+    else
+    {
+        Html.RenderAction("AdminHeader", "Shared", new { currentItem = "registration" });
+    }
 }
-
 @section routedebug
 {
     @if(ViewBag.Debug == true) {

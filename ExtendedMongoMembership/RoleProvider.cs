@@ -50,7 +50,7 @@ namespace ExtendedMongoMembership
                 }
                 else
                 {
-                    dbLocation = "mongodb://" + dbLocation;
+                    dbLocation = "mongodb://" + dbLocation + "/" + dbName ;
                 }
 
                 _connectionString = dbLocation;

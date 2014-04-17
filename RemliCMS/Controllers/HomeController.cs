@@ -96,7 +96,18 @@ namespace RemliCMS.Controllers
             var translationService = new TranslationService();
 
             var pageHeader = pageHeaderService.Details(permalink);
+
             var translation = translationService.Details(routeValues.Translation);
+
+            if (routeValues.Translation == "admin")
+            {
+                translation = translationService.Details(translationService.GetDefaultUrl());
+                ViewBag.isAdmin = true;
+            }
+            else
+            {
+                ViewBag.isAdmin = false;
+            }
 
             if (pageHeader == null)
             {

@@ -1,0 +1,82 @@
+﻿@*/admin/RegAdmin/Participant*@
+
+@model IEnumerable<RemliCMS.RegSystem.Entities.Participant>
+
+<div class="row">
+    <div class="large-12 columns">
+        <h3>Registration List</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PartId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ChineseName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GenderId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AgeRangeId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StatusId)
+                    </th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("ParticipantHelper", "RegAdmin", new {partId = item.Id})">@item.RegId</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartId)                        
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChineseName)
+                    </td>                    
+                    <td>
+                        @{ Html.RenderAction("RegValueText","Register", new {translationObjectId = ViewBag.translationObjectId, regValueKey = "gender", regValue = item.GenderId}); }
+                    </td>
+                    <td>
+                        @{ Html.RenderAction("RegValueText","Register", new {translationObjectId = ViewBag.translationObjectId, regValueKey = "agerange", regValue = item.AgeRangeId}); }
+                    </td>
+                    <td>
+                        @{ Html.RenderAction("RegValueText","Register", new {translationObjectId = ViewBag.translationObjectId, regValueKey = "status", regValue = item.StatusId}); }
+                    </td>
+                </tr>
+                
+            }
+
+        </table>
+    </div>
+</div>
+
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "registration"});}
+}

@@ -2210,7 +2210,10 @@ button, .button {
   .panel.radius {
     -webkit-border-radius: 3px;
     border-radius: 3px; }
-
+  .panel.callout.red {
+      border-color: #FA8072;
+      background: #FFE4E1;
+  }
 .dropdown.button {
   position: relative;
   padding-right: 3.5625rem; }
