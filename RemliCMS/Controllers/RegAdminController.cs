@@ -76,5 +76,20 @@ namespace RemliCMS.Controllers
 
         }
 
+        //
+        // GET: /RegAdmin/PaymentManagement
+        public ActionResult PaymentManagement()
+        {
+            var ledgerService = new LedgerService();
+
+            var ledgerList = ledgerService.GetAllLedgerList();
+
+            var translationService = new TranslationService();
+            ViewBag.translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+
+            return View(ledgerList);
+        }
+
+
     }
 }

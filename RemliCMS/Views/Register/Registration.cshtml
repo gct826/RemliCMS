@@ -42,7 +42,7 @@
                 @if (ViewBag.isAdmin == true)
                 {
                     <h5>Administration</h5>
-                    <input class="button tiny" type="button" title="Payment Entry" value="Add Payment" onclick=" location.href = '@Url.Action("Create", "Payment", new { id = ViewBag.RegID })    ' " />
+                    <input class="button tiny" type="button" title="Payment Entry" value="Add Payment" onclick=" location.href = '@Url.Action("Payment", "Register", new { regObjectId = ViewBag.RegObjectId })    ' " />
                     <input class="button tiny" type="button" title="Check Out All" value ="Check Out All" onclick=" location.href = '@Url.Action("CheckOutReg", "CheckIn", new { id = ViewBag.RegID })' "/>
                     <input class="button tiny" type="button" title="Part Search" value="Part Search" onclick=" location.href = '@Url.Action("Participant", "RegAdmin")    ' " />
                     <input class="button tiny" type="button" title="Reg List" value="Reg List" onclick=" location.href = '@Url.Action("Index", "RegAdmin")    ' " />

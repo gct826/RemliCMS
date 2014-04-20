@@ -32,6 +32,18 @@
                 </td>
             </tr>
         }
+
+        <tr>
+            <td>
+            </td>
+            <td>
+                Remaining Balance
+            </td>
+            <td>
+                @String.Format("{0:C}",ViewBag.RemainingPrice)
+            </td>
+        </tr>
+
     </table>
                     
     @Html.ActionLink("Scholarship Request", "Scholarship", "Register", new { regObjectId = ViewBag.RegObjectId }, new { @class = "button tiny" })

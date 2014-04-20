@@ -176,3 +176,12 @@ td .margin {
     -webkit-border-radius: 3px;
     border-radius: 3px; }
 
+
+
+.label_check, .label_radio    { padding-left: 34px;color: red;}
+.label_radio    { background: url(radio-off.png) no-repeat; }
+.label_check    { background: url(check-off.png) no-repeat; }
+label.c_on      { background: url(check-on.png) no-repeat; }
+label.r_on      { background: url(radio-on.png) no-repeat; }
+.label_check input,
+.label_radio input  { position: absolute; left: -9999px; }

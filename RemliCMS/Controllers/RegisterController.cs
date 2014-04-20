@@ -634,6 +634,7 @@ namespace RemliCMS.Controllers
 
             ViewBag.TranslationObjectId = translationObjectId;
             ViewBag.RegObjectId = foundRegEntry.Id;
+            ViewBag.RemainingPrice = ledgerService.GetRemaining(regId);
 
             return PartialView(ledgerList);
         }
@@ -678,6 +679,8 @@ namespace RemliCMS.Controllers
             }
 
             var registrationService = new RegistrationService();
+            var ledgerService = new LedgerService();
+
             var foundRegEntry = registrationService.GetById(regObjectId);
 
             if (foundRegEntry == null)
@@ -688,6 +691,7 @@ namespace RemliCMS.Controllers
             if (foundRegEntry.RegId != 0)
             {
                 ViewBag.TotalPrice = registrationService.getTotalPrice(foundRegEntry.RegId);
+                ViewBag.RemainingPrice = ledgerService.GetRemaining(foundRegEntry.RegId);
                 ViewBag.RegId = foundRegEntry.RegId;
                 ViewBag.RegObjectId = foundRegEntry.Id;
 
@@ -733,13 +737,115 @@ namespace RemliCMS.Controllers
                 RegId = foundRegEntry.RegId,
                 LedgerTypeId = (int)2,
                 LedgerAmount = saveLedger.LedgerAmount,
-                LedgerDate = DateTime.Now
+                LedgerDate = DateTime.Now,
+                LedgerNote = "",
+                IsConfirmed = false
             };
 
             ledgerService.Update(newLedger);
 
             return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });
             
+        }
+
+        //
+        // GET: /Register/Payment/RegUID
+        public ActionResult Payment(string regObjectId)
+        {
+            ViewBag.Title = "Payment Entry";
+
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
+            {
+                return RedirectToAction("Index", "Register", new { translation = "en" });
+            }
+
+            if (regObjectId == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var registrationService = new RegistrationService();
+            var ledgerService = new LedgerService();
+            var regValueService = new RegValueService();
+
+            var foundRegEntry = registrationService.GetById(regObjectId);
+
+            if (foundRegEntry == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            if (isAdmin == 0)
+            {
+                return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });
+            }
+
+            if (foundRegEntry.RegId != 0)
+            {
+                ViewBag.TotalPrice = registrationService.getTotalPrice(foundRegEntry.RegId);
+                ViewBag.RemainingPrice = ledgerService.GetRemaining(foundRegEntry.RegId);
+                ViewBag.RegId = foundRegEntry.RegId;
+                ViewBag.RegObjectId = foundRegEntry.Id;
+                ViewBag.LedgerId = new SelectList(regValueService.GetValueTextList("ledger", ViewBag.translationObjectId),
+                                   "Value", "Text");
+
+                return View();
+            }
+
+            return RedirectToAction("Index", "Register");
+
+        }
+
+        //
+        // POST: /Register/Payment/RegUID
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Payment(string regObjectId, FormCollection submitLedger)
+        {
+            ViewBag.Title = "Payment Entry";
+
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
+            {
+                return RedirectToAction("Index", "Register", new { translation = "en" });
+            }
+            if (regObjectId == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var registrationService = new RegistrationService();
+            var foundRegEntry = registrationService.GetById(regObjectId);
+
+            if (foundRegEntry == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            if (isAdmin == 0)
+            {
+                return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });
+            }
+
+            var saveLedger = new Ledger();
+            TryUpdateModel(saveLedger);
+
+            var ledgerService = new LedgerService();
+            var newLedger = new Ledger
+            {
+                RegId = foundRegEntry.RegId,
+                LedgerTypeId = saveLedger.LedgerTypeId,
+                LedgerAmount = saveLedger.LedgerAmount,
+                LedgerDate = DateTime.Now,
+                LedgerNote = saveLedger.LedgerNote,
+                IsConfirmed = false
+            };
+
+            ledgerService.Update(newLedger);
+
+            return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });
+
         }
 
         //

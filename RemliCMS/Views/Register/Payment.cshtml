@@ -1,0 +1,89 @@
+﻿@*/translation/Register/Payment*@
+
+@model RemliCMS.RegSystem.Entities.Ledger
+
+@{Html.RenderAction("Summary", "Register", new { regId = ViewBag.RegId, ViewBag.isAdmin });}
+
+<div class="row">
+	<div class="large-12 columns">
+	    
+	<p>Remaining Balance for summer conference: @String.Format("{0:C}", ViewBag.RemainingPrice).</p>
+	    
+	@using (Html.BeginForm())
+	{
+     @Html.AntiForgeryToken()
+	@Html.ValidationSummary(true)    
+        
+    <div class="large-6 small-12 columns">
+        <label>
+            <p>Please enter Payment amount.</p>                	                    
+            @Html.EditorFor(model => model.LedgerAmount)
+            @Html.ValidationMessageFor(model => model.LedgerAmount)
+        </label>
+        <label>
+            <p>Select Payment type.</p>
+            @foreach (SelectListItem item in @ViewBag.LedgerId)
+            {
+                <label>
+                    @Html.RadioButtonFor(model => model.LedgerTypeId, item.Value)
+                    &nbsp; @Html.Raw(@HttpUtility.HtmlEncode(item.Text))
+                    </label>
+            }
+        </label>
+        <label>
+            <p>Payment Notes.</p>
+            @Html.EditorFor(model => model.LedgerNote)
+        </label>
+
+	<input class="button tiny" type="submit" value="Submit" />
+	<input class="button tiny alert" type="button" title="Cancel" value="Cancel" onclick="location.href='@Url.Action("Registration", "Register", new { RegObjectId = ViewBag.RegObjectId })    '" />
+    </div>
+
+    }
+ 
+	</div>
+</div>       
+
+@section Scripts {
+
+<script>
+    function setupLabel() {
+        if ($('.label_check input').length) {
+            $('.label_check').each(function(){ 
+                $(this).removeClass('c_on');
+            });
+            $('.label_check input:checked').each(function(){ 
+                $(this).parent('label').addClass('c_on');
+            });                
+        };
+        if ($('.label_radio input').length) {
+            $('.label_radio').each(function(){ 
+                $(this).removeClass('r_on');
+            });
+            $('.label_radio input:checked').each(function(){ 
+                $(this).parent('label').addClass('r_on');
+            });
+        };
+    };
+    $(document).ready(function(){
+        $('body').addClass('has-js');
+        $('.label_check, .label_radio').click(function(){
+            setupLabel();
+        });
+        setupLabel(); 
+    });
+</script>
+ }
+
+@section head
+{
+    @if (ViewBag.isAdmin == false)
+    {
+        Html.RenderAction("NavBar", "Shared");
+    }
+    else
+    {
+        Html.RenderAction("AdminHeader", "Shared", new { currentItem = "registration" });
+    }
+}
+

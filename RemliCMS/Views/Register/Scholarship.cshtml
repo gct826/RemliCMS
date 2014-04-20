@@ -9,12 +9,12 @@
 	    
         @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
 	    {    
-	        <p>Your total price for summer conference is @String.Format("{0:C}", ViewBag.TotalPrice).</p>
+	        <p>Your balance for summer conference is @String.Format("{0:C}", ViewBag.RemainingPrice).</p>
 	    }
 	    
         @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
 	    {
-	        <p>你的夏季会总价格为是 @String.Format("{0:C}", ViewBag.TotalPrice).</p>
+	        <p>你的夏季会总价格为是 @String.Format("{0:C}", ViewBag.RemainingPrice).</p>
 	    }
 
 	@using (Html.BeginForm())

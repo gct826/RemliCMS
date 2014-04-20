@@ -21,6 +21,42 @@ namespace RemliCMS.RegSystem.Services
             return foundLedgerList;
         }
 
+        public List<Ledger> GetAllLedgerList()
+        {
+            // var ledgerQuery = Query<Ledger>.EQ(g => g.RegId, regId);
+
+            var foundLedgerList = MongoConnectionHandler.MongoCollection.FindAll()
+                .SetSortOrder(SortBy<Ledger>.Ascending(g => g.LedgerDate))
+                .ToList();
+
+            return foundLedgerList;
+        }
+
+
+        public decimal GetRemaining(int regId)
+        {
+            var ledgerQuery = Query<Ledger>.EQ(g => g.RegId, regId);
+
+            var foundLedgerList = MongoConnectionHandler.MongoCollection.Find(ledgerQuery)
+                .SetSortOrder(SortBy<Ledger>.Ascending(g => g.LedgerDate))
+                .ToList();
+
+            var totalRemaining = (decimal) 0;
+            
+            foreach (var item in foundLedgerList)
+            {
+                if (item.LedgerTypeId == 1)
+                {
+                    totalRemaining = totalRemaining + item.LedgerAmount;
+                }
+                else
+                {
+                    totalRemaining = totalRemaining - item.LedgerAmount;
+                }
+            }
+
+            return totalRemaining;
+        }
     }
 
 }

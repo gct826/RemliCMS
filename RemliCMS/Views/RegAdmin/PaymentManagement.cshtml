@@ -1,0 +1,70 @@
+﻿@*/admin/RegAdmin/PaymentManagement*@
+
+@model IEnumerable<RemliCMS.RegSystem.Entities.Ledger>
+
+<div class="row">
+    <div class="large-12 columns">
+        <h3>Ledger Entries List</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LedgerDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LedgerTypeId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LedgerNote)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LedgerAmount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsConfirmed)
+                    </th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>                    
+                    <td>
+                        <a href="@Url.Action("ParticipantHelper", "RegAdmin", new {partId = item.Id})">@item.RegId</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LedgerDate)                        
+                    </td>
+                    <td>
+                        @{ Html.RenderAction("RegValueText","Register", new {translationObjectId = ViewBag.translationObjectId, regValueKey = "ledger", regValue = item.LedgerTypeId}); }
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LedgerNote)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LedgerAmount)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsConfirmed)
+                    </td>                    
+                </tr>
+                
+            }
+
+        </table>
+    </div>
+</div>
+
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "registration"});}
+}

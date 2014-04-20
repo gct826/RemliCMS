@@ -25,5 +25,13 @@ namespace RemliCMS.RegSystem.Entities
         [BsonElement("ledgerDate")]
         [DisplayName("Date")]
         public DateTime LedgerDate { get; set; }
+
+        [BsonElement("ledgerNote")]
+        [DisplayName("Entry Note")]
+        public string LedgerNote { get; set; }
+
+        [BsonElement("isConfirmed")]
+        [DisplayName("Confirmed")]
+        public bool IsConfirmed { get; set; }
     }
 }
