@@ -40,7 +40,7 @@
             }
             <p>
                 <label>Status</label>
-                <strong>@{ Html.RenderAction("RegValueText", new {translationObjectId = ViewBag.TranslationObjectId, regValueKey = "status", regValue = item.StatusId}); }</strong>
+                <strong>@ViewBag.StatusId[item.StatusId]</strong>
             </p>
         </div>
 
@@ -65,26 +65,25 @@
         <div class="large-3 medium-6 small-12 columns">
             <p>
                 <label>@Html.DisplayNameFor(model => model.GenderId)</label>
-                <strong>@{ Html.RenderAction("RegValueText", new {translationObjectId = ViewBag.TranslationObjectId, regValueKey = "gender", regValue = item.GenderId}); }</strong>
+                <strong>@ViewBag.GenderId[item.GenderId]</strong>
             </p>
         </div>
         <div class="large-3 medium-6 small-12 columns">
             <p>
                 <label>@Html.DisplayNameFor(model => model.AgeRangeId)</label>
-                <strong>@{ Html.RenderAction("RegValueText", new {translationObjectId = ViewBag.TranslationObjectId, regValueKey = "agerange", regValue = item.AgeRangeId}); }</strong>
+                <strong>@ViewBag.AgeRangeId[item.AgeRangeId]</strong>          
             </p>
         </div>
         <div class="large-3 medium-6 small-12 columns">
             <p>
                 <label>@Html.DisplayNameFor(model => model.SessionId)</label>
-                <strong>@{ Html.RenderAction("RegValueText", new {translationObjectId = ViewBag.TranslationObjectId, regValueKey = "sessions", regValue = item.SessionId}); }</strong>
-
+                <strong>@ViewBag.SessionId[item.SessionId]</strong>
             </p>
         </div>
         <div class="large-3 medium-6 small-12 columns">
             <p>
                 <label>@Html.DisplayNameFor(model => model.RoomTypeId)</label>
-                <strong>@{ Html.RenderAction("RegValueText", new {translationObjectId = ViewBag.TranslationObjectId, regValueKey = "roomtype", regValue = item.RoomTypeId}); }</strong>
+                <strong>@ViewBag.RoomTypeId[item.RoomTypeId]</strong>
 
             </p>
         </div>

@@ -41,12 +41,35 @@ namespace RemliCMS.Controllers
             ViewBag.Title = "Participant Search";
 
             var translationService = new TranslationService();
-            ViewBag.translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+            var transObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
 
             var participantService = new ParticipantService();
 
             var participantList = participantService.ListAllParticipants();
-            
+
+            var regValueService = new RegValueService();
+
+            var statusIdList = regValueService.GetValueTextList("status", transObjectId);
+            ViewBag.StatusId = new string[statusIdList.Count + 1];
+            foreach (var item in statusIdList)
+            {
+                ViewBag.StatusId[item.Value] = item.Text;
+            }
+
+            var genderIdList = regValueService.GetValueTextList("gender", transObjectId);
+            ViewBag.GenderId = new string[genderIdList.Count + 1];
+            foreach (var item in genderIdList)
+            {
+                ViewBag.GenderId[item.Value] = item.Text;
+            }
+            var ageRangeIdList = regValueService.GetValueTextList("agerange", transObjectId);
+            ViewBag.AgeRangeId = new string[ageRangeIdList.Count + 1];
+            foreach (var item in ageRangeIdList)
+            {
+                ViewBag.AgeRangeId[item.Value] = item.Text;
+            }
+
+
             return View(participantList);
         }
 
@@ -90,6 +113,21 @@ namespace RemliCMS.Controllers
             return View(ledgerList);
         }
 
+        //
+        // GET: /RegAdmin/RegHistory
+        public ActionResult RegHistory(int regId)
+        {
+
+            var regHistoryService = new RegHistoryService();
+            var regHistoryList = regHistoryService.ListRegHistory(regId);
+
+            var translationService = new TranslationService();
+            ViewBag.translationObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+
+            return View(regHistoryList);
+
+
+        }
 
     }
 }

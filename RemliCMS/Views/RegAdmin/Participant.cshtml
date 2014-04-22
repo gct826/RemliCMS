@@ -14,28 +14,28 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.RegId)
+                        RegId
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.PartId)
+                        PartId
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstName)
+                        FName
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.LastName)
+                        LName
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ChineseName)
+                        CName
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.GenderId)
+                        Gender
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.AgeRangeId)
+                        Age Range
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.StatusId)
+                        Status
                     </th>
                 </tr>
             </thead>
@@ -59,13 +59,13 @@
                         @Html.DisplayFor(modelItem => item.ChineseName)
                     </td>                    
                     <td>
-                        @{ Html.RenderAction("RegValueText","Register", new {translationObjectId = ViewBag.translationObjectId, regValueKey = "gender", regValue = item.GenderId}); }
+                        @ViewBag.GenderId[item.GenderId]
                     </td>
                     <td>
-                        @{ Html.RenderAction("RegValueText","Register", new {translationObjectId = ViewBag.translationObjectId, regValueKey = "agerange", regValue = item.AgeRangeId}); }
+                        @ViewBag.AgeRangeId[item.AgeRangeId]
                     </td>
                     <td>
-                        @{ Html.RenderAction("RegValueText","Register", new {translationObjectId = ViewBag.translationObjectId, regValueKey = "status", regValue = item.StatusId}); }
+                        @ViewBag.StatusId[item.StatusId]
                     </td>
                 </tr>
                 

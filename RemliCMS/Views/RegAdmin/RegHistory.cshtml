@@ -1,0 +1,64 @@
+﻿@*/admin/RegAdmin/RegHistory*@
+
+@model IEnumerable<RemliCMS.RegSystem.Entities.RegHistory>
+
+<div class="row">
+    <div class="large-12 columns">
+        <h3>Registration History</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsAdmin)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Event)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventDetail)
+                    </th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>                    
+                    <td>
+                        <a href="@Url.Action("ParticipantHelper", "RegAdmin", new {partId = item.Id})">@item.RegId</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsAdmin)                        
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventTime)                        
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Event)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventDetail)
+                    </td>                                       
+                </tr>
+                
+            }
+
+        </table>
+    </div>
+</div>
+
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "registration"});}
+}

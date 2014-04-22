@@ -134,8 +134,8 @@ namespace RemliCMS.Controllers
 
                     registrationService.Update(newReg);
 
-                    //EventHistory NewEvent = new EventHistory();
-                    //NewEvent.AddHistory(order.RegUIDtoID(order.RegistrationUID), "New Registration Created", 0);
+                    var regHistoryService = new RegHistoryService();
+                    regHistoryService.AddHistory(newReg.RegId, "Registration - Create New","", isAdmin);
 
                     return RedirectToAction("Participant", "Register", new {partId = 0, regObjectId = newReg.Id});
                 }
@@ -230,6 +230,9 @@ namespace RemliCMS.Controllers
             ViewBag.RoomTypeID = new SelectList(regValueService.GetValueTextList("roomtype", ViewBag.translationObjectId),
                                                 "Value", "Text");
 
+            var regHistoryService = new RegHistoryService();
+            regHistoryService.AddHistory(foundRegistration.RegId, "Participant - Opened", foundParticipant.PartId.ToString(), isAdmin);
+
             return View(foundParticipant);
         }
 
@@ -258,6 +261,7 @@ namespace RemliCMS.Controllers
             var participantService = new ParticipantService();
             var regValueService = new RegValueService();
             var regPriceService = new RegPriceService();
+            var regHistoryService = new RegHistoryService();
 
             Registration foundRegistration = registrationService.GetById(regObjectId);
 
@@ -283,10 +287,8 @@ namespace RemliCMS.Controllers
 
                     participantService.Update(saveParticipant);
 
-                    //EventHistory NewEvent = new EventHistory();
-                    //NewEvent.AddHistory(RegID, "New Participant Created", participantentry.ParticipantID);
+                    regHistoryService.AddHistory(foundRegistration.RegId, "Participant - Create New", saveParticipant.PartId.ToString(), isAdmin);
 
-                    //return RedirectToAction("PartEntry", new { regObjectId = regObjectId, isPage2 = true, id = participantEntry.PartId });
                     ViewBag.Message = "Saved";
                     return RedirectToAction("Registration", new {regObjectId = foundRegistration.Id});
 
@@ -318,12 +320,17 @@ namespace RemliCMS.Controllers
                 saveParticipant.PartPrice = regPriceService.GetPrice(saveParticipant.RoomTypeId,
                                                                      saveParticipant.AgeRangeId);
 
+                regHistoryService.AddHistory(foundRegistration.RegId, "Participant - Update", saveParticipant.PartId.ToString(), isAdmin);
+
                 participantService.Update(saveParticipant);
                 return RedirectToAction("Registration", new {regObjectId = foundRegistration.Id});
             }
 
             ViewBag.Found = false;
             ViewBag.Message = "Catchall Error";
+
+            regHistoryService.AddHistory(foundRegistration.RegId, "Participant - Post Error", saveParticipant.PartId.ToString(), isAdmin);
+
             return View(saveParticipant);
 
         }
@@ -424,6 +431,11 @@ namespace RemliCMS.Controllers
             {
                 foundParticipant.StatusId = 4;
                 participantService.Update(foundParticipant);
+
+                var regHistoryService = new RegHistoryService();
+                regHistoryService.AddHistory(foundRegistration.RegId, "Participant - Deleted", foundParticipant.PartId.ToString(), isAdmin);
+
+
                 return RedirectToAction("Registration", new { regObjectId = foundRegistration.Id });
             }
 
@@ -431,9 +443,6 @@ namespace RemliCMS.Controllers
         }
 
 
-
-
-        
         //
         // GET: /Register/Registration?regObjectId&confirmation
         public ActionResult Registration(string regObjectId, bool confirmation = false)
@@ -457,15 +466,15 @@ namespace RemliCMS.Controllers
 
             if (foundRegistration != null)
             {
-                //EventHistory NewEvent = new EventHistory();
-                //NewEvent.AddHistory(FoundRegID, "General Registration Opened", 0);
+                var regHistoryService = new RegHistoryService();
+                regHistoryService.AddHistory(foundRegistration.RegId, "Registration - Opened", "", isAdmin);
+
                 if (foundRegistration.IsConfirmed)
                 {
                     confirmation = false;
                 }
                     
                 ViewBag.confirmation = confirmation;
-                //ViewBag.TranslationObjectId = translationObjectId;
                 ViewBag.RegId = foundRegistration.RegId;
                 ViewBag.RegObjectId = foundRegistration.Id;
                 ViewBag.IsConfirmed = foundRegistration.IsConfirmed;
@@ -496,7 +505,7 @@ namespace RemliCMS.Controllers
 
             var registrationService = new RegistrationService();
             var foundRegistration = registrationService.GetById(regObjectId);
-
+            var regHistoryService = new RegHistoryService();
 
             var saveRegistration = new Registration();
             TryUpdateModel(saveRegistration);
@@ -508,6 +517,8 @@ namespace RemliCMS.Controllers
                 foundRegistration.IsConfirmed = true;
                 registrationService.Update(foundRegistration);
 
+                regHistoryService.AddHistory(foundRegistration.RegId, "Registration - Confirmed", "", isAdmin);
+
                 var ledgerService = new LedgerService();
                 var newLedger = new Ledger
                     {
@@ -518,6 +529,8 @@ namespace RemliCMS.Controllers
                     };
 
                 ledgerService.Update(newLedger);
+
+                regHistoryService.AddHistory(foundRegistration.RegId, "Payment Entry - " + newLedger.LedgerTypeId, String.Format("{0:C}", newLedger.LedgerAmount), isAdmin);
 
                 return RedirectToAction("Registration", new { regObjectId = foundRegistration.Id });
             }
@@ -561,6 +574,7 @@ namespace RemliCMS.Controllers
         [ChildActionOnly]
         public ActionResult SummaryHelper(string translationObjectId, int regId, bool isAdmin, int partId)
         {
+            var transObjectId = new ObjectId(translationObjectId);
 
             if (regId == 0)
             {
@@ -586,6 +600,43 @@ namespace RemliCMS.Controllers
             ViewBag.RegObjectID = foundRegEntry.Id;
             ViewBag.RegIsConfirm = foundRegEntry.IsConfirmed;
             ViewBag.TotalCost = totalCost;
+
+
+            var regValueService = new RegValueService();
+
+            var statusIdList = regValueService.GetValueTextList("status", transObjectId);
+            ViewBag.StatusId = new string[statusIdList.Count+1];
+            foreach (var item in statusIdList)
+            {
+                ViewBag.StatusId[item.Value] = item.Text;
+            }
+
+            var genderIdList = regValueService.GetValueTextList("gender", transObjectId);
+            ViewBag.GenderId = new string[genderIdList.Count + 1];
+            foreach (var item in genderIdList)
+            {
+                ViewBag.GenderId[item.Value] = item.Text;
+            }
+            var ageRangeIdList = regValueService.GetValueTextList("agerange", transObjectId);
+            ViewBag.AgeRangeId = new string[ageRangeIdList.Count + 1];
+            foreach (var item in ageRangeIdList)
+            {
+                ViewBag.AgeRangeId[item.Value] = item.Text;
+            }
+
+            var sessionIdList = regValueService.GetValueTextList("sessions", transObjectId);
+            ViewBag.SessionId = new string[sessionIdList.Count + 1];
+            foreach (var item in sessionIdList)
+            {
+                ViewBag.SessionId[item.Value] = item.Text;
+            }
+
+            var roomTypeIdList = regValueService.GetValueTextList("roomtype", transObjectId);
+            ViewBag.RoomTypeId = new string[roomTypeIdList.Count + 1];
+            foreach (var item in roomTypeIdList)
+            {
+                ViewBag.RoomTypeId[item.Value] = item.Text;
+            }
 
             if (partId != 0)
             {
@@ -744,6 +795,9 @@ namespace RemliCMS.Controllers
 
             ledgerService.Update(newLedger);
 
+            var regHistoryService = new RegHistoryService();
+            regHistoryService.AddHistory(foundRegEntry.RegId, "Payment Entry - " + newLedger.LedgerTypeId, String.Format("{0:C}", newLedger.LedgerAmount), isAdmin);
+
             return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });
             
         }
@@ -843,6 +897,9 @@ namespace RemliCMS.Controllers
             };
 
             ledgerService.Update(newLedger);
+
+            var regHistoryService = new RegHistoryService();
+            regHistoryService.AddHistory(foundRegEntry.RegId, "Payment Entry - " + newLedger.LedgerTypeId, String.Format("{0:C}", newLedger.LedgerAmount), isAdmin);
 
             return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });
 

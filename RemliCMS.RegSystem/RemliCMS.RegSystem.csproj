@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Ledger.cs" />
+    <Compile Include="Entities\RegHistory.cs" />
     <Compile Include="Entities\RegPrice.cs" />
     <Compile Include="Entities\RegValue.cs" />
     <Compile Include="Entities\RegField.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Entities\Registration.cs" />
     <Compile Include="MongoConnectionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\RegHistoryService.cs" />
     <Compile Include="Services\LedgerService.cs" />
     <Compile Include="Services\RegPriceService.cs" />
     <Compile Include="Services\RegValueService.cs" />
