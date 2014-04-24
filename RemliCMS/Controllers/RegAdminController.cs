@@ -93,8 +93,6 @@ namespace RemliCMS.Controllers
             var partRegId = participantService.GetById(partId).RegId;
             var regObjectId = registrationService.GetByRegId(partRegId).Id;
 
-
-
             return RedirectToAction("Registration", "Register", new {regObjectId});
 
         }
@@ -126,7 +124,224 @@ namespace RemliCMS.Controllers
 
             return View(regHistoryList);
 
+        }
 
+        //
+        // GET: /RegAdmin/CheckIn
+        public ActionResult CheckIn(int regId = 0, int partId = 0)
+        {
+        
+            if (regId == 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var registrationService = new RegistrationService();
+            var regHistoryService = new RegHistoryService();
+            var participantService = new ParticipantService();            
+            
+            var foundRegistration = registrationService.GetByRegId(regId);
+            
+            if (foundRegistration == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var participantList = participantService.GetParticipantList(regId);
+
+            var isValid = false;
+
+            if (partId != 0)
+            {
+                foreach (var participant in participantList)
+                {
+                    if (partId == participant.PartId && participant.StatusId != 4)
+                    {
+                        participant.StatusId = 2;
+                        participantService.Update(participant);
+                        regHistoryService.AddHistory(participant.RegId, "Participant Check In", participant.PartId.ToString(), 1);
+                    }
+                }
+            }
+
+            if (partId == 0)
+            {
+                foreach (var participant in participantList)
+                {
+                    if (participant.StatusId == 1)
+                    {
+                        participant.StatusId = 2;
+                        participantService.Update(participant);
+                        regHistoryService.AddHistory(participant.RegId, "Participant Check In", participant.PartId.ToString(), 1);
+                    }
+                }
+            }
+
+
+        return RedirectToAction("Registration", "Register", new { regObjectId = foundRegistration.Id });
+
+        }
+
+        //
+        // GET: /RegAdmin/CheckOut
+        public ActionResult CheckOut(int regId = 0, int partId = 0)
+        {
+
+            if (regId == 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var registrationService = new RegistrationService();
+            var regHistoryService = new RegHistoryService();
+            var participantService = new ParticipantService();
+
+            var foundRegistration = registrationService.GetByRegId(regId);
+
+            if (foundRegistration == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var participantList = participantService.GetParticipantList(regId);
+
+            var isValid = false;
+
+            if (partId != 0)
+            {
+                foreach (var participant in participantList)
+                {
+                    if (partId == participant.PartId && participant.StatusId != 4)
+                    {
+                        participant.StatusId = 3;
+                        participantService.Update(participant);
+                        regHistoryService.AddHistory(participant.RegId, "Participant Check Out", participant.PartId.ToString(), 1);
+                    }
+                }
+            }
+
+            if (partId == 0)
+            {
+                foreach (var participant in participantList)
+                {
+                    if (participant.StatusId == 2)
+                    {
+                        participant.StatusId = 3;
+                        participantService.Update(participant);
+                        regHistoryService.AddHistory(participant.RegId, "Participant Check Out", participant.PartId.ToString(), 1);
+                    }
+                }
+            }
+
+            return RedirectToAction("Registration", "Register", new { regObjectId = foundRegistration.Id });
+        }
+
+        //
+        // GET: /RegAdmin/UndoCheckIn
+        public ActionResult UndoCheckIn(int regId = 0, int partId = 0)
+        {
+
+            if (regId == 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var registrationService = new RegistrationService();
+            var regHistoryService = new RegHistoryService();
+            var participantService = new ParticipantService();
+
+            var foundRegistration = registrationService.GetByRegId(regId);
+
+            if (foundRegistration == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var participantList = participantService.GetParticipantList(regId);
+
+            var isValid = false;
+
+            if (partId != 0)
+            {
+                foreach (var participant in participantList)
+                {
+                    if (partId == participant.PartId && participant.StatusId != 4)
+                    {
+                        participant.StatusId = 1;
+                        participantService.Update(participant);
+                        regHistoryService.AddHistory(participant.RegId, "Participant Undo Check In", participant.PartId.ToString(), 1);
+                    }
+                }
+            }
+
+            if (partId == 0)
+            {
+                foreach (var participant in participantList)
+                {
+                    if (participant.StatusId == 2)
+                    {
+                        participant.StatusId = 1;
+                        participantService.Update(participant);
+                        regHistoryService.AddHistory(participant.RegId, "Participant Undo Check In", participant.PartId.ToString(), 1);
+                    }
+                }
+            }
+
+            return RedirectToAction("Registration", "Register", new { regObjectId = foundRegistration.Id });
+        }
+
+        //
+        // GET: /RegAdmin/UndoCheckOut
+        public ActionResult UndoCheckOut(int regId = 0, int partId = 0)
+        {
+
+            if (regId == 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var registrationService = new RegistrationService();
+            var regHistoryService = new RegHistoryService();
+            var participantService = new ParticipantService();
+
+            var foundRegistration = registrationService.GetByRegId(regId);
+
+            if (foundRegistration == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var participantList = participantService.GetParticipantList(regId);
+
+            var isValid = false;
+
+            if (partId != 0)
+            {
+                foreach (var participant in participantList)
+                {
+                    if (partId == participant.PartId && participant.StatusId != 4)
+                    {
+                        participant.StatusId = 2;
+                        participantService.Update(participant);
+                        regHistoryService.AddHistory(participant.RegId, "Participant Undo Check Out", participant.PartId.ToString(), 1);
+                    }
+                }
+            }
+
+            if (partId == 0)
+            {
+                foreach (var participant in participantList)
+                {
+                    if (participant.StatusId == 3)
+                    {
+                        participant.StatusId = 2;
+                        participantService.Update(participant);
+                        regHistoryService.AddHistory(participant.RegId, "Participant Undo Check Out", participant.PartId.ToString(), 1);
+                    }
+                }
+            }
+
+            return RedirectToAction("Registration", "Register", new { regObjectId = foundRegistration.Id });
         }
 
     }

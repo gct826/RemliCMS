@@ -43,10 +43,15 @@
                 {
                     <h5>Administration</h5>
                     <input class="button tiny" type="button" title="Payment Entry" value="Add Payment" onclick=" location.href = '@Url.Action("Payment", "Register", new { regObjectId = ViewBag.RegObjectId })    ' " />
-                    <input class="button tiny" type="button" title="Check Out All" value ="Check Out All" onclick=" location.href = '@Url.Action("CheckOutReg", "CheckIn", new { id = ViewBag.RegID })' "/>
                     <input class="button tiny" type="button" title="Part Search" value="Part Search" onclick=" location.href = '@Url.Action("Participant", "RegAdmin")    ' " />
                     <input class="button tiny" type="button" title="Reg List" value="Reg List" onclick=" location.href = '@Url.Action("Index", "RegAdmin")    ' " />
                     <input class="button tiny" type="button" title="History" value="History" onclick=" location.href = '@Url.Action("RegHistory", "RegAdmin", new { regId = ViewBag.RegID })    ' " />
+                    <br/>
+                    <input class="button tiny" type="button" title="Check In All Registered" value ="Check In All Registered" onclick=" location.href = '@Url.Action("CheckIn", "RegAdmin", new { regId = ViewBag.RegID })    ' "/>
+                    <input class="button tiny" type="button" title="Check Out All Checked In" value ="Check Out All Checked In" onclick=" location.href = '@Url.Action("CheckOut", "RegAdmin", new { regId = ViewBag.RegID })    ' "/>
+                    <br/>
+                    <input class="button tiny alert" type="button" title="Undo Check In All" value ="Undo Check In All" onclick=" location.href = '@Url.Action("UndoCheckIn", "RegAdmin", new { regId = ViewBag.RegID })    ' "/>
+                    <input class="button tiny alert" type="button" title="Undo Check Out All" value ="Undo Check Out All" onclick=" location.href = '@Url.Action("UndoCheckOut", "RegAdmin", new { regId = ViewBag.RegID })    ' "/>
                 }
             </div>
 
