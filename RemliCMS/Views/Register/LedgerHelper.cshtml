@@ -37,7 +37,15 @@
             <td>
             </td>
             <td>
-                Remaining Balance
+                    @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+                    {
+                        @:Remaining Balance
+                    }
+    
+                    @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+                    {
+                        @:金额
+                    }
             </td>
             <td>
                 @String.Format("{0:C}",ViewBag.RemainingPrice)
@@ -45,6 +53,14 @@
         </tr>
 
     </table>
-                    
-    @Html.ActionLink("Scholarship Request", "Scholarship", "Register", new { regObjectId = ViewBag.RegObjectId }, new { @class = "button tiny" })
+    
+    @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+    {
+        @Html.ActionLink("Scholarship Request", "Scholarship", "Register", new {regObjectId = ViewBag.RegObjectId}, new {@class = "button tiny"})
+    }
+    
+    @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+    {
+        @Html.ActionLink("学术申请", "Scholarship", "Register", new {regObjectId = ViewBag.RegObjectId}, new {@class = "button"})
+    }
 </div>

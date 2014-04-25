@@ -51,13 +51,13 @@
 		        <br />
           if (ViewContext.RouteData.Values["translation"].ToString() == "en")
           {
-		            <input class="button" type="submit" title="Create New Registration" value="New Registration" name="action" />
-		            <input class="button" type="submit" title="Open Registration" value="Open Registration" name="action" />
+		            <input class="button tiny" type="submit" title="Create New Registration" value="New Registration" name="action" />
+		            <input class="button tiny" type="submit" title="Open Registration" value="Open Registration" name="action" />
           }
           if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
           {
-		            <input class="button" type="submit" title="" value="创建新注册" name="action" />
-		            <input class="button" type="submit" title="" value="修改注册" name="action" />
+		            <input class="button" type="submit" title="创建新注册" value="创建新注册" name="action" />
+		            <input class="button" type="submit" title="修改注册" value="修改注册" name="action" />
           }
       }
 		</div>
@@ -71,7 +71,6 @@
                     Enter an e-mail address and phone number to start the registration. Please remember the e-mail address and phone number you
 		            use as this will allow you the ability to view the registration at a later date as necessary.
 		        </p>
-		        <input type="button" value ="Back to Home" onclick=" location.href = '@Url.Action("Index", "Home")    ' " />
       }
 
 		    @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
@@ -79,7 +78,6 @@
 		        <p>
 		            输入电子邮件地址和电话号码开始注册。请记住e-mail地址和电话号码，因为这将让你能够查看和修改登记在以后的日子必要的。
 		        </p>
-		        <input type="button" value ="返回主页" onclick=" location.href = '@Url.Action("Index", "Home")    ' " />
       }
                 
 		</div>

@@ -354,7 +354,6 @@ namespace RemliCMS.Controllers
                 Roles.AddUserToRole("Admin","admin");
             }
             return RedirectToAction("Index", "Admin");
-
         }
 
 

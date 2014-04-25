@@ -44,8 +44,8 @@
             @Html.ValidationMessageFor(model => model.LedgerAmount)
 	        </label>
      
-     	    <input class="button tiny" type="submit" value="提交申请" />
-	        <input class="button tiny alert" type="button" title="取消申请" value="取消申请" onclick="location.href='@Url.Action("Registration", "Register", new { RegObjectId = ViewBag.RegObjectId })    '" />
+     	    <input class="button" type="submit" value="提交申请" />
+	        <input class="button alert" type="button" title="取消申请" value="取消申请" onclick="location.href='@Url.Action("Registration", "Register", new { RegObjectId = ViewBag.RegObjectId })    '" />
             </div>
         }
 

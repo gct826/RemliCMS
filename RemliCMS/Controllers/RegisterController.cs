@@ -104,7 +104,7 @@ namespace RemliCMS.Controllers
             ViewBag.RegIsAllowed = registrationService.AllowRegistration();
             ViewBag.Message = submitType;
 
-            if (submitType == "New Registration")
+            if (submitType == "New Registration" || submitType == "创建新注册")
             {
                 var newReg = new Registration();
 
@@ -140,7 +140,7 @@ namespace RemliCMS.Controllers
                     return RedirectToAction("Participant", "Register", new {partId = 0, regObjectId = newReg.Id});
                 }
             }
-            if (submitType == "Open Registration")
+            if (submitType == "Open Registration" || submitType == "修改注册")
             {
                 var openReg = new Registration();
 
