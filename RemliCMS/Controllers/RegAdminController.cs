@@ -111,6 +111,24 @@ namespace RemliCMS.Controllers
         }
 
         //
+        // GET: /RegAdmin/PaymentConfirm
+        public ActionResult PaymentConfirm(string ledgerId)
+        {
+            var ledgerService = new LedgerService();
+            var foundLedger = ledgerService.GetById(ledgerId);
+
+            if (foundLedger == null)
+            {
+                return RedirectToAction("PaymentManagement");
+            }
+
+            foundLedger.IsConfirmed = true;
+            ledgerService.Update(foundLedger);
+
+            return RedirectToAction("PaymentManagement");
+        }
+
+        //
         // GET: /RegAdmin/RegHistory
         public ActionResult RegHistory(int regId)
         {
@@ -341,6 +359,48 @@ namespace RemliCMS.Controllers
             }
 
             return RedirectToAction("Registration", "Register", new { regObjectId = foundRegistration.Id });
+        }
+
+        //
+        // GET: /RegAdmin/StatusUpdate
+        public ActionResult StatusUpdate(int regId = 0, int partId = 0, int newStatus = 0)
+        {
+
+            if (regId == 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var registrationService = new RegistrationService();
+            var regHistoryService = new RegHistoryService();
+            var participantService = new ParticipantService();
+
+            var foundRegistration = registrationService.GetByRegId(regId);
+
+            if (foundRegistration == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var participantList = participantService.GetParticipantList(regId);
+
+            var isValid = false;
+
+            if (partId != 0 && newStatus != 0)
+            {
+                foreach (var participant in participantList)
+                {
+                    if (partId == participant.PartId)
+                    {
+                        participant.StatusId = newStatus;
+                        participantService.Update(participant);
+                        regHistoryService.AddHistory(participant.RegId, "Participant Status Change to " + newStatus, participant.PartId.ToString(), 1);
+                    }
+                }
+            }
+
+            return RedirectToAction("Registration", "Register", new { regObjectId = foundRegistration.Id });
+
         }
 
         //
@@ -691,6 +751,32 @@ namespace RemliCMS.Controllers
                 newText = new RegText() { TranslationId = enTransObjectId, Text = "Removed" };
                 regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
                 newText = new RegText() { TranslationId = zhTransObjectId, Text = "去掉" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 5,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Cancelled" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "注销" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 6,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Not Registered" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "没有注册" };
                 regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
             }
 

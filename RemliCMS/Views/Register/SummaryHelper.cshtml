@@ -30,14 +30,53 @@
                 <strong>@Html.DisplayFor(modelItem => item.PartId)</strong>
             </p>
         </div>
-        <div class="large-9 medium-8 small-12 columns">
-            @if (ViewBag.RegIsConfirm != true || ViewBag.isAdmin)
+    <div class="large-9 medium-8 small-12 columns">
+        <div class="right">
+            @if (ViewBag.RegIsConfirm != true && !ViewBag.isAdmin)
             {
-                <div class="right">
-                    @Html.ActionLink("remove participant", "Delete", "Register", new {regObjectId = ViewBag.RegObjectID, partId = item.PartId}, new {@class = "label alert"})
-                    @Html.ActionLink("edit participant", "Participant", "Register", new {regObjectId = ViewBag.RegObjectID, partId = item.PartId}, new {@class = "label"})
-                </div>
+                @Html.ActionLink("Remove", "Delete", "Register", new {regObjectId = ViewBag.RegObjectID, partId = item.PartId}, new {@class = "label"})
+                @:&#32;
+                @Html.ActionLink("Edit", "Participant", "Register", new {regObjectId = ViewBag.RegObjectID, partId = item.PartId}, new {@class = "label"})
+
             }
+            
+            @if (ViewBag.isAdmin)
+            {
+                if (item.StatusId == 1)
+                {
+                    @Html.ActionLink("CheckIn", "CheckIn", "RegAdmin", new { regId = item.RegId, partId = item.PartId }, new { @class = "label" })
+                    @:&#32;
+                    @Html.ActionLink("Cancelled", "StatusUpdate", "RegAdmin", new {regId = item.RegId, partId = item.PartId, newStatus = 5},  new {@class = "label"})
+                }
+
+                if (item.StatusId == 2)
+                {
+                    @Html.ActionLink("Undo CheckIn", "UndoCheckIn", "RegAdmin", new { regId = item.RegId, partId = item.PartId }, new { @class = "label" })
+                    @:&#32;
+                    @Html.ActionLink("CheckOut", "CheckOut", "RegAdmin", new { regId = item.RegId, partId = item.PartId }, new { @class = "label" })
+                }
+                
+                if (item.StatusId == 3)
+                {
+                    @Html.ActionLink("Undo CheckOut", "UndoCheckOut", "RegAdmin", new { regId = item.RegId, partId = item.PartId }, new { @class = "label" })
+                }
+
+                if (item.StatusId == 4 || item.StatusId == 5)
+                {
+                    @Html.ActionLink("Add Back", "StatusUpdate", "RegAdmin", new { regId = item.RegId, partId = item.PartId, newStatus = 6 }, new { @class = "label" })
+                }
+                    
+                if (item.StatusId == 6)
+                {
+                    @Html.ActionLink("Register", "UndoCheckOut", "RegAdmin", new { regId = item.RegId, partId = item.PartId, newStatus = 1 }, new { @class = "label" })
+                }
+                
+                @:&#32;
+                @Html.ActionLink("Edit", "Participant", "Register", new {regObjectId = ViewBag.RegObjectID, partId = item.PartId}, new {@class = "label"})
+
+            }
+            </div> 
+
             <p>
                 <label>Status</label>
                 <strong>@ViewBag.StatusId[item.StatusId]</strong>

@@ -525,7 +525,8 @@ namespace RemliCMS.Controllers
                         RegId = foundRegistration.RegId,
                         LedgerTypeId = (int) 1,
                         LedgerAmount = totalPrice,
-                        LedgerDate = DateTime.Now
+                        LedgerDate = DateTime.Now,
+                        IsConfirmed = true
                     };
 
                 ledgerService.Update(newLedger);
@@ -591,8 +592,8 @@ namespace RemliCMS.Controllers
 
             var participantService = new ParticipantService();
             var participantList = participantService.GetParticipantList(regId);
-            var totalCost = participantList.Where(p => p.StatusId != 4).
-                Aggregate((decimal)0, (c, p) => c + p.PartPrice);
+
+            var totalCost = registrationService.getTotalPrice(regId);
 
             ViewBag.TranslationObjectId = translationObjectId;
             ViewBag.isAdmin = isAdmin;
@@ -658,7 +659,7 @@ namespace RemliCMS.Controllers
             }
             else
             {
-                return PartialView(participantList.Where(p => !p.StatusId.Equals((int) 4)));
+                return PartialView(participantList.Where(p => p.StatusId != 4));
             }
         }
 

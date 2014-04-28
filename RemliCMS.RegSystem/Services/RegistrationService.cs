@@ -84,7 +84,7 @@ namespace RemliCMS.RegSystem.Services
                 return 0;
             }
 
-            var totalCost = foundParticipantList.Where(p => p.StatusId != 4).
+            var totalCost = foundParticipantList.Where(p => p.StatusId == 1 || p.StatusId == 2 || p.StatusId == 3 || p.StatusId == 5).
                                                  Aggregate((decimal) 0, (c, p) => c + p.PartPrice);
 
             return totalCost;

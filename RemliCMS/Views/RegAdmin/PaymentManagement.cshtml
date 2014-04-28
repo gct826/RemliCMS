@@ -53,7 +53,14 @@
                         @Html.DisplayFor(modelItem => item.LedgerAmount)
                     </td>                    
                     <td>
-                        @Html.DisplayFor(modelItem => item.IsConfirmed)
+                        @if (item.IsConfirmed)
+                        {
+                            @:Confirmed
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Confirm","PaymentConfirm",new {ledgerId = item.Id})
+                        }                        
                     </td>                    
                 </tr>
                 
