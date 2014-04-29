@@ -2,7 +2,7 @@
 
 @model RemliCMS.RegSystem.Entities.Ledger
 
-@{Html.RenderAction("Summary", "Register", new { regId = ViewBag.RegId, ViewBag.isAdmin });}
+@{Html.RenderAction("Summary", "Register", new {transObjectId = ViewBag.TranslationObjectId, regId = ViewBag.RegId, ViewBag.isAdmin});}
 
 <div class="row">
 	<div class="large-12 columns">
@@ -79,7 +79,7 @@
 {
     @if (ViewBag.isAdmin == false)
     {
-        Html.RenderAction("NavBar", "Shared");
+        Html.RenderAction("NavBar", "Shared", new { currentPermalink = "register" });
     }
     else
     {

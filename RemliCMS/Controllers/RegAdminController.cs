@@ -61,13 +61,20 @@ namespace RemliCMS.Controllers
             {
                 ViewBag.GenderId[item.Value] = item.Text;
             }
+            
             var ageRangeIdList = regValueService.GetValueTextList("agerange", transObjectId);
             ViewBag.AgeRangeId = new string[ageRangeIdList.Count + 1];
             foreach (var item in ageRangeIdList)
             {
                 ViewBag.AgeRangeId[item.Value] = item.Text;
             }
-
+            
+            var sessionIdList = regValueService.GetValueTextList("sessions", transObjectId);
+            ViewBag.SessionId = new string[sessionIdList.Count + 1];
+            foreach (var item in sessionIdList)
+            {
+                ViewBag.SessionId[item.Value] = item.Text;
+            }
 
             return View(participantList);
         }
@@ -881,9 +888,213 @@ namespace RemliCMS.Controllers
                 regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
                 newText = new RegText() { TranslationId = zhTransObjectId, Text = "退款" };
                 regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
-
             }
 
+            //RegField
+            if (regFieldService.IsExistKey("regfieldname") == false)
+            {
+                newRegField = new RegField()
+                {
+                    Key = "regfieldname",
+                    Name = "Reg Field Names"
+                };
+                regFieldService.Update(newRegField);
+                newRegField = regFieldService.GetById(regFieldService.FindRegFieldObjectId(newRegField.Key).ToString());
+
+                newRegValue = new RegValue()
+                {
+                    Value = 1,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Reg ID" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "注册号" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 2,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Email" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "電郵" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 3,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Phone" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "電話" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+            }
+
+            //PartField
+            if (regFieldService.IsExistKey("partfieldname") == false)
+            {
+                newRegField = new RegField()
+                {
+                    Key = "partfieldname",
+                    Name = "Participant Field Names"
+                };
+                regFieldService.Update(newRegField);
+                newRegField = regFieldService.GetById(regFieldService.FindRegFieldObjectId(newRegField.Key).ToString());
+
+                newRegValue = new RegValue()
+                {
+                    Value = 1,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Participant Id" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "编号" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 2,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Status" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "状态" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 3,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Session" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "所屬會話" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 4,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Gender" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "性別" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 5,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Age Range" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "年龄组" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 6,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Rooming Preference" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "房型偏好" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 7,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Rooming Request" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "房型要求" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 8,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "First Name" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "名(英)" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 9,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Last Name" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "姓(英)" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 10,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Chinese Name" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "中文姓名" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 11,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Price" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "价钱" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+            }
             return RedirectToAction("Index");
 
         }

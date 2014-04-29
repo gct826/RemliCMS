@@ -4,7 +4,7 @@
     ViewBag.Title = "Registration";
 }
 
-@{Html.RenderAction("Summary", "Register", new { regId = ViewBag.RegId, ViewBag.isAdmin });}
+@{Html.RenderAction("Summary", "Register", new {transObjectId = ViewBag.TranslationObjectId, regId = ViewBag.RegId, ViewBag.isAdmin});}
 
 <div class="row">
         
@@ -71,9 +71,9 @@
 
                 @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
                 {
-                    <p>请点击”加与会者“加一个新的参与者。请点击”证实注册“一旦你完成。</p>
-                    <input type="button" title="加与会者" value="加与会者" onclick=" location.href = '@Url.Action("Participant", "Register", new { regObjectId = ViewBag.RegObjectId, partId = 0 })    ' " />
-                    <input type="button" title="证实注册" value="证实注册" onclick=" location.href = @Url.Action("Registration", "Register", new { regObjectId = ViewBag.RegObjectId, confirmation = true }, "")    ' " />
+                    <p>请点击 ”加与会者“ 加一个新的参与者。请点击 ”证实注册“ 一旦你完成。</p>
+                    <input class="button" type="button" title="加与会者" value="加与会者" onclick=" location.href = '@Url.Action("Participant", "Register", new { regObjectId = ViewBag.RegObjectId, partId = 0 })    ' " />
+                    <input class="button" type="button" title="证实注册" value="证实注册" onclick=" location.href = '@Url.Action("Registration", "Register", new { regObjectId = ViewBag.RegObjectId, confirmation = true }, "")    ' " />
                 }
 
                 @if (ViewBag.isAdmin == true)
@@ -106,9 +106,9 @@
 
                          @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
                          {
-                             <p>你确定你要删除的参与者?</p>
-                             <input class="button tiny" type="submit" title="Confirm" value="Confirm" name ="submit"/>
-                             @Html.ActionLink("Cancel", "Registration", "Register", new { regObjectId = ViewBag.RegObjectId }, new { @class = "button tiny alert" })
+                             <p>确认要证实注册?</p>
+                             <input class="button" type="submit" title="证实" value="证实" name ="submit"/>
+                             @Html.ActionLink("回去", "Registration", "Register", new { regObjectId = ViewBag.RegObjectId }, new { @class = "button alert" })
                          }
                      </div>
             }
@@ -140,7 +140,7 @@
 {
     @if (ViewBag.isAdmin == false)
     {
-        Html.RenderAction("NavBar", "Shared");
+        Html.RenderAction("NavBar", "Shared", new { currentPermalink = "register" });
     }
     else
     {

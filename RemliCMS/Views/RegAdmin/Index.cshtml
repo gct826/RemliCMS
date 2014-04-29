@@ -24,7 +24,7 @@
                         @Html.DisplayNameFor(model => model.RegPhone)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DateCreated)
+                        @Html.DisplayNameFor(model => model.DateOpened)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.IsConfirmed)
@@ -48,7 +48,14 @@
                         @Html.DisplayFor(modelItem => item.RegPhone)
                     </td>                    
                     <td>
-                        @Html.DisplayFor(modelItem => item.DateCreated)
+                        @if (item.DateOpened.ToString() == "1/1/0001 12:00:00 AM")
+                        {
+                            @:Never Opened
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.DateOpened)
+                        }
                     </td>                    
                     <td>
                         @Html.DisplayFor(modelItem => item.IsConfirmed)

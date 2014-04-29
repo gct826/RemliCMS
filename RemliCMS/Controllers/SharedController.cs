@@ -76,7 +76,7 @@ namespace RemliCMS.Controllers
         //
         // GET: /Shared/NavBar
         [ChildActionOnly]
-        public ActionResult NavBar()
+        public ActionResult NavBar(string currentPermalink)
         {
             RouteValues routeValues = RouteValue;
 
@@ -96,7 +96,7 @@ namespace RemliCMS.Controllers
             {
                 var title = pageHeaderService.ReturnPageTitle(item.Id, translation.Id);
 
-                bool isCurrent = false || item.Permalink == routeValues.Permalink;
+                bool isCurrent = false || item.Permalink == currentPermalink;
 
                 if (title != null)
                 {
@@ -115,13 +115,13 @@ namespace RemliCMS.Controllers
             }
 
             ViewBag.TranslationUrl = routeValues.Translation;
-
+            ViewBag.CurrentPermalink = currentPermalink;
             return PartialView(menuItem);
         }
 
         // GET: /Shared/TranslationSwitcher
         [ChildActionOnly]
-        public ActionResult TranslationSwitcher()
+        public ActionResult TranslationSwitcher(string currentPermalink)
         {
             RouteValues routeValues = RouteValue;
             var translationService = new TranslationService();
@@ -132,7 +132,10 @@ namespace RemliCMS.Controllers
             ViewBag.currentName = currentTranslation.Name;
             ViewBag.currentCode = routeValues.Translation.ToLower();
             ViewBag.Seperator = " · ";
-            ViewBag.Permalink = routeValues.Permalink;
+
+            ViewBag.Controller = routeValues.Controller;
+            ViewBag.Permalink = currentPermalink;
+            ViewBag.Action = routeValues.Action;
 
             return PartialView(translationList);
         }

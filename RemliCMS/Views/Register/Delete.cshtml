@@ -2,7 +2,7 @@
 
 @model RemliCMS.RegSystem.Entities.Participant
 
-@{Html.RenderAction("Summary", "Register", new { regId = ViewBag.RegId});}
+@{Html.RenderAction("Summary", "Register", new {transObjectId = ViewBag.TranslationObjectId, regId = ViewBag.RegId});}
 
 @using (Html.BeginForm())
 {
@@ -23,8 +23,8 @@
             @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
             {
                 <p>你确定你要删除的参与者?</p>
-                <input class="button tiny" type="submit" title="Delete" value="Delete" name ="submit"/>
-                @Html.ActionLink("Cancel", "Registration", "Register", new {regObjectId = ViewBag.RegObjectID}, new {@class = "button tiny alert"})
+                <input class="button" type="submit" title="删除" value="删除" name ="submit"/>
+                @Html.ActionLink("回去", "Registration", "Register", new {regObjectId = ViewBag.RegObjectID}, new {@class = "button alert"})
             }
         </div>
     </div>
@@ -38,7 +38,7 @@
 {
     @if (ViewBag.isAdmin == false)
     {
-        Html.RenderAction("NavBar", "Shared");
+        Html.RenderAction("NavBar", "Shared", new { currentPermalink = "register" });
     }
     else
     {

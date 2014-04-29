@@ -34,7 +34,7 @@
                     
                     @if (ViewBag.TranslationSwitcher == "on")    
                         {
-                        Html.RenderAction("TranslationSwitcher", "Shared");   
+                            Html.RenderAction("TranslationSwitcher", "Shared", new { currentPermalink = ViewBag.CurrentPermalink });   
                         }
 
 

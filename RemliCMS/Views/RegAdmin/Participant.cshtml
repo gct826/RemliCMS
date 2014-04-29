@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="large-12 columns">
-        <h3>Registration List</h3>
+        <h3>Participant List</h3>
     </div>
 </div>
 
@@ -20,19 +20,22 @@
                         PartId
                     </th>
                     <th>
-                        FName
+                        First Name
                     </th>
                     <th>
-                        LName
+                        Last Name
                     </th>
                     <th>
-                        CName
+                        Chinese Name
                     </th>
                     <th>
                         Gender
                     </th>
                     <th>
                         Age Range
+                    </th>
+                    <th>
+                        Session
                     </th>
                     <th>
                         Status
@@ -63,6 +66,9 @@
                     </td>
                     <td>
                         @ViewBag.AgeRangeId[item.AgeRangeId]
+                    </td>
+                    <td>
+                        @ViewBag.AgeRangeId[item.SessionId]
                     </td>
                     <td>
                         @ViewBag.StatusId[item.StatusId]

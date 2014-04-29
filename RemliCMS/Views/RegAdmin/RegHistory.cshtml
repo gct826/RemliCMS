@@ -35,7 +35,7 @@
             {
                 <tr>                    
                     <td>
-                        <a href="@Url.Action("ParticipantHelper", "RegAdmin", new {partId = item.Id})">@item.RegId</a>
+                        <a href="@Url.Action("Registration", "Register", new {partId = item.RegId})">@item.RegId</a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.IsAdmin)                        

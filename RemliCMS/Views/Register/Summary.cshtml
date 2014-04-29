@@ -11,9 +11,9 @@
     {
                 <h4>Registration Id &nbsp; @Html.DisplayFor(item => item.RegId)</h4>
             }
-            @if (ViewContext.RouteData.Values["translation"].ToString() == "ch")
+            @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
             {
-                <h4>注册 Id &nbsp; @Html.DisplayFor(item => item.RegId)</h4>
+                <h4>注册号 &nbsp; @Html.DisplayFor(item => item.RegId)</h4>
             }
         </div>
         <div class="large-4 medium-6 small-12 columns">
@@ -21,7 +21,7 @@
             {
                 <input class="button tiny expand" type="button" title="Close Registration" value="Close Registration" onclick="location.href='@Url.Action("Index", "Register")    '" />
             }
-            @if (ViewContext.RouteData.Values["translation"].ToString() == "ch")
+            @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
             {
                 <input class="button tiny expand" type="button" title="关闭注册" value="关闭注册" onclick="location.href='@Url.Action("Index", "Register")    '" />
             }
@@ -30,13 +30,13 @@
     <div class="row">
     <div class="large-6 medium-6 small-12 columns">
         <h5>
-            @Html.DisplayNameFor(model => model.RegEmail):
+            @ViewBag.regFieldNameId[2]
             @Html.DisplayFor(item => item.RegEmail)
         </h5>
     </div>
     <div class="large-6 medium-6 small-12 columns">
 		<h5>
-		    @Html.DisplayNameFor(model => model.RegPhone):
+            @ViewBag.regFieldNameId[3]
 		    @String.Format("{0:###-###-####}", Convert.ToInt64(Model.RegPhone))
 		</h5>
 	</div>

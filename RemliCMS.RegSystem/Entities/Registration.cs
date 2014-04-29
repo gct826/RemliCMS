@@ -34,9 +34,9 @@ namespace RemliCMS.RegSystem.Entities
         public Boolean IsConfirmed { get; set; }
 
         [ScaffoldColumn(false)]
-        [BsonElement("dateCreated")]
-        [DisplayName("Created Date")]
-        public DateTime DateCreated { get; set; }
+        [BsonElement("dateOpened")]
+        [DisplayName("Last Open Date")]
+        public DateTime DateOpened { get; set; }
 
         [ScaffoldColumn(false)]
         [BsonElement("isDeleted")]

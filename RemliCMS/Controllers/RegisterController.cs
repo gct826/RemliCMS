@@ -128,7 +128,6 @@ namespace RemliCMS.Controllers
                     ViewBag.Message = null;
 
                     newReg.RegId = registrationService.GetLastId() + 1;
-                    newReg.DateCreated = DateTime.Now;
                     newReg.IsConfirmed = false;
                     newReg.IsDeleted = false;
 
@@ -175,6 +174,7 @@ namespace RemliCMS.Controllers
                 return RedirectToAction("Index", "Register", new { translation = "en" });
             }
 
+            
             if (regObjectId == null || partId == null)
             {
                 ViewBag.Found = false;
@@ -191,6 +191,13 @@ namespace RemliCMS.Controllers
             {
                 ViewBag.Found = false;
                 return RedirectToAction("Index");
+            }
+
+            var partFieldNameIdList = regValueService.GetValueTextList("partfieldname", ViewBag.translationObjectId);
+            ViewBag.PartFieldNameId = new string[partFieldNameIdList.Count + 1];
+            foreach (var item in partFieldNameIdList)
+            {
+                ViewBag.PartFieldNameId[item.Value] = item.Text;
             }
 
             if (foundRegistration.RegId != 0 && partId == 0)
@@ -270,6 +277,13 @@ namespace RemliCMS.Controllers
                 ViewBag.Found = false;
                 ViewBag.Message = "Invalid Registration Key";
                 return View();
+            }
+
+            var partFieldNameIdList = regValueService.GetValueTextList("partfieldname", ViewBag.translationObjectId);
+            ViewBag.PartFieldNameId = new string[partFieldNameIdList.Count + 1];
+            foreach (var item in partFieldNameIdList)
+            {
+                ViewBag.PartFieldNameId[item.Value] = item.Text;
             }
 
             var saveParticipant = new Participant();
@@ -466,8 +480,10 @@ namespace RemliCMS.Controllers
 
             if (foundRegistration != null)
             {
+                registrationService.UpdateLastOpened(regObjectId);
                 var regHistoryService = new RegHistoryService();
                 regHistoryService.AddHistory(foundRegistration.RegId, "Registration - Opened", "", isAdmin);
+
 
                 if (foundRegistration.IsConfirmed)
                 {
@@ -543,8 +559,9 @@ namespace RemliCMS.Controllers
         //
         // GET: /Register/Summary?RegID
         [ChildActionOnly]
-        public ActionResult Summary(int regId = 0, bool isAdmin = false)
+        public ActionResult Summary(string transObjectId, int regId = 0, bool isAdmin = false)
         {
+
             if (regId == 0)
             {
                 ViewBag.Found = false;
@@ -554,10 +571,19 @@ namespace RemliCMS.Controllers
             }
 
             var registrationService = new RegistrationService();
+            var regValueService = new RegValueService();
             var foundRegEntry = registrationService.GetByRegId(regId);
 
             if (foundRegEntry != null)
             {
+                var regFieldNameIdList = regValueService.GetValueTextList("regfieldname", new ObjectId(transObjectId));
+                ViewBag.regFieldNameId = new string[regFieldNameIdList.Count + 1];
+                foreach (var item in regFieldNameIdList)
+                {
+                    ViewBag.regFieldNameId[item.Value] = item.Text;
+                }
+
+
                 ViewBag.Found = true;
                 ViewBag.isAdmin = isAdmin;
                 ViewBag.RegUID = foundRegEntry.Id;
@@ -604,6 +630,13 @@ namespace RemliCMS.Controllers
 
 
             var regValueService = new RegValueService();
+
+            var partFieldNameIdList = regValueService.GetValueTextList("partfieldname", transObjectId);
+            ViewBag.PartFieldNameId = new string[partFieldNameIdList.Count + 1];
+            foreach (var item in partFieldNameIdList)
+            {
+                ViewBag.PartFieldNameId[item.Value] = item.Text;
+            }
 
             var statusIdList = regValueService.GetValueTextList("status", transObjectId);
             ViewBag.StatusId = new string[statusIdList.Count+1];

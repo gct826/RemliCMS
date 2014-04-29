@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -60,6 +61,20 @@ namespace RemliCMS.RegSystem.Services
             var foundRegistration = MongoConnectionHandler.MongoCollection.FindOne(registrationQuery);
 
             return foundRegistration;
+        }
+
+        public void UpdateLastOpened(string regObjectId)
+        {
+            var queryObjectId = new ObjectId(regObjectId);
+            var registrationQuery = Query<Registration>.EQ(g => g.Id, queryObjectId);
+            var foundRegistration = MongoConnectionHandler.MongoCollection.FindOne(registrationQuery);
+
+            if (foundRegistration != null)
+            {
+                foundRegistration.DateOpened = DateTime.Now;
+                Update(foundRegistration);
+            }
+
         }
 
         public Registration OpenReg(string regEmail, string regPhone)

@@ -87,7 +87,7 @@ namespace RemliCMS.Controllers
                 ViewBag.Translation = routeValues.Translation;
                 ViewBag.Controller = routeValues.Controller;
                 ViewBag.Action = routeValues.Action;
-                ViewBag.Permalink = routeValues.Permalink;
+                ViewBag.Permalink = permalink;
                 ViewBag.DbLocation = mongoConfig.DbLocation;
                 ViewBag.DbName = mongoConfig.DbName;
             }
@@ -123,6 +123,7 @@ namespace RemliCMS.Controllers
 
             ViewBag.Title = pageTitle.Title;
             ViewBag.TranslationId = translation.Id;
+            ViewBag.Permalink = permalink;
 
             var pageIndexService = new PageIndexService();
             var pageIndexList = pageIndexService.ListIndexs(pageHeader.Id);

@@ -88,7 +88,7 @@
 {
     @if (ViewBag.isAdmin == false)
     {
-        Html.RenderAction("NavBar", "Shared");
+        Html.RenderAction("NavBar", "Shared", new { currentPermalink = "register" });
     }
     else
     {
