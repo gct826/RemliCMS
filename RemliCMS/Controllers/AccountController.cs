@@ -348,10 +348,10 @@ namespace RemliCMS.Controllers
         [AllowAnonymous]
         public ActionResult InitalizeRole()
         {
-            if (!Roles.IsUserInRole("Admin","admin"))
+            if (!Roles.IsUserInRole("admin","admin"))
             {
                 Roles.CreateRole("admin");
-                Roles.AddUserToRole("Admin","admin");
+                Roles.AddUserToRole("admin","admin");
             }
             return RedirectToAction("Index", "Admin");
         }
