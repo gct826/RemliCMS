@@ -7,27 +7,31 @@
 *@
 
 <div class="row">
-	<div class="large-4 columns">
-		@if (ViewContext.RouteData.Values["translation"].ToString() == "en")
-  {
-		    <h2>Register</h2>
-  }
-		@if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
-  {
-		    <h2>注册</h2>
-  }                    
-                    
-		<div class="message">
-		    @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
-      {
-		        @ViewBag.MessageEn
-      }
-		    @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
-      {
-		        @ViewBag.MessageCh
-      }
-		</div>    
-	</div>
+    <div class="large-4 columns">
+        @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+        {
+            <h2>Register</h2>
+        }
+        @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+        {
+            <h2>注册</h2>
+        }                    
+    </div>
+          
+    @if (!ViewBag.RegIsAllowed)
+    {
+        <div class="large-12 columns">
+            @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
+            {
+                <p>Registration is currently closed. Please contact <a href="mailto:sc@tcccc.org">sc@tcccc.org</a> for more information.</p>
+            }
+            @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+            {
+                <p>目前注册关闭。如果有问题，请发送电子邮件至<a href="mailto:sc@tcccc.org">sc@tcccc.org</a>。</p>
+            }
+        </div>
+    }
+        
 </div>
                             
 @if (ViewBag.RegIsAllowed)

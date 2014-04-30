@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <title>@ViewBag.Title - Welcome to Foundation</title>
+        <title>@ViewBag.Title</title>
         
         @if (ViewBag.LangDir == "rtl")
         {
@@ -24,14 +24,7 @@
 
     <body>
         @RenderSection("head", required: false)
-        
-        @*Page Title*@        
-        <div class="row">
-            <div class="large-12 columns">    
-                <h2>@ViewBag.Title</h2>
-            </div>
-        </div>
-        
+                
         @*Error Message*@
         <div class="row">
             <div class="large-12 columns">

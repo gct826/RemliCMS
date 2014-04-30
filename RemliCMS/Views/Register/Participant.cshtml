@@ -98,16 +98,18 @@
                 </label>
             </div> 
             <div class="large-4 medium-6 small-12 columns">
-                @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
-                {
-                    <input class="button wide tiny" type="submit" title="Save" value="Save" name="submit"/>
-                    @Html.ActionLink("Back", "Registration", "Register", new {regObjectId = ViewBag.RegObjectID}, new {@class = "button tiny wide alert"})
-                }
+
                 @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
                 {
                     <input class="button wide" type="submit" title="保存" value="保存" name="submit"/>
                     @Html.ActionLink("回去", "Registration", "Register", new {regObjectId = ViewBag.RegObjectID}, new {@class = "button wide alert"})
                 }
+                else
+                {
+                    <input class="button wide tiny" type="submit" title="Save" value="Save" name="submit"/>
+                    @Html.ActionLink("Back", "Registration", "Register", new { regObjectId = ViewBag.RegObjectID }, new { @class = "button tiny wide alert" })
+                }
+
             </div>
         </div>      
       }

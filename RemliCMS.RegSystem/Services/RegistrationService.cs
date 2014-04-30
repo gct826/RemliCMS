@@ -12,7 +12,15 @@ namespace RemliCMS.RegSystem.Services
     {
         public bool AllowRegistration()
         {
-            return true;
+            var regOpenDate = new DateTime(2014,5,4);
+            var regCloseDate = new DateTime(2014, 5, 26);
+
+            if (DateTime.Today >= regOpenDate && DateTime.Today <= regCloseDate)
+            {
+                return true;                
+            }
+
+            return false;
         }
 
         public bool IsExistEmail(string submittedEmail)
@@ -71,7 +79,7 @@ namespace RemliCMS.RegSystem.Services
 
             if (foundRegistration != null)
             {
-                foundRegistration.DateOpened = DateTime.Now;
+                foundRegistration.DateOpened = DateTime.Now.AddHours(-5);
                 Update(foundRegistration);
             }
 

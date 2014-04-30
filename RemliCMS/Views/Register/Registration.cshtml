@@ -79,10 +79,10 @@
                 @if (ViewBag.isAdmin == true)
                 {
                     <input class="button tiny" type="button" title="Add New" value="Add Participant" onclick=" location.href = '@Url.Action("Participant", "Register", new { regObjectId = ViewBag.RegObjectId, partId = 0 })    ' " />
-                    <input class="button tiny" type="button" title="Confim" value="Confirm Registration" onclick=" location.href = '@Url.Action("Confirm", "Register", new { regObjectId = ViewBag.RegObjectId, isAdmin = ViewBag.isAdmin }, "")    ' " />
-                    <input class="button tiny" type="button" title="Part Search" value="Part Search" onclick=" location.href = '@Url.Action("Index", "SearchRegistration")    ' " />
-                    <input class="button tiny" type="button" title="Reg List" value="Reg List" onclick=" location.href = '@Url.Action("Index", "AdminRegistration")    ' " />
-                    <input class="button tiny" type="button" title="History" value="History" onclick=" location.href = '@Url.Action("Reg", "AdminHistory", new { id = ViewBag.RegID })    ' " />
+                    <input class="button tiny" type="button" title="Confim" value="Confirm Registration" onclick=" location.href = '@Url.Action("Registration", "Register", new { regObjectId = ViewBag.RegObjectId, confirmation = true }, "")    ' " />
+                    <input class="button tiny" type="button" title="Part Search" value="Part Search" onclick=" location.href = '@Url.Action("Participant", "RegAdmin")    ' " />
+                    <input class="button tiny" type="button" title="Reg List" value="Reg List" onclick=" location.href = '@Url.Action("Index", "RegAdmin")    ' " />
+                    <input class="button tiny" type="button" title="History" value="History" onclick=" location.href = '@Url.Action("RegHistory", "RegAdmin", new { regId = ViewBag.RegID })    ' " />
                 }
             </div>
             
@@ -97,18 +97,18 @@
 
                      <div class="large-12 columns">
         
-                         @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
-                         {
-                             <p>Please click Confirm again to Confirm Registration.</p>
-                             <input class="button tiny" type="submit" title="Confirm" value="Confirm" name ="submit"/>
-                             @Html.ActionLink("Cancel", "Registration", "Register", new { regObjectId = ViewBag.RegObjectId }, new { @class = "button tiny alert" })
-                         }
-
                          @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
                          {
                              <p>确认要证实注册?</p>
                              <input class="button" type="submit" title="证实" value="证实" name ="submit"/>
-                             @Html.ActionLink("回去", "Registration", "Register", new { regObjectId = ViewBag.RegObjectId }, new { @class = "button alert" })
+                             @Html.ActionLink("回去", "Registration", "Register", new {regObjectId = ViewBag.RegObjectId}, new {@class = "button alert"})
+                         }
+                         else
+                         {
+                             <p>Please click Confirm again to Confirm Registration.</p>
+                             <input class="button tiny" type="submit" title="Confirm" value="Confirm" name ="submit"/>
+                             @Html.ActionLink("Cancel", "Registration", "Register", new { regObjectId = ViewBag.RegObjectId }, new { @class = "button tiny alert" })
+                             
                          }
                      </div>
             }
@@ -133,7 +133,7 @@
 
 
 @{
-    Html.RenderAction("SummaryHelper", "Register", new {translationObjectId = ViewBag.TranslationObjectId, regId = ViewBag.RegId, ViewBag.isAdmin, partId = 0});
+    Html.RenderAction("SummaryHelper", "Register", new { translationObjectId = ViewBag.TranslationObjectId, regId = ViewBag.RegId, ViewBag.isAdmin, partId = 0 });
 }
 
 @section head

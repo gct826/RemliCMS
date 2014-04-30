@@ -17,7 +17,7 @@ namespace RemliCMS.RegSystem.Services
                     RegId = regId, 
                     Event = eventEntry,
                     EventDetail = eventDetail,
-                    EventTime = DateTime.Now,
+                    EventTime = DateTime.Now.AddHours(-5),
                     IsAdmin = isAdmin
                 };
 
