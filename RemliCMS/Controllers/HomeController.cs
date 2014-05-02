@@ -37,7 +37,7 @@ namespace RemliCMS.Controllers
                 ViewBag.Action = routeValues.Action;
                 ViewBag.Permalink = routeValues.Permalink;
                 ViewBag.DbLocation = mongoConfig.DbLocation;
-                ViewBag.DbName = mongoConfig.DbName;                
+                ViewBag.DbName = mongoConfig.DbName;
             }
 
             var translationService = new TranslationService();
