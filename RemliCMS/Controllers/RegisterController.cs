@@ -1035,8 +1035,8 @@ namespace RemliCMS.Controllers
             string itemName = "2014 Summer Conference";
             string returnUrl = ConfigurationManager.AppSettings["PayPalBaseUrl"] + routeValues.Translation + "/Register/PayPalReturn?regObjectId=" + regObjectId;
             string cancelUrl = ConfigurationManager.AppSettings["PayPalBaseUrl"] + routeValues.Translation + "/Register/PayPalCancel?regObjectId=" + regObjectId;
-
-            return RedirectToAction("ValidateCommand","Paypal", new {itemName = itemName, amount = newLedger.LedgerAmount, returnUrl = returnUrl, cancelUrl = cancelUrl });
+            string notifyUrl = ConfigurationManager.AppSettings["PayPalBaseUrl"] + "en/paypal/notify";
+            return RedirectToAction("ValidateCommand","Paypal", new {itemName = itemName, amount = newLedger.LedgerAmount, returnUrl = returnUrl, cancelUrl = cancelUrl, notifyUrl = notifyUrl });
 
         }
 
@@ -1113,6 +1113,46 @@ namespace RemliCMS.Controllers
             else
             {
                 regHistoryService.AddHistory(foundRegEntry.RegId, "Paypal Entry - Cancel Error", "", isAdmin);
+            }
+
+            return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });
+        }
+
+        //
+        //GET: /Register/PayPalNotify
+        [HttpPost]
+        public ActionResult PayPalNotify(string regObjectId)
+        {
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
+            {
+                return RedirectToAction("Index", "Register", new { translation = "en" });
+            }
+            if (regObjectId == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var registrationService = new RegistrationService();
+            var foundRegEntry = registrationService.GetById(regObjectId);
+
+            if (foundRegEntry == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var ledgerService = new LedgerService();
+            var success = ledgerService.ConfirmPayPal(foundRegEntry.RegId);
+
+            var regHistoryService = new RegHistoryService();
+
+            if (success)
+            {
+                regHistoryService.AddHistory(foundRegEntry.RegId, "Paypal Entry - Notified", "", isAdmin);
+            }
+            else
+            {
+                regHistoryService.AddHistory(foundRegEntry.RegId, "Paypal Entry - Notify Error", "", isAdmin);
             }
 
             return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });

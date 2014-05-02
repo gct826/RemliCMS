@@ -179,6 +179,7 @@
     <Compile Include="Helpers\MultiButtonAttribute.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\MenuModel.cs" />
+    <Compile Include="Models\PaypalListenerModel.cs" />
     <Compile Include="Models\PaypalModel.cs" />
     <Compile Include="Models\RegTranslationModel.cs" />
     <Compile Include="Models\TitleModel.cs" />

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using RemliCMS.Models;
+using RemliCMS.RegSystem.Services;
 using RemliCMS.Routes;
 
 namespace RemliCMS.Controllers
@@ -17,7 +21,7 @@ namespace RemliCMS.Controllers
 
         //
         // GET: /Paypal/ValidateCommand
-        public ActionResult ValidateCommand(string itemName, decimal amount, string returnUrl, string cancelUrl)
+        public ActionResult ValidateCommand(string itemName, decimal amount, string returnUrl, string cancelUrl, string notifyUrl)
         {
             bool useSandbox = Convert.ToBoolean(ConfigurationManager.AppSettings["PayPalSandbox"]);
             var paypal = new PayPalModel(useSandbox);
@@ -27,7 +31,7 @@ namespace RemliCMS.Controllers
             paypal.amount = amount;
             paypal.@return = returnUrl;
             paypal.cancel_return = cancelUrl;
-
+            paypal.notify_url = notifyUrl;
 
             return View(paypal);
         }
@@ -48,10 +52,20 @@ namespace RemliCMS.Controllers
 
         //
         // GET: /Paypal/Notify
-        public ActionResult Notify()
+        public EmptyResult Notify(PayPalModel payPalModel)
         {
-            return View();
+            PaypalListenerModel model = new PaypalListenerModel();
+            model._PaypalModel = payPalModel;
+            byte[] parameters = Request.BinaryRead(Request.ContentLength);
+
+            if (parameters != null)
+            {
+                model.GetStatus(parameters);
+            }
+
+            return new EmptyResult();
         }
+
 
 
 

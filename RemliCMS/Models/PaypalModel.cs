@@ -18,6 +18,7 @@ namespace RemliCMS.Models
         public string notify_url { get; set; }
         public string currency_code { get; set; }
         public string item_name { get; set; }
+        public string payment_status { get; set; }
 
         [Required(ErrorMessage = "Required")]
         [DisplayName("Amount")]
