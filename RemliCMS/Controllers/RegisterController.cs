@@ -1035,7 +1035,7 @@ namespace RemliCMS.Controllers
             string itemName = "2014 Summer Conference";
             string returnUrl = ConfigurationManager.AppSettings["PayPalBaseUrl"] + routeValues.Translation + "/Register/PayPalReturn?regObjectId=" + regObjectId;
             string cancelUrl = ConfigurationManager.AppSettings["PayPalBaseUrl"] + routeValues.Translation + "/Register/PayPalCancel?regObjectId=" + regObjectId;
-            string notifyUrl = ConfigurationManager.AppSettings["PayPalBaseUrl"] + "en/paypal/notify";
+            string notifyUrl = ConfigurationManager.AppSettings["PayPalBaseUrl"] + "en/paypal/paymentnotification";
             return RedirectToAction("ValidateCommand","Paypal", new {itemName = itemName, amount = newLedger.LedgerAmount, returnUrl = returnUrl, cancelUrl = cancelUrl, notifyUrl = notifyUrl });
 
         }
