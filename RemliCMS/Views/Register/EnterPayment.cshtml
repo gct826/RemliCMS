@@ -1,4 +1,4 @@
-﻿@*/translation/Register/Scholarship*@
+﻿@*/translation/Register/EnterPayment*@
 
 @model RemliCMS.RegSystem.Entities.Ledger
 
@@ -12,10 +12,11 @@
 	    {
 	        <p>你的夏季会总价格为是 @String.Format("{0:C}", ViewBag.RemainingPrice).</p>
 	    }
-        else
-	    {    
+        else	    
+        {    
 	        <p>Your balance for summer conference is @String.Format("{0:C}", ViewBag.RemainingPrice).</p>
 	    }
+
 
 	@using (Html.BeginForm())
 	{
@@ -31,26 +32,26 @@
             @Html.ValidationMessageFor(model => model.LedgerAmount)
 	        </label>
      
-     	    <input class="button" type="submit" value="提交申请" />
+     	    <input class="button" type="submit" value="与支付Paypal" />
 	        <input class="button alert" type="button" title="取消申请" value="取消申请" onclick="location.href='@Url.Action("Registration", "Register", new { RegObjectId = ViewBag.RegObjectId })    '" />
             </div>
         }
-	    else
-	    {
-	        <div class="large-6 small-12 columns">
+        else	    
+        {
+            <div class="large-6 small-12 columns">
             <label>
-                <p>Please enter Scholarship request amount.</p>                	                    
+                <p>Please enter Payment amount.</p>                	                    
             @Html.EditorFor(model => model.LedgerAmount)
             @Html.ValidationMessageFor(model => model.LedgerAmount)
 	        </label>
 
-	        <input class="button tiny" type="submit" value="Submit Request" />
+	        <input class="button tiny" type="submit" value="Pay with Paypal" />
 	        <input class="button tiny alert" type="button" title="Cancel Request" value="Cancel Request" onclick="location.href='@Url.Action("Registration", "Register", new { RegObjectId = ViewBag.RegObjectId })    '" />
-            </div>  
+            </div>
 	    }
 
     }
- 
+    
 	</div>
 </div>       
 

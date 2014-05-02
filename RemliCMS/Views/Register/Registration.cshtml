@@ -120,13 +120,13 @@
 <div class="row">
     
     <div class="large-12 columns">
-        @if (ViewContext.RouteData.Values["translation"].ToString() == "en")
-        {
-            <h4>Registered Participants</h4>
-        }
         @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
         {
             <h4>报名会者</h4>
+        }
+        else
+        {
+            <h4>Registered Participants</h4>
         }
     </div>
 </div>

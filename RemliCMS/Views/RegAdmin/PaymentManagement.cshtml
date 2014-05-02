@@ -31,6 +31,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.IsConfirmed)
                     </th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -53,15 +54,39 @@
                         @Html.DisplayFor(modelItem => item.LedgerAmount)
                     </td>                    
                     <td>
-                        @if (item.IsConfirmed)
+                        @if (item.IsCancelled)
                         {
-                            @:Confirmed
+                            <div class="red">Cancelled</div>
                         }
                         else
                         {
-                            @Html.ActionLink("Confirm","PaymentConfirm",new {ledgerId = item.Id})
-                        }                        
-                    </td>                    
+                            if (item.IsConfirmed)
+                            {
+                                <div class="green">Confirmed</div>
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Confirm","PaymentConfirm",new {ledgerId = item.Id})
+                            }                                                    
+                        }
+                    </td>           
+                    <td>
+                        @if (item.IsCancelled)
+                        {
+                        }
+                        else
+                        {
+                            if (item.IsConfirmed)
+                            {
+                                @Html.ActionLink("UnConfirm","PaymentUnconfirm",new {ledgerId = item.Id})
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Cancel","PaymentCancel",new {ledgerId = item.Id})
+                            }                                                    
+                        }
+                    </td>
+         
                 </tr>
                 
             }

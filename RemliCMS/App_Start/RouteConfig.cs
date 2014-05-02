@@ -70,6 +70,11 @@ namespace RemliCMS
                 defaults: new { controller = "Shared", action = "Pong" }
             );
 
+            //routes.MapRoute(
+            //    name: "PayPal",
+            //    url: "paypal",
+            //    defaults: new {controller = "Paypal", action = "Index"}
+            //    );
 
             routes.MapRoute(
                 name: "AdminIndex",

@@ -12,7 +12,10 @@ namespace RemliCMS.RegSystem.Services
     {
         public List<Ledger> GetLedgerList(int regId)
         {
-            var ledgerQuery = Query<Ledger>.EQ(g => g.RegId, regId);
+            var ledgerQuery = Query.And(
+                Query<Ledger>.EQ(g => g.RegId, regId),
+                Query<Ledger>.EQ(g => g.IsCancelled, false)
+                );
 
             var foundLedgerList = MongoConnectionHandler.MongoCollection.Find(ledgerQuery)
                 .SetSortOrder(SortBy<Ledger>.Ascending(g => g.LedgerDate))
@@ -35,7 +38,10 @@ namespace RemliCMS.RegSystem.Services
 
         public decimal GetRemaining(int regId)
         {
-            var ledgerQuery = Query<Ledger>.EQ(g => g.RegId, regId);
+            var ledgerQuery = Query.And(
+                Query<Ledger>.EQ(g => g.RegId, regId),
+                Query<Ledger>.EQ(g => g.IsCancelled, false)
+                );
 
             var foundLedgerList = MongoConnectionHandler.MongoCollection.Find(ledgerQuery)
                 .SetSortOrder(SortBy<Ledger>.Ascending(g => g.LedgerDate))
@@ -56,6 +62,54 @@ namespace RemliCMS.RegSystem.Services
             }
 
             return totalRemaining;
+        }
+
+        public bool ConfirmPayPal(int regId)
+        {
+            var ledgerQuery = Query.And(
+                Query<Ledger>.EQ(g => g.RegId, regId),
+                Query<Ledger>.EQ(g => g.LedgerTypeId, 8),
+                Query<Ledger>.EQ(g => g.IsConfirmed, false),
+                Query<Ledger>.EQ(g => g.IsCancelled, false)
+                );
+
+            var foundLedger = MongoConnectionHandler.MongoCollection.Find(ledgerQuery)
+                .SetSortOrder(SortBy<Ledger>.Ascending(g => g.LedgerDate))
+                .Last();
+
+            if (foundLedger != null)
+            {
+                foundLedger.IsConfirmed = true;
+                Update(foundLedger);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool CancelPayPal(int regId)
+        {
+            var ledgerQuery = Query.And(
+                Query<Ledger>.EQ(g => g.RegId, regId),
+                Query<Ledger>.EQ(g => g.LedgerTypeId, 8),
+                Query<Ledger>.EQ(g => g.IsConfirmed, false),
+                Query<Ledger>.EQ(g => g.IsCancelled, false)
+                );
+
+            var foundLedger = MongoConnectionHandler.MongoCollection.Find(ledgerQuery)
+                .SetSortOrder(SortBy<Ledger>.Ascending(g => g.LedgerDate))
+                .Last();
+
+            if (foundLedger != null)
+            {
+                foundLedger.IsCancelled = true;
+                Update(foundLedger);
+
+                return true;
+            }
+
+            return false;
         }
     }
 

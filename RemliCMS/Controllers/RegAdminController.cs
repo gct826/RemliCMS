@@ -136,6 +136,43 @@ namespace RemliCMS.Controllers
         }
 
         //
+        // GET: /RegAdmin/PaymentUnConfirm
+        public ActionResult PaymentUnConfirm(string ledgerId)
+        {
+            var ledgerService = new LedgerService();
+            var foundLedger = ledgerService.GetById(ledgerId);
+
+            if (foundLedger == null)
+            {
+                return RedirectToAction("PaymentManagement");
+            }
+
+            foundLedger.IsConfirmed = false;
+            ledgerService.Update(foundLedger);
+
+            return RedirectToAction("PaymentManagement");
+        }
+
+        //
+        // GET: /RegAdmin/PaymentCancel
+        public ActionResult PaymentCancel(string ledgerId)
+        {
+            var ledgerService = new LedgerService();
+            var foundLedger = ledgerService.GetById(ledgerId);
+
+            if (foundLedger == null)
+            {
+                return RedirectToAction("PaymentManagement");
+            }
+
+            foundLedger.IsConfirmed = false;
+            foundLedger.IsCancelled = true;
+            ledgerService.Update(foundLedger);
+
+            return RedirectToAction("PaymentManagement");
+        }
+
+        //
         // GET: /RegAdmin/RegHistory
         public ActionResult RegHistory(int regId)
         {
@@ -887,6 +924,19 @@ namespace RemliCMS.Controllers
                 newText = new RegText() { TranslationId = enTransObjectId, Text = "Refund" };
                 regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
                 newText = new RegText() { TranslationId = zhTransObjectId, Text = "退款" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+
+                newRegValue = new RegValue()
+                {
+                    Value = 8,
+                    RegFieldObjectId = newRegField.Id,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+                regValueService.Update(newRegValue);
+                newText = new RegText() { TranslationId = enTransObjectId, Text = "Paypal" };
+                regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
+                newText = new RegText() { TranslationId = zhTransObjectId, Text = "Paypal" };
                 regValueService.AddText(newRegField.Id, newRegValue.Value, newText);
             }
 

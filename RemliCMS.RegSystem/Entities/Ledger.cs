@@ -20,6 +20,8 @@ namespace RemliCMS.RegSystem.Entities
 
         [BsonElement("ledgerAmount")]
         [DisplayName("Amount")]
+        [Required(ErrorMessage = "Required")]
+        [DataType(DataType.Currency)]
         public decimal LedgerAmount { get; set; }
 
         [BsonElement("ledgerDate")]
@@ -33,5 +35,9 @@ namespace RemliCMS.RegSystem.Entities
         [BsonElement("isConfirmed")]
         [DisplayName("Confirmed")]
         public bool IsConfirmed { get; set; }
+
+        [BsonElement("isCancelled")]
+        [DisplayName("Cancelled")]
+        public bool IsCancelled { get; set; }
     }
 }

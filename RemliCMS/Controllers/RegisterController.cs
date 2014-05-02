@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -824,7 +825,8 @@ namespace RemliCMS.Controllers
                 LedgerAmount = saveLedger.LedgerAmount,
                 LedgerDate = DateTime.Now,
                 LedgerNote = "",
-                IsConfirmed = false
+                IsConfirmed = false,
+                IsCancelled = false
             };
 
             ledgerService.Update(newLedger);
@@ -927,7 +929,8 @@ namespace RemliCMS.Controllers
                 LedgerAmount = saveLedger.LedgerAmount,
                 LedgerDate = DateTime.Now,
                 LedgerNote = saveLedger.LedgerNote,
-                IsConfirmed = false
+                IsConfirmed = false,
+                IsCancelled = false
             };
 
             ledgerService.Update(newLedger);
@@ -937,6 +940,182 @@ namespace RemliCMS.Controllers
 
             return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });
 
+        }
+
+        //
+        // GET: /Register/EnterPayment/RegUID
+        public ActionResult EnterPayment(string regObjectId)
+        {
+            ViewBag.Title = "Enter Payment";
+
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
+            {
+                return RedirectToAction("Index", "Register", new { translation = "en" });
+            }
+
+            if (regObjectId == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var registrationService = new RegistrationService();
+            var ledgerService = new LedgerService();
+
+            var foundRegEntry = registrationService.GetById(regObjectId);
+
+            if (foundRegEntry == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            if (foundRegEntry.RegId != 0)
+            {
+                ViewBag.TotalPrice = registrationService.getTotalPrice(foundRegEntry.RegId);
+                ViewBag.RemainingPrice = ledgerService.GetRemaining(foundRegEntry.RegId);
+                ViewBag.RegId = foundRegEntry.RegId;
+                ViewBag.RegObjectId = foundRegEntry.Id;
+
+                return View();
+            }
+
+            return RedirectToAction("Index", "Register");
+
+        }
+
+        //
+        // POST: /Register/EnterPayment/RegUID
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnterPayment(string regObjectId, FormCollection submitLedger)
+        {
+            ViewBag.Title = "Enter Payment";
+
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
+            {
+                return RedirectToAction("Index", "Register", new { translation = "en" });
+            }
+            if (regObjectId == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var registrationService = new RegistrationService();
+            var foundRegEntry = registrationService.GetById(regObjectId);
+
+            if (foundRegEntry == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var saveLedger = new Ledger();
+            TryUpdateModel(saveLedger);
+
+            var ledgerService = new LedgerService();
+            var newLedger = new Ledger
+            {
+                RegId = foundRegEntry.RegId,
+                LedgerTypeId = (int)8,
+                LedgerAmount = saveLedger.LedgerAmount,
+                LedgerDate = DateTime.Now,
+                LedgerNote = "",
+                IsConfirmed = false,
+                IsCancelled = false
+            };
+
+            ledgerService.Update(newLedger);
+
+            var regHistoryService = new RegHistoryService();
+            regHistoryService.AddHistory(foundRegEntry.RegId, "PayPal Entry - Entered", String.Format("{0:C}", newLedger.LedgerAmount), isAdmin);
+
+            RouteValues routeValues = RouteValue;
+
+
+            string itemName = "2014 Summer Conference";
+            string returnUrl = ConfigurationManager.AppSettings["PayPalBaseUrl"] + routeValues.Translation + "/Register/PayPalReturn?regObjectId=" + regObjectId;
+            string cancelUrl = ConfigurationManager.AppSettings["PayPalBaseUrl"] + routeValues.Translation + "/Register/PayPalCancel?regObjectId=" + regObjectId;
+
+            return RedirectToAction("ValidateCommand","Paypal", new {itemName = itemName, amount = newLedger.LedgerAmount, returnUrl = returnUrl, cancelUrl = cancelUrl });
+
+        }
+
+        //
+        //GET: /Register/PayPalReturn
+        public ActionResult PayPalReturn(string regObjectId)
+        {
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
+            {
+                return RedirectToAction("Index", "Register", new { translation = "en" });
+            }
+            if (regObjectId == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var registrationService = new RegistrationService();
+            var foundRegEntry = registrationService.GetById(regObjectId);
+
+            if (foundRegEntry == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var ledgerService = new LedgerService();
+            var success = ledgerService.ConfirmPayPal(foundRegEntry.RegId);
+
+            var regHistoryService = new RegHistoryService();
+
+            if (success)
+            {
+                regHistoryService.AddHistory(foundRegEntry.RegId, "Paypal Entry - Successful", "", isAdmin);
+            }
+            else
+            {
+                regHistoryService.AddHistory(foundRegEntry.RegId, "Paypal Entry - Return Error", "", isAdmin);                
+            }
+
+            return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });
+        }
+
+        //
+        //GET: /Register/PayPalCancel
+        public ActionResult PayPalCancel(string regObjectId)
+        {
+            var isAdmin = IsAdmin();
+            if (isAdmin == -1)
+            {
+                return RedirectToAction("Index", "Register", new { translation = "en" });
+            }
+            if (regObjectId == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var registrationService = new RegistrationService();
+            var foundRegEntry = registrationService.GetById(regObjectId);
+
+            if (foundRegEntry == null)
+            {
+                return RedirectToAction("Index", "Register");
+            }
+
+            var ledgerService = new LedgerService();
+            var success = ledgerService.CancelPayPal(foundRegEntry.RegId);
+
+            var regHistoryService = new RegHistoryService();
+
+            if (success)
+            {
+                regHistoryService.AddHistory(foundRegEntry.RegId, "Paypal Entry - Cancelled", "", isAdmin);
+            }
+            else
+            {
+                regHistoryService.AddHistory(foundRegEntry.RegId, "Paypal Entry - Cancel Error", "", isAdmin);
+            }
+
+            return RedirectToAction("Registration", new { regObjectId = foundRegEntry.Id });
         }
 
         //

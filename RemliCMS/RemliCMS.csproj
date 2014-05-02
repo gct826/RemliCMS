@@ -164,6 +164,7 @@
     <Compile Include="Controllers\PageContentController.cs" />
     <Compile Include="Controllers\PageHeaderController.cs" />
     <Compile Include="Controllers\PageTitleController.cs" />
+    <Compile Include="Controllers\PaypalController.cs" />
     <Compile Include="Controllers\RegAdminController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RegFieldController.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Helpers\MultiButtonAttribute.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\MenuModel.cs" />
+    <Compile Include="Models\PaypalModel.cs" />
     <Compile Include="Models\RegTranslationModel.cs" />
     <Compile Include="Models\TitleModel.cs" />
     <Compile Include="Models\UserProfile.cs" />
@@ -366,6 +368,11 @@
     <Content Include="Views\Register\Payment.cshtml" />
     <Content Include="Views\RegAdmin\PaymentManagement.cshtml" />
     <Content Include="Views\RegAdmin\RegHistory.cshtml" />
+    <Content Include="Views\Paypal\ValidateCommand.cshtml" />
+    <Content Include="Views\Paypal\Redirect.cshtml" />
+    <Content Include="Views\Paypal\Cancel.cshtml" />
+    <Content Include="Views\Paypal\Notify.cshtml" />
+    <Content Include="Views\Register\EnterPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
