@@ -39,7 +39,7 @@
             {
                 <tr>                    
                     <td>
-                        <a href="@Url.Action("ParticipantHelper", "RegAdmin", new {partId = item.Id})">@item.RegId</a>
+                        <a href="@Url.Action("Registration", "Register", new {regObjectId = item.RegId.ToString()})">@item.RegId</a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.LedgerDate)                        

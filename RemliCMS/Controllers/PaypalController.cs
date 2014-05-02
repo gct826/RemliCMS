@@ -21,11 +21,15 @@ namespace RemliCMS.Controllers
 
         //
         // GET: /Paypal/ValidateCommand
-        public ActionResult ValidateCommand(string itemName, decimal amount, string returnUrl, string cancelUrl, string notifyUrl)
+        public ActionResult ValidateCommand(string itemName, decimal amount, string regObjectId)
         {
             bool useSandbox = Convert.ToBoolean(ConfigurationManager.AppSettings["PayPalSandbox"]);
             var paypal = new PayPalModel(useSandbox);
             paypal.item_name = "2014 Summer Conference";
+
+            string returnUrl = ConfigurationManager.AppSettings["PayPalReturnUrl"];
+            string cancelUrl = ConfigurationManager.AppSettings["PayPalCancelUrl"];
+            string notifyUrl = ConfigurationManager.AppSettings["PayPalNotifyUrl"] + "?regObjectId=" + regObjectId;
 
             paypal.item_name = itemName;
             paypal.amount = amount;
@@ -33,24 +37,13 @@ namespace RemliCMS.Controllers
             paypal.cancel_return = cancelUrl;
             paypal.notify_url = notifyUrl;
 
+            ViewBag.RegObjectId = regObjectId;
             return View(paypal);
         }
 
-        //
-        // GET: /Paypal/Redirect
-        public ActionResult Redirect()
-        {
-            return View();
-        }
 
         //
-        // GET: /Paypal/Cancel
-        public ActionResult Cancel()
-        {
-            return View();
-        }
-
-
+        // POST:/Paypal/PaymentNotification
         public EmptyResult PaymentNotification(string regObjectId)
         {
             string strLog = "";

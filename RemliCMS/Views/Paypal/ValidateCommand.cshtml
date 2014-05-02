@@ -15,9 +15,23 @@
 
 <div class="row">
     <div class="large-12 columns">
-        <h3>
-            Connecting to Paypal , please wait …
-        </h3>
+        @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+        {
+            <h3>
+                请稍等, 连接到PayPal …
+            </h3>
+
+            <input class="button alert" type="button" title="取消申请" value="取消申请" onclick=" location.href = '@Url.Action("Registration", "Register", new {RegObjectId = ViewBag.RegObjectId})    ' " />
+        }
+        else
+        {
+            
+            <h3>
+                Connecting to Paypal , please wait …
+            </h3> 
+            <input class="button" type="button" title="Back to Registration" value="Back to Registration" onclick="location.href='@Url.Action("Registration", "Register", new { RegObjectId = ViewBag.RegObjectId })    '" />
+  
+        }
     </div>
 </div>
 
