@@ -50,23 +50,8 @@ namespace RemliCMS.Controllers
             return View();
         }
 
-        //
-        // GET: /Paypal/Notify
-        public EmptyResult Notify(PayPalModel payPalModel)
-        {
-            PaypalListenerModel model = new PaypalListenerModel();
-            model._PaypalModel = payPalModel;
-            byte[] parameters = Request.BinaryRead(Request.ContentLength);
 
-            if (parameters != null)
-            {
-                model.GetStatus(parameters);
-            }
-
-            return new EmptyResult();
-        }
-
-        public EmptyResult PaymentNotification()
+        public EmptyResult PaymentNotification(string regObjectId)
         {
             string strLog = "";
             string currentTime = "";
@@ -75,9 +60,9 @@ namespace RemliCMS.Controllers
 
             currentTime = DateTime.Now.Day.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year + "|" + DateTime.Now.TimeOfDay.Hours.ToString() + ":" + DateTime.Now.TimeOfDay.Minutes.ToString() + ":" + DateTime.Now.TimeOfDay.Seconds.ToString();
 
-            strLog = "Insert into CPLog(Log,LogTime) values('Start IPN request','" + currentTime + "')";
+            strLog = "Start IPN request " + currentTime;
 
-            regHistoryService.AddHistory(1, "Paypal Notification", strLog, 1);
+            regHistoryService.AddHistory(0, "Paypal Notification", strLog, 1);
 
             string strLive = "https://www.sandbox.paypal.com/cgi-bin/webscr";
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(strLive);
@@ -109,11 +94,33 @@ namespace RemliCMS.Controllers
                 //check that receiver_email is your Primary PayPal email
                 //check that payment_amount/payment_currency are correct
                 //process payment
+
+                var registrationService = new RegistrationService();
+                var foundRegEntry = registrationService.GetById(regObjectId);
+                var success = new bool();
+                if (foundRegEntry == null)
+                {
+                    success = false;
+                }
+                else
+                {
+                    var ledgerService = new LedgerService();
+                    success = ledgerService.ConfirmPayPal(foundRegEntry.RegId);
+                    regHistoryService.AddHistory(foundRegEntry.RegId,"Payment Verified","",1);
+                }
+                
                 currentTime = DateTime.Now.Day.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year + "|" + DateTime.Now.TimeOfDay.Hours.ToString() + ":" + DateTime.Now.TimeOfDay.Minutes.ToString() + ":" + DateTime.Now.TimeOfDay.Seconds.ToString();
 
-                strLog = "Insert into CPLog(Log,LogTime) values('Status - Verified','" + currentTime + "')";
+                if (success)
+                {
+                    strLog = "IPN Request VERIFIED - Reg " + foundRegEntry.RegId +" "+ currentTime;                    
+                }
+                else
+                {
+                    strLog = "IPN Request VERIFIED - Reg Not Found " + currentTime;
+                }
                 
-                regHistoryService.AddHistory(1, "Paypal Notification", strLog, 1);
+                regHistoryService.AddHistory(0, "Paypal Notification", strLog, 1);
 
             }
             else if (strResponse == "INVALID")
@@ -121,9 +128,9 @@ namespace RemliCMS.Controllers
                 //log for manual investigation
                 currentTime = DateTime.Now.Day.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year + "|" + DateTime.Now.TimeOfDay.Hours.ToString() + ":" + DateTime.Now.TimeOfDay.Minutes.ToString() + ":" + DateTime.Now.TimeOfDay.Seconds.ToString();
 
-                strLog = "Insert into CPLog(Log,LogTime) values('Status - Invalid','" + currentTime + "')";
+                strLog = "IPN Request INVALID " + currentTime;
                 
-                regHistoryService.AddHistory(1, "Paypal Notification", strLog, 1);
+                regHistoryService.AddHistory(0, "Paypal Notification", strLog, 1);
 
             }
             else
@@ -132,9 +139,9 @@ namespace RemliCMS.Controllers
             }
             currentTime = DateTime.Now.Day.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year + "|" + DateTime.Now.TimeOfDay.Hours.ToString() + ":" + DateTime.Now.TimeOfDay.Minutes.ToString() + ":" + DateTime.Now.TimeOfDay.Seconds.ToString();
 
-            strLog = "Insert into CPLog(Log,LogTime) values('Finish IPN Request','" + currentTime + "')";
+            strLog = "Finish IPN Requets " + currentTime;
 
-            regHistoryService.AddHistory(1, "Paypal Notification", strLog, 1);
+            regHistoryService.AddHistory(0, "Paypal Notification", strLog, 1);
 
             return new EmptyResult();
         }

@@ -70,7 +70,7 @@ namespace RemliCMS.RegSystem.Services
                 Query<Ledger>.EQ(g => g.RegId, regId),
                 Query<Ledger>.EQ(g => g.LedgerTypeId, 8),
                 Query<Ledger>.EQ(g => g.IsConfirmed, false),
-                Query<Ledger>.EQ(g => g.IsCancelled, false)
+                Query<Ledger>.EQ(g => g.IsCancelled, true)
                 );
 
             var foundLedger = MongoConnectionHandler.MongoCollection.Find(ledgerQuery)
@@ -79,6 +79,7 @@ namespace RemliCMS.RegSystem.Services
 
             if (foundLedger != null)
             {
+                foundLedger.IsCancelled = false;
                 foundLedger.IsConfirmed = true;
                 Update(foundLedger);
 
