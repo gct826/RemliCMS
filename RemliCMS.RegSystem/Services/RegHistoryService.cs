@@ -29,7 +29,7 @@ namespace RemliCMS.RegSystem.Services
             var regHistoryQuery = Query<RegHistory>.EQ(g => g.RegId, regId);
 
             var foundRegHistory = MongoConnectionHandler.MongoCollection.Find(regHistoryQuery)
-                .SetSortOrder(SortBy<RegHistory>.Ascending(g => g.EventTime))
+                .SetSortOrder(SortBy<RegHistory>.Descending(g => g.EventTime))
                 .ToList();
 
             return foundRegHistory;

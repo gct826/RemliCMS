@@ -34,6 +34,26 @@ namespace RemliCMS.Controllers
         }
 
         //
+        // GET: /RegAdmin/OpenReg
+        public ActionResult OpenReg(int regId = 0)
+        {
+            if (regId == 0)
+            {
+                return RedirectToAction("Index", "RegAdmin");
+            }
+
+            var registrationService = new RegistrationService();
+            var foundRegistraiton = registrationService.GetByRegId(regId);
+
+            if (foundRegistraiton == null)
+            {
+                return RedirectToAction("Index", "RegAdmin");
+            }
+
+            return RedirectToAction("Registration", "Register", new { foundRegistraiton.Id });
+        }
+
+        //
         // GET: /RegAdmin/Participant
         public ActionResult Participant(int numResult=0)
         {

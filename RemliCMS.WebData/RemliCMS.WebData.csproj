@@ -57,6 +57,7 @@
     <Compile Include="Entities\PageIndex.cs" />
     <Compile Include="Entities\PageTitle.cs" />
     <Compile Include="Entities\Translation.cs" />
+    <Compile Include="Entities\ViewHistory.cs" />
     <Compile Include="MongoConnectionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EntityService.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Services\PageHeaderService.cs" />
     <Compile Include="Services\PageIndexService.cs" />
     <Compile Include="Services\TranslationService.cs" />
+    <Compile Include="Services\ViewHistoryService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

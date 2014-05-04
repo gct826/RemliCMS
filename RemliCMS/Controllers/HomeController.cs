@@ -94,10 +94,20 @@ namespace RemliCMS.Controllers
 
             var pageHeaderService = new PageHeaderService();
             var translationService = new TranslationService();
+            var viewHistoryService = new ViewHistoryService();
 
             var pageHeader = pageHeaderService.Details(permalink);
 
             var translation = translationService.Details(routeValues.Translation);
+
+            if (translation.IsRtl)
+            {
+                ViewBag.LangDir = "rtl";
+            }
+            else
+            {
+                ViewBag.LangDir = "ltr";
+            }
 
             if (routeValues.Translation == "admin")
             {
@@ -111,13 +121,17 @@ namespace RemliCMS.Controllers
 
             if (pageHeader == null)
             {
+                viewHistoryService.AddHistory(permalink, routeValues.Translation, "Page Header Not Found");
+
                 return RedirectToAction("Error", "Shared", new { errorCode = 404 });
+
             }
 
             var pageTitle = pageHeaderService.ReturnPageTitle(pageHeader.Id, translation.Id);
 
             if (pageTitle == null || pageTitle.IsActive == false)
             {
+                viewHistoryService.AddHistory(permalink, routeValues.Translation, "Page Title Not Active");
                 return RedirectToAction("Error", "Shared", new { errorCode = 404 });
             }
 
@@ -127,6 +141,8 @@ namespace RemliCMS.Controllers
 
             var pageIndexService = new PageIndexService();
             var pageIndexList = pageIndexService.ListIndexs(pageHeader.Id);
+
+            viewHistoryService.AddHistory(permalink, routeValues.Translation, "Page Opened");
 
             return View(pageIndexList);
         }

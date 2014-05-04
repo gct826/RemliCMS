@@ -18,7 +18,7 @@ namespace RemliCMS.RegSystem.Services
                 );
 
             var foundLedgerList = MongoConnectionHandler.MongoCollection.Find(ledgerQuery)
-                .SetSortOrder(SortBy<Ledger>.Ascending(g => g.LedgerDate))
+                .SetSortOrder(SortBy<Ledger>.Descending(g => g.LedgerDate))
                 .ToList();
 
             return foundLedgerList;
@@ -29,7 +29,7 @@ namespace RemliCMS.RegSystem.Services
             // var ledgerQuery = Query<Ledger>.EQ(g => g.RegId, regId);
 
             var foundLedgerList = MongoConnectionHandler.MongoCollection.FindAll()
-                .SetSortOrder(SortBy<Ledger>.Ascending(g => g.LedgerDate))
+                .SetSortOrder(SortBy<Ledger>.Descending(g => g.LedgerDate))
                 .ToList();
 
             return foundLedgerList;

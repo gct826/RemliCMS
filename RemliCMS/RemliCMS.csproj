@@ -192,6 +192,8 @@
     <Compile Include="Routes\RouteValues.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Move.jpg" />
+    <Content Include="Content\tomlin.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Content\foundation\foundation-icons.css" />
     <Content Include="Content\foundation\foundation-icons.svg" />
@@ -374,6 +376,7 @@
     <Content Include="Views\Paypal\Notify.cshtml" />
     <Content Include="Views\Register\EnterPayment.cshtml" />
     <Content Include="Views\Paypal\ButtonTest.cshtml" />
+    <Content Include="Views\Admin\ViewHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

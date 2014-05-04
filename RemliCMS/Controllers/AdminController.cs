@@ -51,5 +51,16 @@ namespace RemliCMS.Controllers
             return View();
         }
 
+        // GET: /Admin/ViewHistory
+        public ActionResult ViewHistory()
+        {
+            ViewBag.Title = "Page View History";
+
+            var viewHistoryService = new ViewHistoryService();
+            var viewHistoryList = viewHistoryService.ListAll();
+
+            return View(viewHistoryList);
+        }
+
     }
 }

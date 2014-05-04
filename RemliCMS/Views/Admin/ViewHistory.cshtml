@@ -1,0 +1,60 @@
+﻿@*/admin/Admin/ViewHistory*@
+
+@model IEnumerable<RemliCMS.WebData.Entities.ViewHistory>
+
+<div class="row">
+    <div class="large-12 columns">
+        <h3>Page View History</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PagePermalink)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PageTranslation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PageEvent)
+                    </th>
+
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventTime)                        
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PagePermalink)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PageTranslation)
+                    </td>            
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PageEvent)
+                    </td>                                   
+                </tr>
+                
+            }
+
+        </table>
+    </div>
+</div>
+
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "content"});}
+}
+

@@ -12,7 +12,7 @@ namespace RemliCMS.RegSystem.Services
     {
         public bool AllowRegistration()
         {
-            var regOpenDate = new DateTime(2014,5,4);
+            var regOpenDate = new DateTime(2014,5,3);
             var regCloseDate = new DateTime(2014, 5, 26);
 
             if (DateTime.Today >= regOpenDate && DateTime.Today <= regCloseDate)
