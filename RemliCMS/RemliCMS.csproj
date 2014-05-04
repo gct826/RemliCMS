@@ -373,6 +373,7 @@
     <Content Include="Views\Paypal\Cancel.cshtml" />
     <Content Include="Views\Paypal\Notify.cshtml" />
     <Content Include="Views\Register\EnterPayment.cshtml" />
+    <Content Include="Views\Paypal\ButtonTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

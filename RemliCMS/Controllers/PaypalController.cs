@@ -58,6 +58,18 @@ namespace RemliCMS.Controllers
             regHistoryService.AddHistory(0, "Paypal Notification", strLog, 1);
 
             string strLive = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+
+            bool useSandbox = Convert.ToBoolean(ConfigurationManager.AppSettings["PayPalSandbox"]);
+            
+            if (useSandbox)
+            {
+                strLive = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+            }
+            else
+            {
+                strLive  = ConfigurationManager.AppSettings["PayPalActionUrl"];
+            }
+
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(strLive);
 
             //Set values for the request back
@@ -139,6 +151,11 @@ namespace RemliCMS.Controllers
             return new EmptyResult();
         }
 
-
+        //
+        //GET:/Paypal/ButtonTest
+        public ActionResult ButtonTest()
+        {
+            return View();
+        }
     }
 }

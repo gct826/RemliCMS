@@ -64,7 +64,16 @@ namespace RemliCMS.Controllers
 
             var registrationService = new RegistrationService();
 
-            ViewBag.RegIsAllowed = registrationService.AllowRegistration();
+            var RegOn = ConfigurationManager.AppSettings["Registration"];
+
+            if (RegOn == "on")
+            {
+                ViewBag.RegIsAllowed = registrationService.AllowRegistration();
+            }
+            else
+            {
+                ViewBag.RegIsAllowed = false;
+            }
 
             if (Equals(ViewBag.RegIsAllowed, false))
             {
@@ -101,6 +110,17 @@ namespace RemliCMS.Controllers
 
             TryUpdateModel(order);
             var submitType = values["action"];
+
+            var RegOn = ConfigurationManager.AppSettings["Registration"];
+
+            if (RegOn == "on")
+            {
+                ViewBag.RegIsAllowed = registrationService.AllowRegistration();
+            }
+            else
+            {
+                ViewBag.RegIsAllowed = false;
+            }
 
             ViewBag.RegIsAllowed = registrationService.AllowRegistration();
             ViewBag.Message = submitType;
