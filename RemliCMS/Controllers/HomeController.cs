@@ -100,15 +100,6 @@ namespace RemliCMS.Controllers
 
             var translation = translationService.Details(routeValues.Translation);
 
-            if (translation.IsRtl)
-            {
-                ViewBag.LangDir = "rtl";
-            }
-            else
-            {
-                ViewBag.LangDir = "ltr";
-            }
-
             if (routeValues.Translation == "admin")
             {
                 translation = translationService.Details(translationService.GetDefaultUrl());
@@ -117,6 +108,15 @@ namespace RemliCMS.Controllers
             else
             {
                 ViewBag.isAdmin = false;
+            }
+
+            if (translation.IsRtl)
+            {
+                ViewBag.LangDir = "rtl";
+            }
+            else
+            {
+                ViewBag.LangDir = "ltr";
             }
 
             if (pageHeader == null)

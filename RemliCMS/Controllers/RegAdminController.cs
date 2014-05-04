@@ -43,14 +43,14 @@ namespace RemliCMS.Controllers
             }
 
             var registrationService = new RegistrationService();
-            var foundRegistraiton = registrationService.GetByRegId(regId);
+            var foundRegistration = registrationService.GetByRegId(regId);
 
-            if (foundRegistraiton == null)
+            if (foundRegistration == null)
             {
                 return RedirectToAction("Index", "RegAdmin");
             }
 
-            return RedirectToAction("Registration", "Register", new { foundRegistraiton.Id });
+            return RedirectToAction("Registration", "Register", new { regObjectId = foundRegistration.Id });
         }
 
         //
