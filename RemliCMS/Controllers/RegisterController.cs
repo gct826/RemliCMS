@@ -497,6 +497,7 @@ namespace RemliCMS.Controllers
             ViewBag.Title = "Registration";
 
             var registrationService = new RegistrationService();
+            var participantService = new ParticipantService();
             var foundRegistration = registrationService.GetById(regObjectId);
 
             if (foundRegistration != null)
@@ -505,12 +506,24 @@ namespace RemliCMS.Controllers
                 var regHistoryService = new RegHistoryService();
                 regHistoryService.AddHistory(foundRegistration.RegId, "Registration - Opened", "", isAdmin);
 
-
                 if (foundRegistration.IsConfirmed)
                 {
                     confirmation = false;
+
                 }
-                    
+
+                var incomplete = false;
+
+                if (confirmation)
+                {
+                    if (!participantService.CompleteRegistration(foundRegistration.RegId))
+                    {
+                        incomplete = true;
+                        confirmation = false;
+                    }
+                }
+
+                ViewBag.incomplete = incomplete;
                 ViewBag.confirmation = confirmation;
                 ViewBag.RegId = foundRegistration.RegId;
                 ViewBag.RegObjectId = foundRegistration.Id;

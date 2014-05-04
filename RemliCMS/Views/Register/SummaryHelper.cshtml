@@ -46,13 +46,27 @@
                 
                 if (ViewContext.RouteData.Values["translation"].ToString() == "en")
                 {
+                    if (item.StatusId == 6)
+                    {
+                        @Html.ActionLink("Add", "Participant", "Register", new {regObjectId = ViewBag.RegObjectID, partId = item.PartId}, new {@class = "label"})     
+                    }
+                     else
+                     {
                     @Html.ActionLink("Edit", "Participant", "Register", new {regObjectId = ViewBag.RegObjectID, partId = item.PartId}, new {@class = "label"})
+                     }
                     @:&#32;
                     @Html.ActionLink("Remove", "Delete", "Register", new {regObjectId = ViewBag.RegObjectID, partId = item.PartId}, new {@class = "label"})
                 }
                 if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
                 {
+                    if (item.StatusId == 6)
+                    {
+                        @Html.ActionLink("加入", "Participant", "Register", new {regObjectId = ViewBag.RegObjectID, partId = item.PartId}, new {@class = "label"})     
+                    }
+                     else
+                     {
                     @Html.ActionLink("编辑", "Participant", "Register", new {regObjectId = ViewBag.RegObjectID, partId = item.PartId}, new {@class = "label"})
+                     }         
                     @:&#32;
                     @Html.ActionLink("删除", "Delete", "Register", new {regObjectId = ViewBag.RegObjectID, partId = item.PartId}, new {@class = "label"})
                 }
@@ -84,7 +98,7 @@
                     
                 if (item.StatusId == 6)
                 {
-                    @Html.ActionLink("Register", "UndoCheckOut", "RegAdmin", new { regId = item.RegId, partId = item.PartId, newStatus = 1 }, new { @class = "label" })
+                    @Html.ActionLink("Register", "StatusUpdate", "RegAdmin", new { regId = item.RegId, partId = item.PartId, newStatus = 1 }, new { @class = "label" })
                 }
 
                 @:&#32;

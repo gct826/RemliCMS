@@ -113,8 +113,29 @@
                      </div>
             }
         }
+    
+        @if (ViewBag.incomplete)
+        {
+            using (Html.BeginForm())
+            {
+                 @Html.AntiForgeryToken()
+                 <input data-val="true" data-val-required="The Id field is required." id="RegId" name="RegId" type="hidden" value="@ViewBag.RegId" />
+
+                     <div class="large-12 columns">
+        
+                         @if (ViewContext.RouteData.Values["translation"].ToString() == "zh")
+                         {
+                             <p>Not all Participant entries are registered! Please Add or Remove Incomplete Participants.</p>
+                         }
+                         else
+                         {
+                             <p>Not all Participant entries are registered! Please Add or Remove Incomplete Participants.</p>                            
+                         }
+                     </div>
+            }
+        }
             
-    </div>
+</div>
 
 
 <div class="row">

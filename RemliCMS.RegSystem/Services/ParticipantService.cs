@@ -67,5 +67,22 @@ namespace RemliCMS.RegSystem.Services
 
             return foundRegistrationList;
         }
+
+        public bool CompleteRegistration(int regId)
+        {
+            var participantQuery = Query.And(
+                Query<Participant>.EQ(g => g.RegId, regId),
+                Query<Participant>.EQ(g => g.StatusId, 6)
+            );
+
+            var foundRegistrationList = MongoConnectionHandler.MongoCollection.Find(participantQuery);
+
+            if (foundRegistrationList.Count() == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
