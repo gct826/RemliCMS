@@ -292,6 +292,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\list.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -377,6 +378,8 @@
     <Content Include="Views\Register\EnterPayment.cshtml" />
     <Content Include="Views\Paypal\ButtonTest.cshtml" />
     <Content Include="Views\Admin\ViewHistory.cshtml" />
+    <Content Include="Views\RegAdmin\PaymentMemo.cshtml" />
+    <Content Include="Views\RegAdmin\RegistrationEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

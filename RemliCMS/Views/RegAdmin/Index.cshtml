@@ -2,6 +2,7 @@
 
 @model IEnumerable<RemliCMS.RegSystem.Entities.Registration>
 
+
 <div class="row">
     <div class="large-12 columns">
         <h3>Registration List</h3>
@@ -10,63 +11,71 @@
 </div>
 
 <div class="row">
-    <div class="large-12 columns">
+    <div id = "registrations" class="large-12 columns">
         <table>
             <thead>
                 <tr>
-                    <th>
+                    <th class="sort" data-sort="id">
                         @Html.DisplayNameFor(model => model.RegId)
                     </th>
-                    <th>
+                    <th class="sort" data-sort="email">
                         @Html.DisplayNameFor(model => model.RegEmail)
                     </th>
-                    <th>
+                    <th class="sort" data-sort="phone">
                         @Html.DisplayNameFor(model => model.RegPhone)
                     </th>
-                    <th>
+                    <th></th>
+                    <th class="sort" data-sort="dateOpened">
                         @Html.DisplayNameFor(model => model.DateOpened)
                     </th>
-                    <th>
+                    <th class="sort" data-sort="confirmed">
                         @Html.DisplayNameFor(model => model.IsConfirmed)
                     </th>
-                    <th>
+                    <th class="sort" data-sort="deleted">
                         @Html.DisplayNameFor(model => model.IsDeleted)
+                    </th>
+                    <th>
+                        <input type="text" class="search" placeholder="Search Registration"/>
                     </th>
                 </tr>
             </thead>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <a href="@Url.Action("Registration", "Register", new {regObjectId = item.Id.ToString()})">@item.RegId</a>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RegEmail)
-                    </td>                    
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RegPhone)
-                    </td>                    
-                    <td>
-                        @if (item.DateOpened.ToString() == "1/1/0001 12:00:00 AM")
-                        {
-                            @:Never Opened
-                        }
-                        else
-                        {
-                            @Html.DisplayFor(modelItem => item.DateOpened)
-                        }
-                    </td>                    
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsConfirmed)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsDeleted)
-                    </td>
-                </tr>
+            <tbody class="list">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="id">
+                            <a href="@Url.Action("Registration", "Register", new {regObjectId = item.Id.ToString()})">@item.RegId</a>
+                        </td>
+                        <td class="email">
+                            @Html.DisplayFor(modelItem => item.RegEmail)
+                        </td>                    
+                        <td class="phone">
+                            @Html.DisplayFor(modelItem => item.RegPhone)
+                        </td>    
+                        <td>
+                            <a href="@Url.Action("RegistrationEdit", "RegAdmin", new {regObjectId = item.Id})"><i class="fi-pencil"></i></a>
+                        </td>       
+                        <td class="dateOpened">
+                            @if (item.DateOpened.ToString() == "1/1/0001 12:00:00 AM")
+                            {
+                                @:Never Opened
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.DateOpened)
+                            }
+                        </td>                    
+                        <td class="confirmed">
+                            @Html.DisplayFor(modelItem => item.IsConfirmed)
+                        </td>
+                        <td class="deleted">
+                            @Html.DisplayFor(modelItem => item.IsDeleted)
+                        </td>
+                        <td></td>
+                    </tr>
                 
-            }
-
+                }
+            </tbody>
         </table>
     </div>
 </div>
@@ -75,4 +84,19 @@
 @section head
 {
     @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "registration"});}
+}
+
+@section Scripts
+{
+
+    <script src="~/Scripts/list.min.js"></script>
+
+    <script>
+        var options = {
+            valueNames: ['id', 'email', 'phone', 'dateOpened', 'confirmed', 'deleted']
+        };
+
+        var registrationList = new List('registrations', options);
+        
+    </script>
 }

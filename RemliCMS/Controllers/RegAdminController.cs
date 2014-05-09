@@ -34,6 +34,70 @@ namespace RemliCMS.Controllers
         }
 
         //
+        // GET: /RegAdmin/RegistrationEdit
+        public ActionResult RegistrationEdit(string regObjectId)
+        {
+            if (regObjectId == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var registrationService = new RegistrationService();
+            var translationService = new TranslationService();
+            var transObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+
+
+            var foundRegistration = registrationService.GetById(regObjectId);
+
+            if (foundRegistration == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.TranslationObjectId = transObjectId;
+            return View(foundRegistration);
+        }
+
+        //
+        // POST: /RegAdmin/RegistrationEdit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegistrationEdit(string regObjectId, FormCollection registration)
+        {
+            if (regObjectId == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var registrationService = new RegistrationService();
+            var translationService = new TranslationService();
+            var transObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+
+            var foundRegistration = registrationService.GetById(regObjectId);
+
+            if (foundRegistration == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var submittedRegistration = new Registration();
+            TryUpdateModel(submittedRegistration);
+
+            foundRegistration.RegEmail = submittedRegistration.RegEmail;
+            foundRegistration.RegPhone = submittedRegistration.RegPhone;
+            foundRegistration.IsConfirmed = submittedRegistration.IsConfirmed;
+            foundRegistration.IsDeleted = submittedRegistration.IsDeleted;
+
+            registrationService.Update(foundRegistration);
+
+            var regHistoryService = new RegHistoryService();
+            regHistoryService.AddHistory(foundRegistration.RegId, "Registration Modified", "", 1);
+
+            return RedirectToAction("Index");
+        }
+
+
+        //
         // GET: /RegAdmin/OpenReg
         public ActionResult OpenReg(int regId = 0)
         {
@@ -137,6 +201,72 @@ namespace RemliCMS.Controllers
             return View(ledgerList);
         }
 
+        //
+        // GET: /RegAdmin/PaymentMemo
+        public ActionResult PaymentMemo(string ledgerId)
+        {
+            if (ledgerId == null)
+            {
+                return RedirectToAction("PaymentManagement");
+            }
+
+            var regValueService = new RegValueService();
+            var ledgerService = new LedgerService();
+            var translationService = new TranslationService();
+            var transObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+
+
+            var foundLedger = ledgerService.GetById(ledgerId);
+
+            if (foundLedger == null)
+            {
+                return RedirectToAction("PaymentManagement");
+            }
+
+            var ledgerIdList = regValueService.GetValueTextList("ledger", transObjectId);
+            ViewBag.LedgerTypeId = new string[ledgerIdList.Count + 1];
+            foreach (var item in ledgerIdList)
+            {
+                ViewBag.LedgerTypeId[item.Value] = item.Text;
+            }
+
+            ViewBag.TranslationObjectId = transObjectId;
+            return View(foundLedger);
+        }
+
+        //
+        // POST: /RegAdmin/PaymentMemo
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PaymentMemo(string ledgerId, FormCollection ledger)
+        {
+            if (ledgerId == null)
+            {
+                return RedirectToAction("PaymentManagement");
+            }
+            var regValueService = new RegValueService();
+            var ledgerService = new LedgerService();
+            var translationService = new TranslationService();
+            var transObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+
+
+            var foundLedger = ledgerService.GetById(ledgerId);
+
+            if (foundLedger == null)
+            {
+                return RedirectToAction("PaymentManagement");
+            }
+
+            foundLedger.LedgerNote = ledger["LedgerNote"];
+
+            ledgerService.Update(foundLedger);
+
+            var regHistoryService = new RegHistoryService();
+            regHistoryService.AddHistory(foundLedger.RegId, "Payment Memo Modified", foundLedger.LedgerNote, 1);
+
+
+            return RedirectToAction("PaymentManagement");
+        }
         //
         // GET: /RegAdmin/PaymentConfirm
         public ActionResult PaymentConfirm(string ledgerId)

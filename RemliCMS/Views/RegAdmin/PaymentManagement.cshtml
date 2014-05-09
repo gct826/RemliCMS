@@ -49,6 +49,8 @@
                     </td>                    
                     <td>
                         @Html.DisplayFor(modelItem => item.LedgerNote)
+                        <a href="@Url.Action("PaymentMemo", "RegAdmin", new {ledgerId = item.Id})"><i class="fi-pencil"></i></a>
+                        
                     </td>                    
                     <td>
                         @Html.DisplayFor(modelItem => item.LedgerAmount)
@@ -98,5 +100,5 @@
 
 @section head
 {
-    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "registration"});}
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "payment"});}
 }

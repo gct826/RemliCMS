@@ -1,0 +1,51 @@
+﻿@*/admin/RegAdmin/PaymentMemo*@
+
+@model RemliCMS.RegSystem.Entities.Ledger
+
+@{Html.RenderAction("Summary", "Register", new {transObjectId = ViewBag.TranslationObjectId, Model.RegId, isAdmin = true});}
+
+<div class="row">
+	<div class="large-12 columns">
+	    
+	<p>Modify Payment Memo</p>
+	    
+	@using (Html.BeginForm())
+	{
+     @Html.AntiForgeryToken()
+        
+	    <div class="large-12 small-12 columns">
+	        <label>
+	            <p>Payment amount:</p>                	                    
+	            <strong>@Html.DisplayFor(model => model.LedgerAmount)</strong>
+	        </label>
+     	    <br/>
+	    </div>
+     
+	    <div class="large-12 small-12 columns">     
+	        <label>
+	            <p>Payment type:</p>
+	            <strong>@ViewBag.LedgerTypeId[Model.LedgerTypeId]</strong>
+	        </label>
+            <br/>
+	    </div>
+	    <div class="large-12 small-12 columns">
+	        <label>
+	            <p>Payment Notes.</p>
+	            <strong>@Html.EditorFor(model => model.LedgerNote)</strong>
+	        </label>
+            <br/>
+	    </div>
+	    <div class="large-12 small-12 columns">
+	        <input class="button tiny" type="submit" value="Submit" />
+	        <input class="button tiny alert" type="button" title="Cancel" value="Cancel" onclick="location.href='@Url.Action("PaymentManagement", "RegAdmin")    '" />
+	    </div>
+    }
+ 
+	</div>
+</div>       
+
+
+@section head
+{
+    @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "payment"});}
+}

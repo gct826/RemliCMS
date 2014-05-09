@@ -35,6 +35,15 @@
                 {
                     <li>@Html.ActionLink("Registration", "Index", "RegAdmin")</li>                    
                 }
+                
+                @if (ViewBag.CurrentItem == "payment")
+                {
+                    <li class="active">@Html.ActionLink("Payment", "PaymentManagement", "RegAdmin")</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Payment", "PaymentManagement", "RegAdmin")</li>                    
+                }
 
                 <li><a href="/">Back to Site</a></li>
 
