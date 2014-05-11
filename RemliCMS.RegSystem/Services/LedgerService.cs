@@ -18,7 +18,7 @@ namespace RemliCMS.RegSystem.Services
                 );
 
             var foundLedgerList = MongoConnectionHandler.MongoCollection.Find(ledgerQuery)
-                .SetSortOrder(SortBy<Ledger>.Descending(g => g.LedgerDate))
+                .SetSortOrder(SortBy<Ledger>.Ascending(g => g.LedgerDate))
                 .ToList();
 
             return foundLedgerList;

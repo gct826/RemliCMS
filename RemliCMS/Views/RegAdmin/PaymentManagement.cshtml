@@ -9,89 +9,92 @@
 </div>
 
 <div class="row">
-    <div class="large-12 columns">
+    <div id="ledgers" class="large-12 columns">
         <table>
             <thead>
                 <tr>
-                    <th>
+                    <th class="sort" data-sort="id">
                         @Html.DisplayNameFor(model => model.RegId)
                     </th>
-                    <th>
+                    <th class="sort" data-sort="date">
                         @Html.DisplayNameFor(model => model.LedgerDate)
                     </th>
-                    <th>
+                    <th class="sort" data-sort="type">
                         @Html.DisplayNameFor(model => model.LedgerTypeId)
                     </th>
-                    <th>
+                    <th class="sort" data-sort="note">
                         @Html.DisplayNameFor(model => model.LedgerNote)
                     </th>
-                    <th>
+                    <th class="sort" data-sort="amount">
                         @Html.DisplayNameFor(model => model.LedgerAmount)
                     </th>
-                    <th>
+                    <th class="sort" data-sort="confirmed">
                         @Html.DisplayNameFor(model => model.IsConfirmed)
                     </th>
-                    <th></th>
+                    <th>
+                        <input type="text" class="search" placeholder="Search Payment"/>
+                    </th>
                 </tr>
             </thead>
-
-            @foreach (var item in Model)
-            {
-                <tr>                    
-                    <td>
-                        <a href="@Url.Action("OpenReg", "RegAdmin", new { regId = item.RegId })">@item.RegId</a>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LedgerDate)                        
-                    </td>
-                    <td>
-                        @{ Html.RenderAction("RegValueText","Register", new {translationObjectId = ViewBag.translationObjectId, regValueKey = "ledger", regValue = item.LedgerTypeId}); }
-                    </td>                    
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LedgerNote)
-                        <a href="@Url.Action("PaymentMemo", "RegAdmin", new {ledgerId = item.Id})"><i class="fi-pencil"></i></a>
+            <tbody class="list">
+                @foreach (var item in Model)
+                {
+                    <tr>                    
+                        <td class="id">
+                            <a href="@Url.Action("OpenReg", "RegAdmin", new { regId = item.RegId })">@item.RegId</a>
+                        </td>
+                        <td class="date">
+                            @Html.DisplayFor(modelItem => item.LedgerDate)                        
+                        </td>
+                        <td class="type">
+                            @{ Html.RenderAction("RegValueText","Register", new {translationObjectId = ViewBag.translationObjectId, regValueKey = "ledger", regValue = item.LedgerTypeId}); }
+                        </td>                    
+                        <td class="note">
+                            @Html.DisplayFor(modelItem => item.LedgerNote)
+                            <a href="@Url.Action("PaymentMemo", "RegAdmin", new {ledgerId = item.Id})"><i class="fi-pencil"></i></a>
                         
-                    </td>                    
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LedgerAmount)
-                    </td>                    
-                    <td>
-                        @if (item.IsCancelled)
-                        {
-                            <div class="red">Cancelled</div>
-                        }
-                        else
-                        {
-                            if (item.IsConfirmed)
+                        </td>                    
+                        <td class="amount">
+                            @Html.DisplayFor(modelItem => item.LedgerAmount)
+                        </td>                    
+                        <td class="confirmed">
+                            @if (item.IsCancelled)
                             {
-                                <div class="green">Confirmed</div>
+                                <div class="red">Cancelled</div>
                             }
                             else
                             {
-                                @Html.ActionLink("Confirm","PaymentConfirm",new {ledgerId = item.Id})
-                            }                                                    
-                        }
-                    </td>           
-                    <td>
-                        @if (item.IsCancelled)
-                        {
-                        }
-                        else
-                        {
-                            if (item.IsConfirmed)
+                                if (item.IsConfirmed)
+                                {
+                                    <div class="green">Confirmed</div>
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Confirm","PaymentConfirm",new {ledgerId = item.Id})
+                                }                                                    
+                            }
+                        </td>           
+                        <td>
+                            @if (item.IsCancelled)
                             {
-                                @Html.ActionLink("UnConfirm","PaymentUnconfirm",new {ledgerId = item.Id})
                             }
                             else
                             {
-                                @Html.ActionLink("Cancel","PaymentCancel",new {ledgerId = item.Id})
-                            }                                                    
-                        }
-                    </td>
+                                if (item.IsConfirmed)
+                                {
+                                    @Html.ActionLink("UnConfirm","PaymentUnconfirm",new {ledgerId = item.Id})
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Cancel","PaymentCancel",new {ledgerId = item.Id})
+                                }                                                    
+                            }
+                        </td>
          
-                </tr>
+                    </tr>
                 
-            }
+                }
+            </tbody>
 
         </table>
     </div>
@@ -101,4 +104,19 @@
 @section head
 {
     @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "payment"});}
+}
+
+@section Scripts
+{
+
+    <script src="~/Scripts/list.min.js"></script>
+
+    <script>
+        var options = {
+            valueNames: ['id', 'date', 'type', 'note', 'amount', 'confirmed']
+        };
+
+        var registrationList = new List('ledgers', options);
+        
+    </script>
 }

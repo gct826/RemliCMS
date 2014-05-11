@@ -28,6 +28,9 @@ namespace RemliCMS
             bundles.Add(new ScriptBundle("~/bundles/list").Include(
                         "~/Scripts/list.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jHtmlArea").Include(
+                        "~/Scripts/jHtmlArea-0.8.min.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -38,8 +41,9 @@ namespace RemliCMS
                         "~/Content/foundation/foundation.css",
                         "~/Content/foundation/foundation.mvc.css",
                         "~/Content/foundation/foundation-icons.css",
-                        "~/Content/foundation/normalize.css"));
-            
+                        "~/Content/foundation/normalize.css",
+                        "~/Content/jHtmlArea/jHtmlArea.css"));
+
             bundles.Add(new StyleBundle("~/Content/css_rtl").Include(
                         "~/Content/site.css",
                         "~/Content/foundation/foundation_rtl.css",

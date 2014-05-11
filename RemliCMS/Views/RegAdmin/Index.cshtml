@@ -44,7 +44,7 @@
                 {
                     <tr>
                         <td class="id">
-                            <a href="@Url.Action("Registration", "Register", new {regObjectId = item.Id.ToString()})">@item.RegId</a>
+                            <a href="@Url.Action("OpenReg", "RegAdmin", new { regId = item.RegId })">@item.RegId</a>
                         </td>
                         <td class="email">
                             @Html.DisplayFor(modelItem => item.RegEmail)

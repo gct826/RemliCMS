@@ -53,7 +53,7 @@
                 <div class ="row">
                     <div class="@ViewBag.contentClass">
                         <label>@Html.LabelFor(model => model.Content)</label>   
-                        @Html.TextAreaFor(model => model.Content,new { id="txtInput", @style = "resize: none; height:auto; overflow:hidden"})
+                        @Html.TextAreaFor(model => model.Content,new {@style = "resize: none; height:200px; overflow:hidden"})
                         @Html.ValidationMessageFor(model => model.Content)
                     </div>
                 </div>
@@ -87,17 +87,27 @@
 }
 
 @section Scripts {
-
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jquery")
+    
+    <script src="~/Scripts/jHtmlArea-0.8.min.js"></script>
+    @*<script src="~/Scripts/jquery.autogrow-textarea.js"></script>*@
+    @*<script src="~/Scripts/jquery.textarea.autoresize.js"></script>*@
     <script>
         $('form').submit(function() {
             $(this).find('input[type="submit"]').attr('disabled', 'disabled');
         });
     </script>
-    <script type="text/javascript">
+    @*    <script type="text/javascript">
         $(document).ready(function() {
-            $("txtInput").autoGrow();
+            $("textarea").autoGrow();
         });
     </script>
+    <script>
+        $('textarea').autogrow();
+        $('textarea').autoresize(params_object);
+    </script>*@
+    <script>
+        $('textarea').htmlarea();
+    </script>
+
+
 }

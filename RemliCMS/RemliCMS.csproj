@@ -192,6 +192,12 @@
     <Compile Include="Routes\RouteValues.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\jHtmlArea\jHtmlArea.ColorPickerMenu.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.Editor.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.png" />
+    <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group_BG.png" />
+    <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group__Btn_Select_BG.png" />
     <Content Include="Content\Move.jpg" />
     <Content Include="Content\tomlin.jpg" />
     <Content Include="favicon.ico" />
@@ -279,11 +285,17 @@
     <Content Include="Scripts\foundation\foundation.tab.js" />
     <Content Include="Scripts\foundation\foundation.tooltip.js" />
     <Content Include="Scripts\foundation\foundation.topbar.js" />
+    <Content Include="Scripts\jHtmlArea-0.8.js" />
+    <Content Include="Scripts\jHtmlArea-0.8.min.js" />
+    <Content Include="Scripts\jHtmlArea.ColorPickerMenu-0.8.js" />
+    <Content Include="Scripts\jHtmlArea.ColorPickerMenu-0.8.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.autogrow-textarea.js" />
+    <Content Include="Scripts\jquery.textarea.autoresize.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

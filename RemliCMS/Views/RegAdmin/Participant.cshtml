@@ -9,74 +9,77 @@
 </div>
 
 <div class="row">
-    <div class="large-12 columns">
+    <div id="participants" class="large-12 columns">
         <table>
             <thead>
                 <tr>
-                    <th>
+                    <th class="sort" data-sort="id">
                         RegId
                     </th>
-                    <th>
+                    <th class="sort" data-sort="partid">
                         PartId
                     </th>
-                    <th>
+                    <th class="sort" data-sort="fname">
                         First Name
                     </th>
-                    <th>
+                    <th class="sort" data-sort="lname">
                         Last Name
                     </th>
-                    <th>
+                    <th class="sort" data-sort="cname">
                         Chinese Name
                     </th>
-                    <th>
+                    <th class="sort" data-sort="gender">
                         Gender
                     </th>
-                    <th>
+                    <th class="sort" data-sort="agerange">
                         Age Range
                     </th>
-                    <th>
+                    <th class="sort" data-sort="session">
                         Session
                     </th>
-                    <th>
+                    <th class="sort" data-sort="status">
                         Status
+                    </th>
+                    <th>
+                        <input type="text" class="search" placeholder="Search Participant"/>
                     </th>
                 </tr>
             </thead>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <a href="@Url.Action("OpenReg", "RegAdmin", new { regId = item.RegId })">@item.RegId</a>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PartId)                        
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
-                    </td>                    
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastName)
-                    </td>                    
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ChineseName)
-                    </td>                    
-                    <td>
-                        @ViewBag.GenderId[item.GenderId]
-                    </td>
-                    <td>
-                        @ViewBag.AgeRangeId[item.AgeRangeId]
-                    </td>
-                    <td>
-                        @ViewBag.SessionId[item.SessionId]
-                    </td>
-                    <td>
-                        @ViewBag.StatusId[item.StatusId]
-                    </td>
-                </tr>
-                
-            }
-
+            <tbody class="list">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="id">
+                            <a href="@Url.Action("OpenReg", "RegAdmin", new { regId = item.RegId })">@item.RegId</a>
+                        </td>
+                        <td class="partid">
+                            @Html.DisplayFor(modelItem => item.PartId)                        
+                        </td>
+                        <td class="fname">
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>                    
+                        <td class="lname">
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>                    
+                        <td class="cname">
+                            @Html.DisplayFor(modelItem => item.ChineseName)
+                        </td>                    
+                        <td class="gender">
+                            @ViewBag.GenderId[item.GenderId]
+                        </td>
+                        <td class="agerange">
+                            @ViewBag.AgeRangeId[item.AgeRangeId]
+                        </td>
+                        <td class="session">
+                            @ViewBag.SessionId[item.SessionId]
+                        </td>
+                        <td class="status">
+                            @ViewBag.StatusId[item.StatusId]
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </div>
@@ -85,4 +88,19 @@
 @section head
 {
     @{ Html.RenderAction("AdminHeader","Shared", new {currentItem = "registration"});}
+}
+
+@section Scripts
+{
+
+    <script src="~/Scripts/list.min.js"></script>
+
+    <script>
+        var options = {
+            valueNames: ['id', 'partid', 'fname', 'lname', 'cname', 'gender', 'agerange','session','status']
+        };
+
+        var registrationList = new List('participants', options);
+        
+    </script>
 }
