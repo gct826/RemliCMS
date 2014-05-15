@@ -171,6 +171,7 @@
     <Compile Include="Controllers\RegPriceController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\TranslationController.cs" />
+    <Compile Include="Controllers\UserManagementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -181,6 +182,7 @@
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\PaypalModel.cs" />
     <Compile Include="Models\RegTranslationModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\TitleModel.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -392,6 +394,7 @@
     <Content Include="Views\Admin\ViewHistory.cshtml" />
     <Content Include="Views\RegAdmin\PaymentMemo.cshtml" />
     <Content Include="Views\RegAdmin\RegistrationEdit.cshtml" />
+    <Content Include="Views\UserManagement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

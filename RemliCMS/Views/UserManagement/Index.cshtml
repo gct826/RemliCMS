@@ -1,0 +1,37 @@
+﻿@*/admin/UserManagement*@
+
+@model IEnumerable<RemliCMS.Models.RoleModel>
+
+<div class="row">
+    
+    <div class="large-12 columns">
+        <table>
+            <thead>
+                <th>
+                    <label>Role</label>          
+                </th>
+                <th>
+                    <label>Description</label>
+                </th>
+
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoleName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                    </tr>
+                                        
+                }
+            </tbody>        
+        
+
+        </table>
+
+    </div>
+</div>

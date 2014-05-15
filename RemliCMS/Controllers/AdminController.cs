@@ -9,6 +9,7 @@ using RemliCMS.WebData.Services;
 
 namespace RemliCMS.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminController : BaseController
     {
         public AdminController(IRouteService routeService) : base(routeService)
@@ -17,7 +18,7 @@ namespace RemliCMS.Controllers
 
         //
         // GET: /Admin/Index
-        [Authorize(Roles="admin")]
+
         public ActionResult Index()
         {
             ViewBag.Title = "Site Administration";
