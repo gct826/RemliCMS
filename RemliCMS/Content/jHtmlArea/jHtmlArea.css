@@ -7,9 +7,9 @@
 
 div.jHtmlArea div { display: inline-block; padding: 0px; margin: 0px; }
 div.jHtmlArea .ToolBar { display: inline-block; background: #fbfbfb; border-bottom: solid 1px #aaa; }
-div.jHtmlArea .ToolBar ul { border: solid 1px #ccc; margin: 1px; padding: 1px; float: left; background: #fff url(jHtmlArea_Toolbar_Group_BG.png) repeat-x;}
+div.jHtmlArea .ToolBar ul { border: solid 1px #ccc; margin: 1px; padding: 1px; float: left; background: #fff url(~/Content/jHtmlArea/jHtmlArea_Toolbar_Group_BG.png) repeat-x;}
 div.jHtmlArea .ToolBar ul li { list-style-type: none; float: left; border: none; padding: 1px; margin: 1px; }
-div.jHtmlArea .ToolBar ul li:hover { border: solid 1px #ccc; background: #ddd url(jHtmlArea_Toolbar_Group__Btn_Select_BG.png); padding: 0; }
+div.jHtmlArea .ToolBar ul li:hover { border: solid 1px #ccc; background: #ddd url(~/Content/jHtmlArea/jHtmlArea_Toolbar_Group__Btn_Select_BG.png); padding: 0; }
 div.jHtmlArea .ToolBar ul li a { display: block; width: 16px; height: 16px; background: url(jHtmlArea.png) no-repeat -16px -500px; border: none; cursor: pointer; padding: 0px; }
 div.jHtmlArea .ToolBar ul li a.highlighted { border: solid 1px #aaa; background-color: #bbb; padding: 0; }
 div.jHtmlArea .ToolBar ul li.separator {height: 16px; margin: 0 2px 0 3px; border-left: 1px solid #ccc;}
