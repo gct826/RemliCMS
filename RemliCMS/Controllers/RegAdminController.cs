@@ -160,6 +160,13 @@ namespace RemliCMS.Controllers
                 ViewBag.SessionId[item.Value] = item.Text;
             }
 
+            var roomtypeIdList = regValueService.GetValueTextList("roomtype", transObjectId);
+            ViewBag.RoomTypeId = new string[roomtypeIdList.Count + 1];
+            foreach (var item in roomtypeIdList)
+            {
+                ViewBag.RoomTypeId[item.Value] = item.Text;
+            }
+
             return View(participantList);
         }
 
@@ -222,6 +229,13 @@ namespace RemliCMS.Controllers
             foreach (var item in sessionIdList)
             {
                 ViewBag.SessionId[item.Value] = item.Text;
+            }
+
+            var roomtypeIdList = regValueService.GetValueTextList("roomtype", transObjectId);
+            ViewBag.RoomTypeId = new string[roomtypeIdList.Count + 1];
+            foreach (var item in roomtypeIdList)
+            {
+                ViewBag.RoomTypeId[item.Value] = item.Text;
             }
 
             return View(participantList);

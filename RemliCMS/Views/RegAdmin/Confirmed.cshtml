@@ -37,6 +37,9 @@
                     <th class="sort" data-sort="session">
                         Session
                     </th>
+                    <th class="sort" data-sort="roomtype">
+                        Room Type
+                    </th>
                     <th class="sort" data-sort="status">
                         Status
                     </th>
@@ -73,6 +76,9 @@
                         <td class="session">
                             @ViewBag.SessionId[item.SessionId]
                         </td>
+                        <td class="roomtype">
+                            @ViewBag.RoomTypeId[item.RoomTypeId]
+                        </td>
                         <td class="status">
                             @ViewBag.StatusId[item.StatusId]
                         </td>
@@ -97,7 +103,7 @@
 
     <script>
         var options = {
-            valueNames: ['id', 'partid', 'fname', 'lname', 'cname', 'gender', 'agerange','session','status']
+            valueNames: ['id', 'partid', 'fname', 'lname', 'cname', 'gender', 'agerange','session','roomtype','status']
         };
 
         var registrationList = new List('participants', options);
