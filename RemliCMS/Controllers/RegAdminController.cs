@@ -163,6 +163,70 @@ namespace RemliCMS.Controllers
             return View(participantList);
         }
 
+        // 
+        // GET: / RegAdmin/Confirmed
+        public ActionResult Confirmed()
+        {
+            ViewBag.Title = "Confirmed Participants";
+
+            var translationService = new TranslationService();
+            var registrationService = new RegistrationService();
+            var participantService = new ParticipantService();
+            var transObjectId = translationService.GetTranslationObjectId(translationService.GetDefaultUrl());
+
+            var registrationList = registrationService.ListAllRegistrations();
+
+            var participantList = new List<Participant>();
+
+            foreach (var registration in registrationList)
+            {
+                if (registration.IsConfirmed)
+                {
+                    var foundParticipants = participantService.GetParticipantList(registration.RegId);
+
+                    foreach (var participant in foundParticipants)
+                    {
+                        if (participant.StatusId < 4)
+                        {
+                            participantList.Add(participant);    
+                        }
+                    }
+                }
+            }
+
+            var regValueService = new RegValueService();
+
+            var statusIdList = regValueService.GetValueTextList("status", transObjectId);
+            ViewBag.StatusId = new string[statusIdList.Count + 1];
+            foreach (var item in statusIdList)
+            {
+                ViewBag.StatusId[item.Value] = item.Text;
+            }
+
+            var genderIdList = regValueService.GetValueTextList("gender", transObjectId);
+            ViewBag.GenderId = new string[genderIdList.Count + 1];
+            foreach (var item in genderIdList)
+            {
+                ViewBag.GenderId[item.Value] = item.Text;
+            }
+
+            var ageRangeIdList = regValueService.GetValueTextList("agerange", transObjectId);
+            ViewBag.AgeRangeId = new string[ageRangeIdList.Count + 1];
+            foreach (var item in ageRangeIdList)
+            {
+                ViewBag.AgeRangeId[item.Value] = item.Text;
+            }
+
+            var sessionIdList = regValueService.GetValueTextList("sessions", transObjectId);
+            ViewBag.SessionId = new string[sessionIdList.Count + 1];
+            foreach (var item in sessionIdList)
+            {
+                ViewBag.SessionId[item.Value] = item.Text;
+            }
+
+            return View(participantList);
+        }
+
         //
         // POST: /RegAdmin/Participant
         [HttpPost]

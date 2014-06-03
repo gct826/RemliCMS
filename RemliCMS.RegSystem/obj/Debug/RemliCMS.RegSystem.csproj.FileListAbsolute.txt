@@ -7,3 +7,12 @@ C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\bin\Debug\
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.dll
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.pdb
 C:\Users\George\Documents\GitHub\RemliCMS\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.csprojResolveAssemblyReference.cache
+C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\bin\Debug\RemliCMS.RegSystem.dll
+C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\bin\Debug\RemliCMS.RegSystem.pdb
+C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\bin\Debug\MongoDB.Bson.dll
+C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\bin\Debug\MongoDB.Driver.dll
+C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\bin\Debug\MongoDB.Bson.xml
+C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\bin\Debug\MongoDB.Driver.xml
+C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.csprojResolveAssemblyReference.cache
+C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.dll
+C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.pdb
