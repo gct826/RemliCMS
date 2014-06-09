@@ -15,3 +15,4 @@ C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\bin\Debug\MongoDB.Bson.xml
 C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\bin\Debug\MongoDB.Driver.xml
 C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.dll
 C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.pdb
+C:\Users\George\GitHub\RemliCMS\RemliCMS.RegSystem\obj\Debug\RemliCMS.RegSystem.csprojResolveAssemblyReference.cache

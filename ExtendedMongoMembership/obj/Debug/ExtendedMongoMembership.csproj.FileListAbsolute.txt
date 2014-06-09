@@ -23,3 +23,4 @@ C:\Users\George\GitHub\RemliCMS\ExtendedMongoMembership\bin\Debug\MongoDB.Bson.x
 C:\Users\George\GitHub\RemliCMS\ExtendedMongoMembership\bin\Debug\MongoDB.Driver.xml
 C:\Users\George\GitHub\RemliCMS\ExtendedMongoMembership\obj\Debug\ExtendedMongoMembership.dll
 C:\Users\George\GitHub\RemliCMS\ExtendedMongoMembership\obj\Debug\ExtendedMongoMembership.pdb
+C:\Users\George\GitHub\RemliCMS\ExtendedMongoMembership\obj\Debug\ExtendedMongoMembership.csprojResolveAssemblyReference.cache
