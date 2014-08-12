@@ -280,6 +280,18 @@ namespace RemliCMS.Controllers
         }
 
         //
+        // GET: /RegAdmin/RemainingBal
+        public ActionResult RemainingBal(int RegId)
+        {
+            var ledgerService = new LedgerService();
+
+            ViewBag.RemainingPrice = ledgerService.GetRemaining(RegId);
+
+            return View();
+        }
+
+
+        //
         // GET: /RegAdmin/PaymentMemo
         public ActionResult PaymentMemo(string ledgerId)
         {

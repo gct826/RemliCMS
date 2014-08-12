@@ -34,6 +34,9 @@
                     <th class="sort" data-sort="deleted">
                         @Html.DisplayNameFor(model => model.IsDeleted)
                     </th>
+                    <th class="sort" data-sort="remainingBal">
+                        Remaining Balance
+                    </th>
                     <th>
                         <input type="text" class="search" placeholder="Search Registration"/>
                     </th>
@@ -53,7 +56,7 @@
                             @Html.DisplayFor(modelItem => item.RegPhone)
                         </td>    
                         <td>
-                            <a href="@Url.Action("RegistrationEdit", "RegAdmin", new {regObjectId = item.Id})"><i class="fi-pencil"></i></a>
+                            <a href="@Url.Action("RegistrationEdit", "RegAdmin", new { regObjectId = item.Id })"><i class="fi-pencil"></i></a>
                         </td>       
                         <td class="dateOpened">
                             @if (item.DateOpened.ToString() == "1/1/0001 12:00:00 AM")
@@ -70,6 +73,10 @@
                         </td>
                         <td class="deleted">
                             @Html.DisplayFor(modelItem => item.IsDeleted)
+                        </td>
+                        <td class="remainingBal">
+                            @{ Html.RenderAction("RemainingBal", new { regId = item.RegId });
+                }
                         </td>
                         <td></td>
                     </tr>

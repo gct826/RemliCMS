@@ -396,6 +396,7 @@
     <Content Include="Views\RegAdmin\RegistrationEdit.cshtml" />
     <Content Include="Views\UserManagement\Index.cshtml" />
     <Content Include="Views\RegAdmin\Confirmed.cshtml" />
+    <Content Include="Views\RegAdmin\RemainingBal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
